@@ -1,0 +1,64 @@
+﻿<Window x:Class="ProjectA.splashScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectA"
+        mc:Ignorable="d"
+        Title="splashScreen" 
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Height="450" 
+        Width="750"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{x:Null}"
+        FontFamily="{DynamicResource MaterialDesignFont}" 
+        ContentRendered="Window_ContentRendered">
+
+    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}" materialDesign:ShadowAssist.ShadowDepth="Depth4" Margin="25">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"></ColumnDefinition>
+                <ColumnDefinition Width="400"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50 0 0 0">
+                <WrapPanel>
+                    <Image Source="Assets/Logo.jpeg" HorizontalAlignment="Left" Height="50" Width="50"></Image>
+                    <TextBlock x:Name="MyWipedText" Width="100" Text="FYP MS" FontSize="28" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15 0 0 0">
+                        <TextBlock.Triggers>
+                            <EventTrigger RoutedEvent="TextBlock.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation
+            Storyboard.TargetName="MyWipedText" 
+            Storyboard.TargetProperty="(TextBlock.Width)"
+            To="0.0" Duration="0:0:10" 
+            AutoReverse="True" RepeatBehavior="Forever" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </TextBlock.Triggers>
+                    </TextBlock>
+                </WrapPanel>
+                <TextBlock Name="loadingText" Text="LOADING RESOURCES..." FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="0 30 0 15"></TextBlock>
+                <ProgressBar Name="loadingProgress" Value="0" Height="5" Width="280" IsIndeterminate="True"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="320" Width="320">
+                <Image Source="Assets/Logo.jpeg" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            </StackPanel>
+
+
+        </Grid>
+
+    </materialDesign:Card>
+
+</Window>
