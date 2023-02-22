@@ -28,6 +28,7 @@ namespace ProjectA.UserControls.Student
         {
             InitializeComponent();
             addBtn.Content = "Add";
+            dobDatePicker.SelectedDate = DateTime.Now;
         }
 
         public AddStudentUC(string FName, string LName, string contact, string email, int gender, string regno, string dob, int id)
@@ -84,27 +85,18 @@ namespace ProjectA.UserControls.Student
         {
             if (addBtn.Content.ToString() == "Add")
             {
-
                 try
                 {
                     var con = Configuration.getInstance().getConnection();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO Person(FirstName,LastName,Contact,Email,DateOfBirth,Gender) VALUES (@FirstName,@LastName, @Contact,@Email,@DateOfBirth, @Gender)", con);
-                    SqlCommand cmd1 = new SqlCommand("insert into Student(Id,RegistrationNo) VALUES ((SELECT Id FROM Person WHERE FirstName = @FirstName AND LastName=@LastName AND Contact=@Contact AND Email=@Email AND DateOfBirth=@DateOfBirth AND Gender=@Gender) ,@RegNo)", con);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Person(FirstName,LastName,Contact,Email,DateOfBirth,Gender) VALUES (@FirstName,@LastName, @Contact,@Email,@DateOfBirth, @Gender); insert into Student(Id,RegistrationNo) VALUES ((SELECT Id FROM Person WHERE FirstName = @FirstName AND LastName=@LastName AND Contact=@Contact AND Email=@Email AND DateOfBirth=@DateOfBirth AND Gender=@Gender) ,@RegNo);", con);
                     cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
                     cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
                     cmd.Parameters.AddWithValue("@Contact", txtContact.Text);
                     cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
                     cmd.Parameters.AddWithValue("@DateOfBirth", dobDatePicker.SelectedDate.ToString());
                     cmd.Parameters.AddWithValue("@Gender", gender);
-                    cmd1.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
-                    cmd1.Parameters.AddWithValue("@LastName", txtLastName.Text);
-                    cmd1.Parameters.AddWithValue("@Contact", txtContact.Text);
-                    cmd1.Parameters.AddWithValue("@Email", txtEmail.Text);
-                    cmd1.Parameters.AddWithValue("@DateOfBirth", dobDatePicker.SelectedDate.ToString());
-                    cmd1.Parameters.AddWithValue("@Gender", gender);
-                    cmd1.Parameters.AddWithValue("@RegNo", txtRegNo.Text);
+                    cmd.Parameters.AddWithValue("@RegNo", txtRegNo.Text);
                     cmd.ExecuteNonQuery();
-                    cmd1.ExecuteNonQuery();
                     MessageBox.Show("Successfully saved");
                 }
                 catch (Exception ex)
