@@ -41,8 +41,8 @@ namespace ProjectA.UserControls.Advisor
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
             //MessageBox.Show(StudentDataGrid.SelectedIndex.ToString());
-            string FName, LName, contact, email, regno, dob;
-            int gender;
+            string FName, LName, contact, email, salary, dob;
+            int gender, designation;
             DataRowView row = AdvisorDataGrid.SelectedItem as DataRowView;
             if (row != null)
             {
@@ -51,11 +51,11 @@ namespace ProjectA.UserControls.Advisor
                 LName = row["LastName"].ToString();
                 contact = row["Contact"].ToString();
                 email = row["Email"].ToString();
-                regno = row["Designation"].ToString();
-                regno = row["Salary"].ToString();
+                designation = int.Parse(row["Designation"].ToString());
+                salary = row["Salary"].ToString();
                 dob = row["DateOfBirth"].ToString();
                 gender = int.Parse(row["Gender"].ToString());
-                //advisorCC.Content = new Advisor.AddAdvisorUC(FName, LName, contact, email, gender, regno, dob, id);
+                advisorCC.Content = new Advisor.AddAdvisorUC(FName, LName, contact, email, gender, designation, salary, dob, id);
                 addAdvisorForm.Visibility = Visibility.Visible;
                 viewAdvisor.Visibility = Visibility.Collapsed;
                 addStBtn.Content = "Back";
@@ -98,10 +98,10 @@ namespace ProjectA.UserControls.Advisor
             }
             else
             {
-                //ViewStudent();
-                //addStudentForm.Visibility = Visibility.Collapsed;
-                //viewStudent.Visibility = Visibility.Visible;
-                //addStBtn.Content = "Add";
+                ViewAdvisors();
+                addAdvisorForm.Visibility = Visibility.Collapsed;
+                viewAdvisor.Visibility = Visibility.Visible;
+                addStBtn.Content = "Add";
             }
         }
     }

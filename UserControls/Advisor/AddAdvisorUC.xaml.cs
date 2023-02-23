@@ -28,6 +28,7 @@ namespace ProjectA.UserControls.Advisor
         public AddAdvisorUC()
         {
             InitializeComponent();
+            dobDatePicker.SelectedDate = DateTime.Now;
         }
         public AddAdvisorUC(string FName, string LName, string contact, string email, int gender, int designation, string salary, string dob, int id)
         {
@@ -37,6 +38,7 @@ namespace ProjectA.UserControls.Advisor
             txtLastName.Text = LName;
             txtContact.Text = contact;
             txtEmail.Text = email;
+            txtSalary.Text = salary;
             dobDatePicker.SelectedDate = DateTime.Parse(dob);
             this.id = id;
             if (gender == 1)
@@ -163,6 +165,7 @@ namespace ProjectA.UserControls.Advisor
             txtLastName.Clear();
             txtContact.Clear();
             txtEmail.Clear();
+            txtSalary.Clear();
             dobDatePicker.SelectedDate = DateTime.Now;
             this.gender = 1;
             this.desig = 3;
@@ -180,7 +183,7 @@ namespace ProjectA.UserControls.Advisor
 
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (addBtn.Content.ToString() == "Add")
+            if (addBtn.Content.ToString() == "Save")
             {
                 try
                 {
