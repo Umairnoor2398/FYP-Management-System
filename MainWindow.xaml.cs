@@ -18,6 +18,7 @@ using ProjectA.UserControls;
 using ProjectA.UserControls.Student;
 using ProjectA.UserControls.Advisor;
 using ProjectA.UserControls.Project;
+using ProjectA.UserControls.Evaluation;
 
 namespace ProjectA
 {
@@ -63,7 +64,7 @@ namespace ProjectA
             CC.Content = null;
             if (sender.Equals(dashboardBtn))
             {
-                CC.Content = new CRUDStudent();
+                CC.Content = null;
             }
             else if (sender.Equals(projectBtn))
             {
@@ -91,7 +92,7 @@ namespace ProjectA
             }
             else if (sender.Equals(evaluationBtn))
             {
-                CC.Content = new CRUDStudent();
+                CC.Content = new CRUDEvaluationUC();
             }
             else if (sender.Equals(markEvaluationBtn))
             {

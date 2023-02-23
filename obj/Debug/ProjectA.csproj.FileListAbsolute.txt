@@ -51,3 +51,7 @@ D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Project\CR
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Project\AddProjectUC.g.cs
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\ProjectA_Content.g.cs
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Project\AddProjectUC.baml
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Evaluation\AddEvaluationUC.g.cs
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Evaluation\CRUDEvaluationUC.g.cs
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Evaluation\AddEvaluationUC.baml
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Evaluation\CRUDEvaluationUC.baml

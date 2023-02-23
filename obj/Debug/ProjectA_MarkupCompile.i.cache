@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Semester4\Database Lab\MID Project\ProjectA\App.xaml
-8196034883
+10477192774
 1-664984846
-14-1626772439
+16698746134
 21949925899
-MainWindow.xaml;splashScreen.xaml;UserControls\Advisor\AddAdvisorUC.xaml;UserControls\Advisor\CRUDAdvisor.xaml;UserControls\Project\AddProjectUC.xaml;UserControls\Project\CRUDProjectUC.xaml;UserControls\Student\AddStudentUC.xaml;UserControls\Student\CRUDStudent.xaml;
+MainWindow.xaml;splashScreen.xaml;UserControls\Advisor\AddAdvisorUC.xaml;UserControls\Advisor\CRUDAdvisor.xaml;UserControls\Evaluation\AddEvaluationUC.xaml;UserControls\Evaluation\CRUDEvaluationUC.xaml;UserControls\Project\AddProjectUC.xaml;UserControls\Project\CRUDProjectUC.xaml;UserControls\Student\AddStudentUC.xaml;UserControls\Student\CRUDStudent.xaml;
 
 True
 
