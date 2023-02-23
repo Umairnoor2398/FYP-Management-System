@@ -203,7 +203,7 @@
                 </Button>
             </StackPanel>
 
-            <DatePicker Grid.Column="1" Grid.Row="3" Width="300" HorizontalAlignment="Left"/>
+            <DatePicker Grid.Column="1" Grid.Row="3" Width="300" x:Name="dobDatePicker" HorizontalAlignment="Left"/>
 
 
             <Grid Grid.Row="4" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
@@ -251,8 +251,8 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Style="{StaticResource buttonMain}" Content="Cancel" Margin="0 0 10 0"/>
-                <Button Grid.Column="1" Style="{StaticResource buttonMainGreen}" Content="Save" Margin="10 0 0 0"/>
+                <Button Grid.Column="0" Style="{StaticResource buttonMain}" x:Name="revertBtn" Content="Revert" Click="revertBtn_Click" Margin="0 0 10 0"/>
+                <Button Grid.Column="1" Style="{StaticResource buttonMainGreen}" Content="Save" x:Name="addBtn" Click="addBtn_Click" Margin="10 0 0 0"/>
 
 
 

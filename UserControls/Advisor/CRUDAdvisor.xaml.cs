@@ -51,7 +51,8 @@ namespace ProjectA.UserControls.Advisor
                 LName = row["LastName"].ToString();
                 contact = row["Contact"].ToString();
                 email = row["Email"].ToString();
-                regno = row["RegistrationNo"].ToString();
+                regno = row["Designation"].ToString();
+                regno = row["Salary"].ToString();
                 dob = row["DateOfBirth"].ToString();
                 gender = int.Parse(row["Gender"].ToString());
                 //advisorCC.Content = new Advisor.AddAdvisorUC(FName, LName, contact, email, gender, regno, dob, id);
