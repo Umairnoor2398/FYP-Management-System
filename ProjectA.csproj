@@ -89,6 +89,12 @@
     <Compile Include="UserControls\Advisor\CRUDAdvisor.xaml.cs">
       <DependentUpon>CRUDAdvisor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Project\AddProjectUC.xaml.cs">
+      <DependentUpon>AddProjectUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Project\CRUDProjectUC.xaml.cs">
+      <DependentUpon>CRUDProjectUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Student\AddStudentUC.xaml.cs">
       <DependentUpon>AddStudentUC.xaml</DependentUpon>
     </Compile>
@@ -120,6 +126,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Project\AddProjectUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Project\CRUDProjectUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Student\AddStudentUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -147,6 +161,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="Monikers.imagemanifest">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

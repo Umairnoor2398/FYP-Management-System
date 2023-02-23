@@ -2,8 +2,10 @@
 FD:\Semester4\Database Lab\MID Project\ProjectA\App.xaml;;
 FD:\Semester4\Database Lab\MID Project\ProjectA\MainWindow.xaml;;
 FD:\Semester4\Database Lab\MID Project\ProjectA\splashScreen.xaml;;
-FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Student\CRUDStudent.xaml;;
-FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Student\AddStudentUC.xaml;;
 FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Advisor\AddAdvisorUC.xaml;;
 FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Advisor\CRUDAdvisor.xaml;;
+FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Project\CRUDProjectUC.xaml;;
+FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Student\AddStudentUC.xaml;;
+FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Student\CRUDStudent.xaml;;
+FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Project\AddProjectUC.xaml;;
 

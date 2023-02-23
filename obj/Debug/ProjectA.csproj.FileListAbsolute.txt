@@ -46,3 +46,8 @@ D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Advisor\Ad
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Advisor\AddAdvisorUC.baml
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Advisor\CRUDAdvisor.g.cs
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Advisor\CRUDAdvisor.baml
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Project\CRUDProjectUC.g.cs
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Project\CRUDProjectUC.baml
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Project\AddProjectUC.g.cs
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\ProjectA_Content.g.cs
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Project\AddProjectUC.baml

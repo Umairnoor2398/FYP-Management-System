@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using ProjectA.UserControls;
 using ProjectA.UserControls.Student;
 using ProjectA.UserControls.Advisor;
+using ProjectA.UserControls.Project;
 
 namespace ProjectA
 {
@@ -66,7 +67,7 @@ namespace ProjectA
             }
             else if (sender.Equals(projectBtn))
             {
-                CC.Content = new CRUDStudent();
+                CC.Content = new CRUDProjectUC();
             }
             else if (sender.Equals(advisorBtn))
             {
