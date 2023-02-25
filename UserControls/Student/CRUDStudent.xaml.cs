@@ -30,10 +30,10 @@ namespace ProjectA.UserControls
             ViewStudent();
         }
 
-        private void ViewStudent()
+        public void ViewStudent()
         {
             var con = Configuration.getInstance().getConnection();
-            SqlCommand cmd = new SqlCommand("Select * from Person P JOIN Student S ON S.Id=P.Id", con);
+            SqlCommand cmd = new SqlCommand("Select P.Id, S.RegistrationNo AS [Reg], (FirstName + ' ' + LastName) AS Name,L.Value AS Gender,(SELECT FORMAT(DateOfBirth, 'dd-MM-yyyy')) AS [DoB],Contact,Email from Person P JOIN Student S ON S.Id=P.Id JOIN Lookup L ON L.Id=P.Gender", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -42,23 +42,23 @@ namespace ProjectA.UserControls
 
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show(StudentDataGrid.SelectedIndex.ToString());
-            string FName, LName, contact, email, regno, dob;
-            int gender;
+            string name, FName, LName, contact, email, regno, dob, gender;
             DataRowView row = StudentDataGrid.SelectedItem as DataRowView;
             if (row != null)
             {
                 int id = Int32.Parse(row["Id"].ToString());
-                FName = row["FirstName"].ToString();
-                LName = row["LastName"].ToString();
+                name = row["Name"].ToString();
+                string[] names = name.Split(' ');
+                FName = names[0];
+                LName = names[1];
                 contact = row["Contact"].ToString();
                 email = row["Email"].ToString();
-                regno = row["RegistrationNo"].ToString();
-                dob = row["DateOfBirth"].ToString();
-                gender = int.Parse(row["Gender"].ToString());
+                regno = row["Reg"].ToString();
+                dob = row["DoB"].ToString();
+                gender = row["Gender"].ToString();
                 studentCC.Content = new Student.AddStudentUC(FName, LName, contact, email, gender, regno, dob, id);
                 addStudentForm.Visibility = Visibility.Visible;
-                viewStudent.Visibility = Visibility.Collapsed;
+                StudentDataGrid.Visibility = Visibility.Collapsed;
                 addStBtn.Content = "Back";
             }
 
@@ -97,15 +97,16 @@ namespace ProjectA.UserControls
         {
             if (addStBtn.Content.ToString() == "Add")
             {
+                studentCC.Content = new Student.AddStudentUC();
                 addStudentForm.Visibility = Visibility.Visible;
-                viewStudent.Visibility = Visibility.Collapsed;
+                StudentDataGrid.Visibility = Visibility.Collapsed;
                 addStBtn.Content = "Back";
             }
             else
             {
                 ViewStudent();
                 addStudentForm.Visibility = Visibility.Collapsed;
-                viewStudent.Visibility = Visibility.Visible;
+                StudentDataGrid.Visibility = Visibility.Visible;
                 addStBtn.Content = "Add";
             }
         }

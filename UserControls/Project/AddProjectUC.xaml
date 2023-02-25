@@ -169,12 +169,14 @@
 
 
             <Grid Grid.Row="0" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
-                <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="Ali" Visibility="{Binding ElementName=txtFirstName,Path=Text.IsEmpty,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="FYP Management System" Visibility="{Binding ElementName=txtTitle,Path=Text.Length,Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                 <TextBox x:Name="txtTitle" Height="25" Style="{StaticResource txtbox}"/>
             </Grid>
 
             <Grid Grid.Row="1" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
+                <TextBlock VerticalAlignment="Top" TextWrapping="Wrap" Foreground="#b0b9c6" Margin="0 20" IsHitTestVisible="False" Panel.ZIndex="1" Text="final year project management, allowing committee to manage students, advisors, projects, evaluations, and generate reports." Visibility="{Binding ElementName=txtDescription,Path=Text.Length,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
                 <TextBox x:Name="txtDescription" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Height="100" Style="{StaticResource txtbox}"/>
             </Grid>
             <Grid Grid.Column="1" Grid.Row="2" Margin="0 40 0 0">

@@ -29,10 +29,10 @@ namespace ProjectA.UserControls.Advisor
             advisorCC.Content = new UserControls.Advisor.AddAdvisorUC();
             ViewAdvisors();
         }
-        private void ViewAdvisors()
+        public void ViewAdvisors()
         {
             var con = Configuration.getInstance().getConnection();
-            SqlCommand cmd = new SqlCommand("Select * from Person P JOIN Advisor A ON A.Id=P.Id", con);
+            SqlCommand cmd = new SqlCommand("Select P.Id,L1.Value AS Designation,A.Salary, (FirstName + ' ' + LastName) AS Name,L.Value AS Gender,(SELECT FORMAT(DateOfBirth, 'dd-MM-yyyy')) AS [DoB],Contact,Email from Person P JOIN Advisor A ON A.Id=P.Id JOIN Lookup L ON L.Id=P.Gender JOIN Lookup L1 ON L1.Id=A.Designation", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -40,25 +40,26 @@ namespace ProjectA.UserControls.Advisor
         }
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
-            //MessageBox.Show(StudentDataGrid.SelectedIndex.ToString());
-            string FName, LName, contact, email, salary, dob;
-            int gender, designation;
+            string name, FName, LName, contact, email, salary, dob;
+            string gender, designation;
             DataRowView row = AdvisorDataGrid.SelectedItem as DataRowView;
             if (row != null)
             {
                 int id = Int32.Parse(row["Id"].ToString());
-                FName = row["FirstName"].ToString();
-                LName = row["LastName"].ToString();
+                name = row["Name"].ToString();
+                string[] names = name.Split(' ');
+                FName = names[0];
+                LName = names[1];
                 contact = row["Contact"].ToString();
                 email = row["Email"].ToString();
-                designation = int.Parse(row["Designation"].ToString());
+                designation = row["Designation"].ToString();
                 salary = row["Salary"].ToString();
-                dob = row["DateOfBirth"].ToString();
-                gender = int.Parse(row["Gender"].ToString());
+                dob = row["DoB"].ToString();
+                gender = row["Gender"].ToString();
                 advisorCC.Content = new Advisor.AddAdvisorUC(FName, LName, contact, email, gender, designation, salary, dob, id);
                 addAdvisorForm.Visibility = Visibility.Visible;
-                viewAdvisor.Visibility = Visibility.Collapsed;
-                addStBtn.Content = "Back";
+                AdvisorDataGrid.Visibility = Visibility.Collapsed;
+                addBtn.Content = "Back";
             }
 
         }
@@ -88,20 +89,20 @@ namespace ProjectA.UserControls.Advisor
                 ViewAdvisors();
             }
         }
-        private void addStBtn_Click(object sender, RoutedEventArgs e)
+        private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (addStBtn.Content.ToString() == "Add")
+            if (addBtn.Content.ToString() == "Add")
             {
                 addAdvisorForm.Visibility = Visibility.Visible;
-                viewAdvisor.Visibility = Visibility.Collapsed;
-                addStBtn.Content = "Back";
+                AdvisorDataGrid.Visibility = Visibility.Collapsed;
+                addBtn.Content = "Back";
             }
             else
             {
                 ViewAdvisors();
                 addAdvisorForm.Visibility = Visibility.Collapsed;
-                viewAdvisor.Visibility = Visibility.Visible;
-                addStBtn.Content = "Add";
+                AdvisorDataGrid.Visibility = Visibility.Visible;
+                addBtn.Content = "Add";
             }
         }
     }

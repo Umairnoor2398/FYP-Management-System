@@ -55,3 +55,5 @@ D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Evaluation
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Evaluation\CRUDEvaluationUC.g.cs
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Evaluation\AddEvaluationUC.baml
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Evaluation\CRUDEvaluationUC.baml
+D:\Semester4\Database Lab\MID Project\ProjectA\bin\Debug\FontAwesome.WPF.dll
+D:\Semester4\Database Lab\MID Project\ProjectA\bin\Debug\FontAwesome.WPF.xml

@@ -171,16 +171,20 @@
 
 
             <Grid Grid.Row="0" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
-                <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="Ali" Visibility="{Binding ElementName=txtFirstName,Path=Text.IsEmpty,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="Evaluation 1" Visibility="{Binding ElementName=txtName,Path=Text.Length,Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
                 <TextBox x:Name="txtName" Height="25" Style="{StaticResource txtbox}"/>
             </Grid>
 
             <Grid Grid.Row="1" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
+                <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="30" Visibility="{Binding ElementName=txtTotalMarks,Path=Text.Length,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
                 <TextBox x:Name="txtTotalMarks" Height="25" Style="{StaticResource txtbox}"/>
             </Grid>
 
             <Grid Grid.Row="2" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
+                <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="20" Visibility="{Binding ElementName=txtTotalWeightage,Path=Text.Length,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
                 <TextBox x:Name="txtTotalWeightage" Height="25" Style="{StaticResource txtbox}"/>
             </Grid>
 

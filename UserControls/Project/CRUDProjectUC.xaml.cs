@@ -29,7 +29,7 @@ namespace ProjectA.UserControls.Project
             projectCC.Content = new AddProjectUC();
             ViewProjects();
         }
-        private void ViewProjects()
+        public void ViewProjects()
         {
             var con = Configuration.getInstance().getConnection();
             SqlCommand cmd = new SqlCommand("Select * from Project P", con);
@@ -49,8 +49,8 @@ namespace ProjectA.UserControls.Project
                 description = row["Description"].ToString();
                 projectCC.Content = new AddProjectUC(title, description, id);
                 addProjectForm.Visibility = Visibility.Visible;
-                viewProject.Visibility = Visibility.Collapsed;
-                addStBtn.Content = "Back";
+                ProjectDataGrid.Visibility = Visibility.Collapsed;
+                addBtn.Content = "Back";
             }
 
         }
@@ -80,21 +80,21 @@ namespace ProjectA.UserControls.Project
                 ViewProjects();
             }
         }
-        private void addStBtn_Click(object sender, RoutedEventArgs e)
+        private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (addStBtn.Content.ToString() == "Add")
+            if (addBtn.Content.ToString() == "Add")
             {
                 projectCC.Content = new AddProjectUC();
                 addProjectForm.Visibility = Visibility.Visible;
-                viewProject.Visibility = Visibility.Collapsed;
-                addStBtn.Content = "Back";
+                ProjectDataGrid.Visibility = Visibility.Collapsed;
+                addBtn.Content = "Back";
             }
             else
             {
                 ViewProjects();
                 addProjectForm.Visibility = Visibility.Collapsed;
-                viewProject.Visibility = Visibility.Visible;
-                addStBtn.Content = "Add";
+                ProjectDataGrid.Visibility = Visibility.Visible;
+                addBtn.Content = "Add";
             }
         }
     }

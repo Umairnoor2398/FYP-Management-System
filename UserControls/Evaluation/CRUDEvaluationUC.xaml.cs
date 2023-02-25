@@ -30,10 +30,10 @@ namespace ProjectA.UserControls.Evaluation
             evaluationCC.Content = new AddEvaluationUC();
             ViewEvaluation();
         }
-        private void ViewEvaluation()
+        public void ViewEvaluation()
         {
             var con = Configuration.getInstance().getConnection();
-            SqlCommand cmd = new SqlCommand("Select * from Evaluation E", con);
+            SqlCommand cmd = new SqlCommand("Select Id,Name,TotalMarks,TotalWeightage from Evaluation E", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -51,7 +51,7 @@ namespace ProjectA.UserControls.Evaluation
                 TotalWeightage = row["TotalWeightage"].ToString();
                 evaluationCC.Content = new AddEvaluationUC(Name, TotalMarks, TotalWeightage, id);
                 addEvaluationForm.Visibility = Visibility.Visible;
-                viewEvaluation.Visibility = Visibility.Collapsed;
+                EvaluationDataGrid.Visibility = Visibility.Collapsed;
                 addBtn.Content = "Back";
             }
 
@@ -88,14 +88,14 @@ namespace ProjectA.UserControls.Evaluation
             {
                 evaluationCC.Content = new AddEvaluationUC();
                 addEvaluationForm.Visibility = Visibility.Visible;
-                viewEvaluation.Visibility = Visibility.Collapsed;
+                EvaluationDataGrid.Visibility = Visibility.Collapsed;
                 addBtn.Content = "Back";
             }
             else
             {
                 ViewEvaluation();
                 addEvaluationForm.Visibility = Visibility.Collapsed;
-                viewEvaluation.Visibility = Visibility.Visible;
+                EvaluationDataGrid.Visibility = Visibility.Visible;
                 addBtn.Content = "Add";
             }
         }

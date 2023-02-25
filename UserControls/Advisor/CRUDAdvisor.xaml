@@ -63,7 +63,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" Text="Managing Advisors Section" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#121518"/>
 
-                <Button Grid.Column="1" Style="{StaticResource addButton}" x:Name="addStBtn" Click="addStBtn_Click" Content="Add">
+                <Button Grid.Column="1" Style="{StaticResource addButton}" x:Name="addBtn" Click="addBtn_Click" Content="Add">
                     <!--<StackPanel Orientation="Horizontal">
                         <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Height="11" Margin="0 1 8 0"/>
                         <TextBlock Text="Add New Student"/>
@@ -74,26 +74,74 @@
             <ScrollViewer Grid.Row="1" x:Name="addAdvisorForm" Visibility="Collapsed">
                 <UserControl x:Name="advisorCC" />
             </ScrollViewer>
-            <ScrollViewer Visibility="Visible" Grid.Row="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" x:Name="viewAdvisor">
-                <DataGrid x:Name="AdvisorDataGrid" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserResizeColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button x:Name="editBtn" Click="editBtn_Click">
-                                            <Icon:PackIconMaterial Kind="PencilOutline" />
-                                        </Button>
-                                        <Button  Margin="5 0 0 0" x:Name="deleteBtn" Click="deleteBtn_Click">
-                                            <Icon:PackIconMaterial Kind="DeleteOutline" />
-                                        </Button>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </ScrollViewer>
+            <DataGrid Grid.Row="1" x:Name="AdvisorDataGrid" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserResizeColumns="False" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Name" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Designation" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Designation}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Gender" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Gender}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Salary" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Salary}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="Date Of Birth" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding DoB}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Contact" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Contact}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Email" Width="Auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Email}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button x:Name="editBtn" Click="editBtn_Click" BorderBrush="Transparent" Background="Transparent">
+                                        <Icon:PackIconMaterial Kind="PencilOutline" Foreground="Gray"/>
+                                    </Button>
+                                    <Button  Margin="5 0 0 0" x:Name="deleteBtn" BorderBrush="Transparent" Background="Transparent" Click="deleteBtn_Click">
+                                        <Icon:PackIconMaterial Kind="DeleteOutline" Foreground="Red"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
 
 
 

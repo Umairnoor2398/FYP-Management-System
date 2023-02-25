@@ -152,115 +152,94 @@
     </UserControl.Resources>
 
     <materialDesign:Card Padding="32" Margin="16">
-        <Grid >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Grid.Row="0" Grid.Column="0" Margin="15 0" Text="First Name" Style="{StaticResource text}"/>
-            <TextBlock Grid.Row="1" Grid.Column="0" Margin="15 0" Text="Last Name" Style="{StaticResource text}"/>
-            <TextBlock Grid.Row="2" Grid.Column="0" Margin="15 0" Text="Gender" Style="{StaticResource text}"/>
-            <TextBlock Grid.Row="3" Grid.Column="0" Margin="15 0" Text="Date of Birth" Style="{StaticResource text}"/>
-            <TextBlock Grid.Row="4" Grid.Column="0" Margin="15 0" Text="Contact" Style="{StaticResource text}"/>
-            <TextBlock Grid.Row="5" Grid.Column="0" Margin="15 0" Text="Email" Style="{StaticResource text}"/>
-            <TextBlock Grid.Row="6" Grid.Column="0" Margin="15 0" Text="Designation" Style="{StaticResource text}"/>
-            <TextBlock Grid.Row="8" Grid.Column="0" Margin="15 0" Text="Salary" Style="{StaticResource text}"/>
-
-
-            <Grid Grid.Row="0" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
-                <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="Ali" Visibility="{Binding ElementName=txtFirstName,Path=Text.IsEmpty,Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-                <TextBox x:Name="txtFirstName" Style="{StaticResource txtbox}"/>
-            </Grid>
-
-            <Grid Grid.Row="1" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
-                <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="Ahmad" Visibility="{Binding ElementName=txtLastName,Path=Text.IsEmpty,Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-                <TextBox x:Name="txtLastName" Style="{StaticResource txtbox}"/>
-            </Grid>
-
-
-            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
-                <Button Margin="10 0" x:Name="maleBtn" Click="genderBtnClicked" Background="Purple">
-                    <TextBlock Text="M" Foreground="#ffffff"/>
-                </Button>
-                <Button Margin="10 0" x:Name="femaleBtn" Click="genderBtnClicked" Background="MediumPurple">
-                    <TextBlock Text="F" Foreground="#ffffff"/>
-                </Button>
-            </StackPanel>
-
-            <DatePicker Grid.Column="1" Grid.Row="3" Width="300" x:Name="dobDatePicker" HorizontalAlignment="Left"/>
-
-
-            <Grid Grid.Row="4" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
-                <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="000-000-000" Visibility="{Binding ElementName=txtContact,Path=Text.IsEmpty,Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-                <TextBox x:Name="txtContact" Style="{StaticResource txtbox}"/>
-            </Grid>
-
-            <Grid Grid.Row="5" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
-                <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="abc@abc.com" Visibility="{Binding ElementName=txtEmail,Path=Text.IsEmpty,Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-                <TextBox x:Name="txtEmail" Style="{StaticResource txtbox}"/>
-            </Grid>
-
-            <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
-                <Button Margin="10 5" x:Name="profBtn" Click="designationBtnClicked" Background="Purple">
-                    <TextBlock FontSize="11" Text="Professor" Foreground="#ffffff"/>
-                </Button>
-                <Button Margin="10 0" x:Name="assocProfBtn" Click="designationBtnClicked" Background="MediumPurple">
-                    <TextBlock FontSize="11" Text="Associate Professor" Foreground="#ffffff"/>
-                </Button>
-                <Button Margin="10 0" x:Name="assisProfBtn" Click="designationBtnClicked" Background="MediumPurple">
-                    <TextBlock FontSize="11" Text="Assistant Professor" Foreground="#ffffff"/>
-                </Button>
-            </StackPanel>
-
-            <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
-                <Button Margin="10 0" x:Name="lecturerBtn" Click="designationBtnClicked" Background="MediumPurple">
-                    <TextBlock FontSize="11" Text="Lecturer" Foreground="#ffffff"/>
-                </Button>
-                <Button Margin="10 0" x:Name="industryBtn" Click="designationBtnClicked" Background="MediumPurple">
-                    <TextBlock FontSize="11" Text="Industry Professional" Foreground="#ffffff"/>
-                </Button>
-            </StackPanel>
-
-            <Grid Grid.Row="8" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
-                <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="207" Visibility="{Binding ElementName=txtSalary,Path=Text.IsEmpty,Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-                <TextBox x:Name="txtSalary" Style="{StaticResource txtbox}"/>
-            </Grid>
-
-            <Grid Grid.Column="1" Grid.Row="9" Margin="0 40 0 0">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="250"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Style="{StaticResource buttonMain}" x:Name="revertBtn" Content="Revert" Click="revertBtn_Click" Margin="0 0 10 0"/>
-                <Button Grid.Column="1" Style="{StaticResource buttonMainGreen}" Content="Save" x:Name="addBtn" Click="addBtn_Click" Margin="10 0 0 0"/>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Margin="15 0" Text="First Name" Style="{StaticResource text}"/>
+                <TextBlock Grid.Row="1" Grid.Column="0" Margin="15 0" Text="Last Name" Style="{StaticResource text}"/>
+                <TextBlock Grid.Row="2" Grid.Column="0" Margin="15 10" Text="Gender" Style="{StaticResource text}"/>
+                <TextBlock Grid.Row="3" Grid.Column="0" Margin="15 10" Text="Date of Birth" Style="{StaticResource text}"/>
+                <TextBlock Grid.Row="4" Grid.Column="0" Margin="15 0" Text="Contact" Style="{StaticResource text}"/>
+                <TextBlock Grid.Row="5" Grid.Column="0" Margin="15 0" Text="Email" Style="{StaticResource text}"/>
+                <TextBlock Grid.Row="6" Grid.Column="0" Margin="15 10" Text="Designation" Style="{StaticResource text}"/>
+                <TextBlock Grid.Row="7" Grid.Column="0" Margin="15 0" Text="Salary" Style="{StaticResource text}"/>
+
+
+                <Grid Grid.Row="0" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
+                    <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="Ali" Visibility="{Binding ElementName=txtFirstName,Path=Text.Length,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                    <TextBox x:Name="txtFirstName" Style="{StaticResource txtbox}"/>
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
+                    <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="Ahmad" Visibility="{Binding ElementName=txtLastName,Path=Text.Length,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                    <TextBox x:Name="txtLastName" Style="{StaticResource txtbox}"/>
+                </Grid>
+
+
+                <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                    <ComboBox x:Name="genderCB" Width="300" HorizontalAlignment="Left"/>
+                </StackPanel>
+
+                <DatePicker Grid.Column="1" Grid.Row="3" Width="300" x:Name="dobDatePicker" HorizontalAlignment="Left"/>
+
+
+                <Grid Grid.Row="4" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
+                    <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="000-000-000" Visibility="{Binding ElementName=txtContact,Path=Text.Length,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                    <TextBox x:Name="txtContact" Style="{StaticResource txtbox}"/>
+                </Grid>
+
+                <Grid Grid.Row="5" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
+                    <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="abc@abc.com" Visibility="{Binding ElementName=txtEmail,Path=Text.Length,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                    <TextBox x:Name="txtEmail" Style="{StaticResource txtbox}"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1">
+                    <ComboBox x:Name="designationCB" Width="300" HorizontalAlignment="Left"/>
+                </StackPanel>
+
+                <Grid Grid.Row="7" Grid.Column="1" Width="400"  HorizontalAlignment="Left">
+                    <TextBlock VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="207" Visibility="{Binding ElementName=txtSalary,Path=Text.Length,Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                    <TextBox x:Name="txtSalary" Style="{StaticResource txtbox}"/>
+                </Grid>
+
+                <Grid Grid.Column="1" Grid.Row="8" Margin="0 40 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" Style="{StaticResource buttonMain}" VerticalAlignment="Center" x:Name="revertBtn" Content="Revert" Click="revertBtn_Click" Margin="0 -20 10 0"/>
+                    <Button Grid.Column="1" Style="{StaticResource buttonMainGreen}" VerticalAlignment="Center" Content="Save" x:Name="addBtn" Click="addBtn_Click" Margin="10 -20 0 0"/>
 
 
 
+
+
+                </Grid>
 
 
             </Grid>
-
-
-        </Grid>
+        </ScrollViewer>
     </materialDesign:Card>
 </UserControl>

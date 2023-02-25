@@ -1,6 +1,7 @@
 ﻿using CRUD_Operations;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -22,17 +23,18 @@ namespace ProjectA.UserControls.Advisor
     /// </summary>
     public partial class AddAdvisorUC : UserControl
     {
-        int gender = 1;
-        int desig = 3;
         int id;
         public AddAdvisorUC()
         {
             InitializeComponent();
-            dobDatePicker.SelectedDate = DateTime.Now;
+            GenderToComboBox();
+            DesignationToComboBox();
         }
-        public AddAdvisorUC(string FName, string LName, string contact, string email, int gender, int designation, string salary, string dob, int id)
+        public AddAdvisorUC(string FName, string LName, string contact, string email, string gender, string designation, string salary, string dob, int id)
         {
             InitializeComponent();
+            GenderToComboBox();
+            DesignationToComboBox();
             addBtn.Content = "Update";
             txtFirstName.Text = FName;
             txtLastName.Text = LName;
@@ -41,122 +43,59 @@ namespace ProjectA.UserControls.Advisor
             txtSalary.Text = salary;
             dobDatePicker.SelectedDate = DateTime.Parse(dob);
             this.id = id;
-            if (gender == 1)
-            {
-                maleBtn.Background = Brushes.Purple;
-                femaleBtn.Background = Brushes.MediumPurple;
-            }
-            else
-            {
-                maleBtn.Background = Brushes.MediumPurple;
-                femaleBtn.Background = Brushes.Purple;
-            }
-            this.gender = gender;
-            this.desig = designation;
-            if (designation == 3)
-            {
-                profBtn.Background = Brushes.Purple;
-                assocProfBtn.Background = Brushes.MediumPurple;
-                assisProfBtn.Background = Brushes.MediumPurple;
-                lecturerBtn.Background = Brushes.MediumPurple;
-                industryBtn.Background = Brushes.MediumPurple;
-            }
-            else if (designation == 4)
-            {
-                profBtn.Background = Brushes.MediumPurple;
-                assocProfBtn.Background = Brushes.Purple;
-                assisProfBtn.Background = Brushes.MediumPurple;
-                lecturerBtn.Background = Brushes.MediumPurple;
-                industryBtn.Background = Brushes.MediumPurple;
-            }
-            else if (designation == 5)
-            {
-                profBtn.Background = Brushes.MediumPurple;
-                assocProfBtn.Background = Brushes.MediumPurple;
-                assisProfBtn.Background = Brushes.Purple;
-                lecturerBtn.Background = Brushes.MediumPurple;
-                industryBtn.Background = Brushes.MediumPurple;
+            genderCB.Text = gender;
+            designationCB.Text = designation;
+        }
 
-            }
-            else if (designation == 6)
-            {
-                profBtn.Background = Brushes.MediumPurple;
-                assocProfBtn.Background = Brushes.MediumPurple;
-                assisProfBtn.Background = Brushes.MediumPurple;
-                lecturerBtn.Background = Brushes.Purple;
-                industryBtn.Background = Brushes.MediumPurple;
-            }
-            else if (designation == 7)
-            {
-                profBtn.Background = Brushes.MediumPurple;
-                assocProfBtn.Background = Brushes.MediumPurple;
-                assisProfBtn.Background = Brushes.MediumPurple;
-                lecturerBtn.Background = Brushes.MediumPurple;
-                industryBtn.Background = Brushes.Purple;
-            }
-        }
-        public void genderBtnClicked(object sender, RoutedEventArgs e)
+        private void GenderToComboBox()
         {
-            if (sender.Equals(maleBtn))
-            {
-                maleBtn.Background = Brushes.Purple;
-                femaleBtn.Background = Brushes.MediumPurple;
-                gender = 1;
-            }
-            else
-            {
-                maleBtn.Background = Brushes.MediumPurple;
-                femaleBtn.Background = Brushes.Purple;
-                gender = 2;
-            }
+            var con = Configuration.getInstance().getConnection();
+            SqlCommand cmd = new SqlCommand("Select Value from Lookup WHERE Category=\'GENDER\'", con);
+            SqlDataAdapter d = new SqlDataAdapter(cmd);
+            DataSet dt = new DataSet();
+            d.Fill(dt);
+            genderCB.ItemsSource = dt.Tables[0].DefaultView;
+            genderCB.DisplayMemberPath = "Value";
         }
-        public void designationBtnClicked(object sender, RoutedEventArgs e)
+
+        private void DesignationToComboBox()
         {
-            if (sender.Equals(profBtn))
+            var con = Configuration.getInstance().getConnection();
+            SqlCommand cmd = new SqlCommand("Select Value from Lookup WHERE Category=\'DESIGNATION\'", con);
+            SqlDataAdapter d = new SqlDataAdapter(cmd);
+            DataSet dt = new DataSet();
+            d.Fill(dt);
+            designationCB.ItemsSource = dt.Tables[0].DefaultView;
+            designationCB.DisplayMemberPath = "Value";
+        }
+
+        public int giveGender(string gen)
+        {
+            int g = -1;
+            var con = Configuration.getInstance().getConnection();
+            SqlCommand cmd = new SqlCommand("SELECT Id FROM Lookup WHERE Category=\'GENDER\' AND Value=@gender", con);
+            cmd.Parameters.AddWithValue("@gender", gen);
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
             {
-                profBtn.Background = Brushes.Purple;
-                assocProfBtn.Background = Brushes.MediumPurple;
-                assisProfBtn.Background = Brushes.MediumPurple;
-                lecturerBtn.Background = Brushes.MediumPurple;
-                industryBtn.Background = Brushes.MediumPurple;
-                desig = 3;
+                g = int.Parse(reader["Id"].ToString()); // replace ColumnName with the actual name of the column you want to store in the variable
             }
-            else if (sender.Equals(assocProfBtn))
+            reader.Close();
+            return g;
+        }
+        public int giveDesignation(string desig)
+        {
+            int d = -1;
+            var con = Configuration.getInstance().getConnection();
+            SqlCommand cmd = new SqlCommand("SELECT Id FROM Lookup WHERE Category=\'DESIGNATION\' AND Value=@DESIGNATION", con);
+            cmd.Parameters.AddWithValue("@DESIGNATION", desig);
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
             {
-                profBtn.Background = Brushes.MediumPurple;
-                assocProfBtn.Background = Brushes.Purple;
-                assisProfBtn.Background = Brushes.MediumPurple;
-                lecturerBtn.Background = Brushes.MediumPurple;
-                industryBtn.Background = Brushes.MediumPurple;
-                desig = 4;
+                d = int.Parse(reader["Id"].ToString()); // replace ColumnName with the actual name of the column you want to store in the variable
             }
-            else if (sender.Equals(assisProfBtn))
-            {
-                profBtn.Background = Brushes.MediumPurple;
-                assocProfBtn.Background = Brushes.MediumPurple;
-                assisProfBtn.Background = Brushes.Purple;
-                lecturerBtn.Background = Brushes.MediumPurple;
-                industryBtn.Background = Brushes.MediumPurple;
-                desig = 5;
-            }
-            else if (sender.Equals(lecturerBtn))
-            {
-                profBtn.Background = Brushes.MediumPurple;
-                assocProfBtn.Background = Brushes.MediumPurple;
-                assisProfBtn.Background = Brushes.MediumPurple;
-                lecturerBtn.Background = Brushes.Purple;
-                industryBtn.Background = Brushes.MediumPurple;
-                desig = 6;
-            }
-            else if (sender.Equals(industryBtn))
-            {
-                profBtn.Background = Brushes.MediumPurple;
-                assocProfBtn.Background = Brushes.MediumPurple;
-                assisProfBtn.Background = Brushes.MediumPurple;
-                lecturerBtn.Background = Brushes.MediumPurple;
-                industryBtn.Background = Brushes.Purple;
-                desig = 7;
-            }
+            reader.Close();
+            return d;
         }
 
         private void revertBtn_Click(object sender, RoutedEventArgs e)
@@ -166,67 +105,117 @@ namespace ProjectA.UserControls.Advisor
             txtContact.Clear();
             txtEmail.Clear();
             txtSalary.Clear();
-            dobDatePicker.SelectedDate = DateTime.Now;
-            this.gender = 1;
-            this.desig = 3;
+            dobDatePicker.Text = string.Empty;
+            genderCB.Text = string.Empty;
+            designationCB.Text = string.Empty;
             this.id = -1;
-
-            maleBtn.Background = Brushes.Purple;
-            femaleBtn.Background = Brushes.MediumPurple;
-
-            profBtn.Background = Brushes.Purple;
-            assocProfBtn.Background = Brushes.MediumPurple;
-            assisProfBtn.Background = Brushes.MediumPurple;
-            lecturerBtn.Background = Brushes.MediumPurple;
-            industryBtn.Background = Brushes.MediumPurple;
+        }
+        private void findParentControls()
+        {
+            var parent = VisualTreeHelper.GetParent(this);
+            while ((parent != null) && !(parent is CRUDAdvisor))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            if (parent is CRUDAdvisor)
+            {
+                CRUDAdvisor crudStudent = (CRUDAdvisor)parent;
+                crudStudent.ViewAdvisors();
+                Button btn = (Button)crudStudent.FindName("addBtn");
+                DataGrid AdvisorDataGrid = (DataGrid)crudStudent.FindName("AdvisorDataGrid");
+                btn.Content = "Add";
+                AdvisorDataGrid.Visibility = Visibility.Visible;
+                this.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (addBtn.Content.ToString() == "Save")
+            int gender = giveGender(genderCB.Text);
+            int desig = giveDesignation(designationCB.Text);
+            if (txtFirstName.Text == "")
             {
-                try
-                {
-                    var con = Configuration.getInstance().getConnection();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO Person(FirstName,LastName,Contact,Email,DateOfBirth,Gender) VALUES (@FirstName,@LastName, @Contact,@Email,@DateOfBirth, @Gender); INSERT INTO Advisor(Id,Designation,Salary) VALUES ((SELECT Id FROM Person WHERE FirstName = @FirstName AND LastName=@LastName AND Contact=@Contact AND Email=@Email AND DateOfBirth=@DateOfBirth AND Gender=@Gender) ,@Designation, @Salary);", con);
-                    cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
-                    cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
-                    cmd.Parameters.AddWithValue("@Contact", txtContact.Text);
-                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
-                    cmd.Parameters.AddWithValue("@DateOfBirth", dobDatePicker.SelectedDate.ToString());
-                    cmd.Parameters.AddWithValue("@Gender", gender);
-                    cmd.Parameters.AddWithValue("@Designation", desig);
-                    cmd.Parameters.AddWithValue("@Salary", int.Parse(txtSalary.Text));
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Successfully saved");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                MessageBox.Show("Please Select First Name of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            else if (txtLastName.Text == "")
+            {
+                MessageBox.Show("Please Select Last Name of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (genderCB.Text == "")
+            {
+                MessageBox.Show("Please Select Gender of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (dobDatePicker.Text == "")
+            {
+                MessageBox.Show("Please Select Date Of Birth of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (txtContact.Text == "")
+            {
+                MessageBox.Show("Please Select Contact of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (txtEmail.Text == "")
+            {
+                MessageBox.Show("Please Select EMail of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (designationCB.Text == "")
+            {
+                MessageBox.Show("Please Select Designation of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (txtSalary.Text == "")
+            {
+                MessageBox.Show("Please Select Salary of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             else
             {
-                try
+                if (addBtn.Content.ToString() == "Save")
                 {
-                    var con = Configuration.getInstance().getConnection();
-                    SqlCommand cmd = new SqlCommand("UPDATE Person SET FirstName = @FirstName, LastName=@LastName, Contact=@Contact, Email=@Email, DateOfBirth=@DateOfBirth, Gender=@Gender WHERE Id=@Id; UPDATE Advisor SET Designation=@Designation, Salary=@Salary WHERE Id=@Id;", con);
-                    cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
-                    cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
-                    cmd.Parameters.AddWithValue("@Contact", txtContact.Text);
-                    cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
-                    cmd.Parameters.AddWithValue("@DateOfBirth", dobDatePicker.SelectedDate.ToString());
-                    cmd.Parameters.AddWithValue("@Gender", gender);
-                    cmd.Parameters.AddWithValue("@Designation", desig);
-                    cmd.Parameters.AddWithValue("@Salary", int.Parse(txtSalary.Text));
-                    cmd.Parameters.AddWithValue("@Id", id);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Record Updated");
+                    try
+                    {
+                        var con = Configuration.getInstance().getConnection();
+                        SqlCommand cmd = new SqlCommand("INSERT INTO Person(FirstName,LastName,Contact,Email,DateOfBirth,Gender) VALUES (@FirstName,@LastName, @Contact,@Email,@DateOfBirth, @Gender); INSERT INTO Advisor(Id,Designation,Salary) VALUES ((SELECT Id FROM Person WHERE FirstName = @FirstName AND LastName=@LastName AND Contact=@Contact AND Email=@Email AND DateOfBirth=@DateOfBirth AND Gender=@Gender) ,@Designation, @Salary);", con);
+                        cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
+                        cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
+                        cmd.Parameters.AddWithValue("@Contact", txtContact.Text);
+                        cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+                        cmd.Parameters.AddWithValue("@DateOfBirth", dobDatePicker.SelectedDate.ToString());
+                        cmd.Parameters.AddWithValue("@Gender", gender);
+                        cmd.Parameters.AddWithValue("@Designation", desig);
+                        cmd.Parameters.AddWithValue("@Salary", int.Parse(txtSalary.Text));
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Successfully saved");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message);
+                    try
+                    {
+                        var con = Configuration.getInstance().getConnection();
+                        SqlCommand cmd = new SqlCommand("UPDATE Person SET FirstName = @FirstName, LastName=@LastName, Contact=@Contact, Email=@Email, DateOfBirth=@DateOfBirth, Gender=@Gender WHERE Id=@Id; UPDATE Advisor SET Designation=@Designation, Salary=@Salary WHERE Id=@Id;", con);
+                        cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
+                        cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
+                        cmd.Parameters.AddWithValue("@Contact", txtContact.Text);
+                        cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+                        cmd.Parameters.AddWithValue("@DateOfBirth", dobDatePicker.SelectedDate.ToString());
+                        cmd.Parameters.AddWithValue("@Gender", gender);
+                        cmd.Parameters.AddWithValue("@Designation", desig);
+                        cmd.Parameters.AddWithValue("@Salary", int.Parse(txtSalary.Text));
+                        cmd.Parameters.AddWithValue("@Id", id);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Record Updated");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                 }
+                findParentControls();
             }
         }
     }

@@ -14,6 +14,7 @@
         Width="1080"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
@@ -81,6 +82,13 @@
 
         <Style x:Key="menuButtonIcon" TargetType="Icon:PackIconMaterial">
             <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="35"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="20 2 20 2"/>
+        </Style>
+
+        <Style x:Key="menuButtonIcon1" TargetType="fa:FontAwesome">
+            <Setter Property="Width" Value="35"/>
             <Setter Property="Height" Value="35"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="20 2 20 2"/>
@@ -456,27 +464,34 @@
                                             <TextBlock Text="Dashboard" VerticalAlignment="Center" Width="100"/>
                                         </StackPanel>
                                     </Button>
-
-                                    <Button x:Name="projectBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                    <Button x:Name="studentBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
                                         <StackPanel Orientation="Horizontal">
-                                            <Icon:PackIconMaterial Kind="Projector" Style="{StaticResource menuButtonIcon}"/>
-                                            <TextBlock Text="Projects" VerticalAlignment="Center" Width="100"/>
+                                            <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
+                                            <!--<fa:FontAwesome Icon="GraduationCap" FontSize="20" Style="{StaticResource menuButtonIcon1}"/>-->
+                                            <TextBlock Text="Students" VerticalAlignment="Center" Width="100"/>
                                         </StackPanel>
                                     </Button>
-
                                     <Button x:Name="advisorBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
                                         <StackPanel Orientation="Horizontal">
                                             <Icon:PackIconMaterial Kind="InstrumentTriangle" Style="{StaticResource menuButtonIcon}"/>
                                             <TextBlock Text="Advisors" VerticalAlignment="Center" Width="100"/>
                                         </StackPanel>
                                     </Button>
-
-                                    <Button x:Name="studentBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                    <Button x:Name="projectBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
                                         <StackPanel Orientation="Horizontal">
-                                            <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
-                                            <TextBlock Text="Students" VerticalAlignment="Center" Width="100"/>
+                                            <Icon:PackIconMaterial Kind="Projector" Style="{StaticResource menuButtonIcon}"/>
+                                            <TextBlock Text="Projects" VerticalAlignment="Center" Width="100"/>
                                         </StackPanel>
                                     </Button>
+                                    <Button x:Name="evaluationBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
+                                            <TextBlock Text="Evaluations" VerticalAlignment="Center" Width="100"/>
+                                        </StackPanel>
+                                    </Button>
+
+
+
 
                                     <Button x:Name="groupBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
                                         <StackPanel Orientation="Horizontal">
@@ -498,14 +513,6 @@
                                             <TextBlock Text="Assign Advisors" VerticalAlignment="Center" Width="100"/>
                                         </StackPanel>
                                     </Button>
-
-                                    <Button x:Name="evaluationBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
-                                            <TextBlock Text="Evaluations" VerticalAlignment="Center" Width="100"/>
-                                        </StackPanel>
-                                    </Button>
-
                                     <Button x:Name="markEvaluationBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
                                         <StackPanel Orientation="Horizontal">
                                             <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>

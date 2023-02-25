@@ -44,43 +44,79 @@ namespace ProjectA.UserControls.Evaluation
             txtTotalMarks.Clear();
             txtTotalWeightage.Clear();
         }
+        private void findParentControls()
+        {
+            var parent = VisualTreeHelper.GetParent(this);
+            while ((parent != null) && !(parent is CRUDEvaluationUC))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            if (parent is CRUDEvaluationUC)
+            {
+                CRUDEvaluationUC crudEvaluation = (CRUDEvaluationUC)parent;
+                crudEvaluation.ViewEvaluation();
+                Button btn = (Button)crudEvaluation.FindName("addBtn");
+                DataGrid EvaluationDataGrid = (DataGrid)crudEvaluation.FindName("EvaluationDataGrid");
+                btn.Content = "Add";
+                EvaluationDataGrid.Visibility = Visibility.Visible;
+                this.Visibility = Visibility.Collapsed;
+            }
+        }
 
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (addBtn.Content.ToString() == "Add")
+            if (txtName.Text == "")
             {
-                try
-                {
-                    var con = Configuration.getInstance().getConnection();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO Evaluation(Name,TotalMarks,TotalWeightage) VALUES (@Name,@TotalMarks,@TotalWeightage)", con);
-                    cmd.Parameters.AddWithValue("@Name", txtName.Text);
-                    cmd.Parameters.AddWithValue("@TotalMarks", txtTotalMarks.Text);
-                    cmd.Parameters.AddWithValue("@TotalWeightage", txtTotalWeightage.Text);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Successfully saved");
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+                MessageBox.Show("Please Select Name of the Evaluation", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (txtTotalMarks.Text == "")
+            {
+                MessageBox.Show("Please Select Total Marks of the Evaluation " + txtName.Text, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (txtTotalWeightage.Text == "")
+            {
+                MessageBox.Show("Please Select Total Weightahe of the Evaluation " + txtName.Text, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
-                try
+                if (addBtn.Content.ToString() == "Add")
                 {
-                    var con = Configuration.getInstance().getConnection();
-                    SqlCommand cmd = new SqlCommand("UPDATE Evaluation SET Name = @Name, TotalMarks=@TotalMarks, TotalWeightage=@TotalWeightage WHERE Id=@Id;", con);
-                    cmd.Parameters.AddWithValue("@Name", txtName.Text);
-                    cmd.Parameters.AddWithValue("@TotalMarks", txtTotalMarks.Text);
-                    cmd.Parameters.AddWithValue("@TotalWeightage", txtTotalWeightage.Text);
-                    cmd.Parameters.AddWithValue("@Id", id);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Record Updated");
+                    try
+                    {
+                        var con = Configuration.getInstance().getConnection();
+                        SqlCommand cmd = new SqlCommand("INSERT INTO Evaluation(Name,TotalMarks,TotalWeightage) VALUES (@Name,@TotalMarks,@TotalWeightage)", con);
+                        cmd.Parameters.AddWithValue("@Name", txtName.Text);
+                        cmd.Parameters.AddWithValue("@TotalMarks", txtTotalMarks.Text);
+                        cmd.Parameters.AddWithValue("@TotalWeightage", txtTotalWeightage.Text);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Successfully saved");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show(ex.Message);
+                    try
+                    {
+                        var con = Configuration.getInstance().getConnection();
+                        SqlCommand cmd = new SqlCommand("UPDATE Evaluation SET Name = @Name, TotalMarks=@TotalMarks, TotalWeightage=@TotalWeightage WHERE Id=@Id;", con);
+                        cmd.Parameters.AddWithValue("@Name", txtName.Text);
+                        cmd.Parameters.AddWithValue("@TotalMarks", txtTotalMarks.Text);
+                        cmd.Parameters.AddWithValue("@TotalWeightage", txtTotalWeightage.Text);
+                        cmd.Parameters.AddWithValue("@Id", id);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Record Updated");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                 }
+                findParentControls();
             }
         }
     }
