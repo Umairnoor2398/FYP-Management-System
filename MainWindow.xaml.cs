@@ -19,6 +19,7 @@ using ProjectA.UserControls.Student;
 using ProjectA.UserControls.Advisor;
 using ProjectA.UserControls.Project;
 using ProjectA.UserControls.Evaluation;
+using ProjectA.UserControls.Group;
 
 namespace ProjectA
 {
@@ -66,29 +67,17 @@ namespace ProjectA
             {
                 CC.Content = null;
             }
-            else if (sender.Equals(projectBtn))
+            else if (sender.Equals(studentBtn))
             {
-                CC.Content = new CRUDProjectUC();
+                CC.Content = new CRUDStudent();
             }
             else if (sender.Equals(advisorBtn))
             {
                 CC.Content = new CRUDAdvisor();
             }
-            else if (sender.Equals(studentBtn))
+            else if (sender.Equals(projectBtn))
             {
-                CC.Content = new CRUDStudent();
-            }
-            else if (sender.Equals(groupBtn))
-            {
-                CC.Content = new CRUDStudent();
-            }
-            else if (sender.Equals(assignProjectBtn))
-            {
-                CC.Content = new CRUDStudent();
-            }
-            else if (sender.Equals(assignAdvisorBtn))
-            {
-                CC.Content = new CRUDStudent();
+                CC.Content = new CRUDProjectUC();
             }
             else if (sender.Equals(evaluationBtn))
             {
@@ -96,11 +85,23 @@ namespace ProjectA
             }
             else if (sender.Equals(markEvaluationBtn))
             {
-                CC.Content = new CRUDStudent();
+                CC.Content = new MarkEvaluationDisplayUC();
+            }
+            else if (sender.Equals(groupBtn))
+            {
+                CC.Content = new CRUDGroupUC();
+            }
+            else if (sender.Equals(assignProjectBtn))
+            {
+                CC.Content = null;
+            }
+            else if (sender.Equals(assignAdvisorBtn))
+            {
+                CC.Content = null;
             }
             else if (sender.Equals(reportBtn))
             {
-                CC.Content = new CRUDStudent();
+                CC.Content = null;
             }
             else if (sender.Equals(exitBtn))
             {

@@ -7,7 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.IO;
 using System.Windows.Controls;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -29,6 +32,7 @@ namespace ProjectA.UserControls
             studentCC.Content = new UserControls.Student.AddStudentUC();
             ViewStudent();
         }
+
 
         public void ViewStudent()
         {

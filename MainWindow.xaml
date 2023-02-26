@@ -489,7 +489,12 @@
                                             <TextBlock Text="Evaluations" VerticalAlignment="Center" Width="100"/>
                                         </StackPanel>
                                     </Button>
-
+                                    <Button x:Name="markEvaluationBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
+                                            <TextBlock Text="Mark Evaluation" VerticalAlignment="Center" Width="100"/>
+                                        </StackPanel>
+                                    </Button>
 
 
 
@@ -513,12 +518,7 @@
                                             <TextBlock Text="Assign Advisors" VerticalAlignment="Center" Width="100"/>
                                         </StackPanel>
                                     </Button>
-                                    <Button x:Name="markEvaluationBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
-                                            <TextBlock Text="Mark Evaluation" VerticalAlignment="Center" Width="100"/>
-                                        </StackPanel>
-                                    </Button>
+
 
                                     <Button x:Name="reportBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
                                         <StackPanel Orientation="Horizontal">
