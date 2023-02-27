@@ -71,8 +71,8 @@
                 </Button>
             </Grid>
 
-            <ScrollViewer Grid.Row="1" x:Name="addStudentForm" Visibility="Collapsed">
-                <UserControl x:Name="studentCC" />
+            <ScrollViewer Grid.Row="1" x:Name="editGroupForm" Visibility="Collapsed">
+                <UserControl x:Name="groupUC" />
             </ScrollViewer>
 
             <DataGrid Grid.Row="1" x:Name="GroupDataGrid" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserResizeColumns="False" AutoGenerateColumns="False">

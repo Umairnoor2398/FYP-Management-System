@@ -34,7 +34,7 @@ namespace ProjectA.UserControls.Group
             try
             {
                 var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand("SELECT CONCAT('G-',G.Id) AS GroupId,P.Title,GS.StudentId AS GStudent,G.Created_On FROM [Group] AS G LEFT JOIN GroupProject AS GP ON G.Id=GP.GroupId LEFT JOIN GroupStudent AS GS ON GS.GroupId=G.Id LEFT JOIN Project AS P ON GP.ProjectId=P.Id", con);
+                SqlCommand cmd = new SqlCommand("SELECT CONCAT('G-',G.Id) AS GroupId,P.Id AS ProjectId,P.Title,GS.StudentId AS GStudent,G.Created_On FROM [Group] AS G LEFT JOIN GroupProject AS GP ON G.Id=GP.GroupId LEFT JOIN GroupStudent AS GS ON GS.GroupId=G.Id LEFT JOIN Project AS P ON GP.ProjectId=P.Id", con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -48,24 +48,35 @@ namespace ProjectA.UserControls.Group
 
         private void createGroupBtn_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (createGroupBtn.Content.ToString() == "Create New Group")
             {
-                int id = 0;
-                var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand("INSERT INTO [Group](Created_On) VALUES(@date)", con);
-                cmd.Parameters.AddWithValue("@date", DateTime.Today);
-                cmd.ExecuteNonQuery();
-                //SqlDataReader reader = cmd.ExecuteReader();
-                //if (reader.Read())
-                //{; SELECT SCOPE_IDENTITY() AS Id;
-                //    id = int.Parse(reader["Id"].ToString());
-                //}
-                MessageBox.Show("Group G-" + id + " Created Successfully");
+                try
+                {
+                    int id = 0;
+                    var con = Configuration.getInstance().getConnection();
+                    SqlCommand cmd = new SqlCommand("INSERT INTO [Group](Created_On) VALUES(@date); SELECT Id FROM [Group] ORDER BY Id Desc", con);
+                    cmd.Parameters.AddWithValue("@date", DateTime.Today);
+                    //cmd.ExecuteNonQuery();
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        //; SELECT SCOPE_IDENTITY() AS Id;
+                        id = int.Parse(reader["Id"].ToString());
+                    }
+                    reader.Close();
+                    MessageBox.Show("Group G-" + id + " Created Successfully");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                editGroupForm.Visibility = Visibility.Collapsed;
+                GroupDataGrid.Visibility = Visibility.Visible;
+                createGroupBtn.Content = "Create New Group";
             }
             DisplayGroups();
         }
@@ -75,7 +86,7 @@ namespace ProjectA.UserControls.Group
             try
             {
                 var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand("DELETE FROM [Group] WHERE Id=@Id", con);
+                SqlCommand cmd = new SqlCommand("DELETE FROM [GroupEvaluation] WHERE GroupId=@Id;DELETE FROM [GroupStudent] WHERE GroupId=@Id;DELETE FROM [GroupProject] WHERE GroupId=@Id;DELETE FROM [Group] WHERE Id=@Id", con);
                 //SqlCommand cmd1 = new SqlCommand("DELETE FROM Person Where Id=@Id", con);
                 cmd.Parameters.AddWithValue("@Id", id);
                 //cmd1.Parameters.AddWithValue("@Id", id);
@@ -104,7 +115,18 @@ namespace ProjectA.UserControls.Group
 
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            DataRowView row = GroupDataGrid.SelectedItem as DataRowView;
+            if (row != null)
+            {
+                string GroupId = row["GroupId"].ToString();
+                string projectId = row["ProjectId"].ToString();
+                string[] GId = GroupId.Split('-');
+                int groupId = int.Parse(GId[1]);
+                groupUC.Content = new EditGroupUC(groupId, projectId);
+                createGroupBtn.Content = "Go Back";
+                editGroupForm.Visibility = Visibility.Visible;
+                GroupDataGrid.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

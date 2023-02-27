@@ -66,3 +66,5 @@ D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Evaluation
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Evaluation\MarkEvaluationFormUC.baml
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Group\CRUDGroupUC.g.cs
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Group\CRUDGroupUC.baml
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Group\EditGroupUC.g.cs
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Group\EditGroupUC.baml
