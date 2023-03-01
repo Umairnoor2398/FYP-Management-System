@@ -82,7 +82,7 @@
 
         <Style x:Key="menuButtonIcon" TargetType="Icon:PackIconMaterial">
             <Setter Property="Width" Value="30"/>
-            <Setter Property="Height" Value="35"/>
+            <Setter Property="Height" Value="30"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="20 2 20 2"/>
         </Style>
@@ -455,7 +455,7 @@
 
 
                         <!--Menu Buttons-->
-                        <ScrollViewer>
+                        <ScrollViewer DockPanel.Dock="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                             <StackPanel>
                                 <StackPanel DockPanel.Dock="Top">
                                     <Button x:Name="dashboardBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
@@ -504,6 +504,13 @@
                                             <TextBlock Text="Groups" VerticalAlignment="Center" Width="100"/>
                                         </StackPanel>
                                     </Button>
+                                    <Button x:Name="assignAdvisorBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
+                                            <TextBlock Text="Assign Advisors" VerticalAlignment="Center" Width="100"/>
+                                        </StackPanel>
+                                    </Button>
+
 
                                     <Button x:Name="assignProjectBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
                                         <StackPanel Orientation="Horizontal">
@@ -512,12 +519,7 @@
                                         </StackPanel>
                                     </Button>
 
-                                    <Button x:Name="assignAdvisorBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
-                                            <TextBlock Text="Assign Advisors" VerticalAlignment="Center" Width="100"/>
-                                        </StackPanel>
-                                    </Button>
+
 
 
                                     <Button x:Name="reportBtn" Click="buttonClicked" Style="{StaticResource menuButton}">

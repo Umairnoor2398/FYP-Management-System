@@ -83,6 +83,21 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.5.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.5.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.5.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>packages\Extended.Wpf.Toolkit.4.5.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -95,8 +110,14 @@
     <Compile Include="UserControls\Advisor\AddAdvisorUC.xaml.cs">
       <DependentUpon>AddAdvisorUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Advisor\AssignAdvisorUC.xaml.cs">
+      <DependentUpon>AssignAdvisorUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Advisor\CRUDAdvisor.xaml.cs">
       <DependentUpon>CRUDAdvisor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Advisor\ProjectAdvisorUC.xaml.cs">
+      <DependentUpon>ProjectAdvisorUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Evaluation\AddEvaluationUC.xaml.cs">
       <DependentUpon>AddEvaluationUC.xaml</DependentUpon>
@@ -149,7 +170,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Advisor\AssignAdvisorUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Advisor\CRUDAdvisor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Advisor\ProjectAdvisorUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -212,6 +241,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Assets\advisor.png" />
+    <Resource Include="Assets\assign advisor.png" />
+    <Resource Include="Assets\evaluation.png" />
+    <Resource Include="Assets\exit.png" />
+    <Resource Include="Assets\group.png" />
+    <Resource Include="Assets\logo.jpeg" />
+    <Resource Include="Assets\markEvaluation.png" />
+    <Resource Include="Assets\project.png" />
+    <Resource Include="Assets\student.png" />
     <Content Include="Monikers.imagemanifest">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
@@ -223,11 +261,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\logo.jpeg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UserControls\DashBoard\" />

@@ -93,6 +93,7 @@ namespace ProjectA.UserControls.Advisor
         {
             if (addBtn.Content.ToString() == "Add")
             {
+                advisorCC.Content = new AddAdvisorUC();
                 addAdvisorForm.Visibility = Visibility.Visible;
                 AdvisorDataGrid.Visibility = Visibility.Collapsed;
                 addBtn.Content = "Back";

@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,7 +35,7 @@ namespace ProjectA.UserControls.Group
             try
             {
                 var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand("SELECT CONCAT('G-',G.Id) AS GroupId,P.Id AS ProjectId,P.Title,GS.StudentId AS GStudent,G.Created_On FROM [Group] AS G LEFT JOIN GroupProject AS GP ON G.Id=GP.GroupId LEFT JOIN GroupStudent AS GS ON GS.GroupId=G.Id LEFT JOIN Project AS P ON GP.ProjectId=P.Id", con);
+                SqlCommand cmd = new SqlCommand("SELECT CONCAT('G-',G.Id) AS GroupId,P.Id AS ProjectId,P.Title,COUNT(GS.StudentId) AS GStudent,G.Created_On FROM [Group] AS G LEFT JOIN GroupProject AS GP ON G.Id=GP.GroupId LEFT JOIN GroupStudent AS GS ON GS.GroupId=G.Id LEFT JOIN Project AS P ON GP.ProjectId=P.Id WHERE GS.Status=3 GROUP BY G.Id,P.Id,P.Title,G.Created_On", con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -65,6 +66,10 @@ namespace ProjectA.UserControls.Group
                     }
                     reader.Close();
                     MessageBox.Show("Group G-" + id + " Created Successfully");
+                    groupUC.Content = new EditGroupUC(id);
+                    createGroupBtn.Content = "Go Back";
+                    editGroupForm.Visibility = Visibility.Visible;
+                    GroupDataGrid.Visibility = Visibility.Collapsed;
                 }
                 catch (Exception ex)
                 {

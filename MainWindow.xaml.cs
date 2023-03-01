@@ -91,15 +91,15 @@ namespace ProjectA
             {
                 CC.Content = new CRUDGroupUC();
             }
-            else if (sender.Equals(assignProjectBtn))
-            {
-                CC.Content = null;
-            }
             else if (sender.Equals(assignAdvisorBtn))
             {
-                CC.Content = null;
+                CC.Content = new ProjectAdvisorUC();
             }
             else if (sender.Equals(reportBtn))
+            {
+                CC.Content = null;
+            }
+            else if (sender.Equals(assignProjectBtn))
             {
                 CC.Content = null;
             }
