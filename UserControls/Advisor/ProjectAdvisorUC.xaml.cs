@@ -31,21 +31,56 @@ namespace ProjectA.UserControls.Advisor
         public void ViewAdvisoryBoard()
         {
             var con = Configuration.getInstance().getConnection();
-            SqlCommand cmd = new SqlCommand("SELECT MAX(P.Title) Title, MAX(CASE WHEN PA.AdvisorRole = 11 THEN CONCAT(Person.FirstName,' ',Person.LastName) END) AS MainAdvisor, MAX(CASE WHEN PA.AdvisorRole = 12 THEN CONCAT(Person.FirstName,' ',Person.LastName) END) AS CoAdvisor, MAX(CASE WHEN PA.AdvisorRole = 14 THEN CONCAT(Person.FirstName,' ',Person.LastName) END) AS IndustryAdvisor FROM  ProjectAdvisor PA INNER JOIN Advisor A ON PA.AdvisorId = A.Id JOIN Project P ON P.Id=PA.ProjectId JOIN Person ON Person.Id=A.Id GROUP BY PA.ProjectId", con);
+            SqlCommand cmd = new SqlCommand("SELECT PA.ProjectId, MAX(P.Title) Title, MAX(CASE WHEN PA.AdvisorRole = 11 THEN CONCAT(Person.FirstName,' ',Person.LastName) END) AS MainAdvisor, MAX(CASE WHEN PA.AdvisorRole = 12 THEN CONCAT(Person.FirstName,' ',Person.LastName) END) AS CoAdvisor, MAX(CASE WHEN PA.AdvisorRole = 14 THEN CONCAT(Person.FirstName,' ',Person.LastName) END) AS IndustryAdvisor FROM  ProjectAdvisor PA INNER JOIN Advisor A ON PA.AdvisorId = A.Id JOIN Project P ON P.Id=PA.ProjectId JOIN Person ON Person.Id=A.Id GROUP BY PA.ProjectId", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
             AdvisorBoardDataGrid.ItemsSource = dt.DefaultView;
         }
 
+
+        private void deleteRecord(int id)
+        {
+            try
+            {
+                var con = Configuration.getInstance().getConnection();
+                SqlCommand cmd = new SqlCommand("DELETE FROM ProjectAdvisor Where ProjectId=@Id", con);
+                cmd.Parameters.AddWithValue("@Id", id);
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Record Deleted!!!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            DataRowView row = AdvisorBoardDataGrid.SelectedItem as DataRowView;
+            if (row != null)
+            {
+                int id = Int32.Parse(row["ProjectId"].ToString());
+                deleteRecord(id);
+                ViewAdvisoryBoard();
+            }
         }
+
 
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            DataRowView row = AdvisorBoardDataGrid.SelectedItem as DataRowView;
+            if (row != null)
+            {
+                int id = Int32.Parse(row["ProjectId"].ToString());
+                string adv1 = row["MainAdvisor"].ToString();
+                string adv2 = row["CoAdvisor"].ToString();
+                string adv3 = row["IndustryAdvisor"].ToString();
+                advisorBoardAddUC.Content = new AssignAdvisorUC(id, adv1, adv2, adv3);
+                advisorBoardScroll.Visibility = Visibility.Visible;
+                AdvisorBoardDataGrid.Visibility = Visibility.Collapsed;
+                assignBtn.Content = "Back";
+            }
         }
 
         private void assignBtn_Click(object sender, RoutedEventArgs e)
