@@ -201,14 +201,7 @@
                         <TextBlock Text="Main Advisor" FontSize="20" FontWeight="SemiBold" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <ComboBox x:Name="mainAdvisorComboBox" Margin="15" Width="150" DropDownClosed="mainAdvisorComboBox_DropDownClosed"/>
                     </StackPanel>
-                    <Button x:Name="assignMainAdvisorBtn" Click="assignMainAdvisorBtn_Click" Height="70" Width="70" Margin="17">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="22"/>
-                            </Style>
-                        </Button.Resources>
-                        <materialDesign:PackIcon Height="35" Width="35" Foreground="White" Kind="PlusBold" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    </Button>
+
                 </StackPanel>
             </Border>
 
@@ -218,34 +211,27 @@
                         <TextBlock Text="Co Advisor" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <ComboBox x:Name="coAdvisorComboBox" Margin="15" Width="150" DropDownClosed="coAdvisorComboBox_DropDownClosed"/>
                     </StackPanel>
-                    <Button x:Name="assignCoAdvisorBtn" Click="assignCoAdvisorBtn_Click" Height="70" Width="70" Margin="17">
-                        <Button.Resources>
-                            <Style TargetType="Border">
-                                <Setter Property="CornerRadius" Value="22"/>
-                            </Style>
-                        </Button.Resources>
-                        <materialDesign:PackIcon Height="35" Width="35" Foreground="White" Kind="PlusBold" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    </Button>
+
                 </StackPanel>
             </Border>
-            <Grid Grid.Row="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Border Grid.Row="2" Grid.Column="0" Margin="0 20 0 0" CornerRadius="30">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="IndustryAdvisor" FontSize="20" FontWeight="SemiBold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                             <ComboBox x:Name="industryAdvisorComboBox" Margin="15" Width="150" DropDownClosed="industryAdvisorComboBox_DropDownClosed"/>
                         </StackPanel>
-                        <Button x:Name="assignIndustryAdvisorBtn" Click="assignIndustryAdvisorBtn_Click" Height="70" Width="70" Margin="17">
-                            <Button.Resources>
-                                <Style TargetType="Border">
-                                    <Setter Property="CornerRadius" Value="22"/>
-                                </Style>
-                            </Button.Resources>
-                            <materialDesign:PackIcon Height="35" Width="35" Foreground="White" Kind="PlusBold" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                        </Button>
                     </StackPanel>
                 </Border>
             </Grid>
+            <Button x:Name="assignBtn" Grid.Row="2" Grid.Column="1" Click="assignBtn_Click" Height="70" Width="70" Margin="17">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="22"/>
+                    </Style>
+                </Button.Resources>
+                <materialDesign:PackIcon Height="35" Width="35" Foreground="White" Kind="PlusBold" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </Button>
 
 
 

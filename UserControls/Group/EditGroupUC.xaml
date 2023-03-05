@@ -182,7 +182,7 @@
                     <TextBlock Text="G-1" x:Name="groupNameDisplayTextBlock" Style="{StaticResource titleText}" Foreground="#121518"/>
                 </StackPanel>
 
-                <Border Grid.Row="1" Height="100" CornerRadius="30" Margin="0,0,0,20">
+                <Border Grid.Row="1" Height="100" CornerRadius="30" Margin="0,0,0,20" VerticalAlignment="Center">
                     <Border.Background>
                         <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
                             <GradientStop Color="#6a5dae" Offset="0"/>
@@ -202,7 +202,7 @@
                     </Grid>
                 </Border>
 
-                <Border Grid.Row="2" Margin="0 0 0 20" CornerRadius="30" Background="#7163ba">
+                <Border x:Name="projectComboBoxBorder" Grid.Row="2" Margin="0 0 0 20" CornerRadius="30" Background="#7163ba">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Select Project" FontSize="20" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -219,7 +219,7 @@
                     </StackPanel>
                 </Border>
 
-                <Border Grid.Row="3" CornerRadius="30" Background="#7163ba">
+                <Border x:Name="studentComboBoxBorder" Grid.Row="3" CornerRadius="30" Background="#7163ba">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                             <TextBlock Text="Select Student" FontSize="20" FontWeight="SemiBold" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -264,22 +264,32 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <!--<ListView x:Name="studentsListView" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="RegistrationNo" DisplayMemberBinding="{Binding RegistrationNo}" Width="Auto"/>
-                            <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="Auto"/>
-                            <GridViewColumn Header="Status">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Content="{Binding Status}" Click="StatusButton_Click"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
 
-                        </GridView>
-                    </ListView.View>
-                </ListView>-->
+                <DataGrid Visibility="Collapsed" x:Name="groupDetailsStudentDataGrid" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserResizeColumns="False" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="RegistrationNo" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding RegistrationNo}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Name" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Name" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Status}" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
 
             </Grid>
 

@@ -31,7 +31,7 @@ namespace ProjectA.UserControls.Group
             this.groupId = groupId;
             groupNameDisplayTextBlock.Text = "G-" + groupId;
             ProjectToComboBox();
-            GetStudentsOfGroup();
+            GetStudentsOfGroup(studentsInGroupDataGrid);
             StudentToComboBox();
         }
         public EditGroupUC(int groupId, string projectId)
@@ -49,11 +49,43 @@ namespace ProjectA.UserControls.Group
             }
             groupNameDisplayTextBlock.Text = "G-" + groupId;
             ProjectToComboBox();
-            GetStudentsOfGroup();
+            GetStudentsOfGroup(studentsInGroupDataGrid);
             StudentToComboBox();
         }
 
-        private void GetStudentsOfGroup()
+        private void GetAllStudentsOfGroup()
+        {
+            var con = Configuration.getInstance().getConnection();
+            SqlCommand cmd = new SqlCommand("SELECT CONCAT(P.FirstName ,' ',P.LastName) AS Name,S.Id ,S.RegistrationNo ,L.Value AS Status  FROM GroupStudent AS GS JOIN Lookup AS L ON GS.Status = L.Id JOIN Student AS S ON S.Id = GS.StudentId JOIN Person AS P ON P.Id = S.Id WHERE GS.GroupId = @GroupId", con);
+            cmd.Parameters.AddWithValue("@GroupId", groupId);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            groupDetailsStudentDataGrid.ItemsSource = dt.DefaultView;
+        }
+
+        public EditGroupUC(int groupId, string projectId, string type)
+        {
+            InitializeComponent();
+            this.groupId = groupId;
+            try
+            {
+                this.projectId = int.Parse(projectId);
+                GetCurrentProjectAssigned();
+            }
+            catch
+            {
+                projectTitleTextBlock.Text = "Not Assigned";
+            }
+            groupNameDisplayTextBlock.Text = "G-" + groupId;
+            GetAllStudentsOfGroup();
+            projectComboBoxBorder.Visibility = Visibility.Collapsed;
+            studentComboBoxBorder.Visibility = Visibility.Collapsed;
+            studentsInGroupDataGrid.Visibility = Visibility.Collapsed;
+            groupDetailsStudentDataGrid.Visibility = Visibility.Visible;
+        }
+
+        private void GetStudentsOfGroup(DataGrid dg)
         {
             var con = Configuration.getInstance().getConnection();
             SqlCommand cmd = new SqlCommand("SELECT CONCAT(P.FirstName ,' ',P.LastName) AS Name,S.Id ,S.RegistrationNo ,L.Value AS Status  FROM GroupStudent AS GS JOIN Lookup AS L ON GS.Status = L.Id JOIN Student AS S ON S.Id = GS.StudentId JOIN Person AS P ON P.Id = S.Id WHERE GS.GroupId = @GroupId AND GS.Status=@Status", con);
@@ -62,7 +94,7 @@ namespace ProjectA.UserControls.Group
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
-            studentsInGroupDataGrid.ItemsSource = dt.DefaultView;
+            dg.ItemsSource = dt.DefaultView;
         }
 
         private void ProjectToComboBox()
@@ -229,7 +261,7 @@ namespace ProjectA.UserControls.Group
                 }
             }
             StudentToComboBox();
-            GetStudentsOfGroup();
+            GetStudentsOfGroup(studentsInGroupDataGrid);
         }
 
         private void StatusButton_Click(object sender, RoutedEventArgs e)
@@ -252,7 +284,7 @@ namespace ProjectA.UserControls.Group
                     MessageBox.Show(ex.Message);
                 }
             }
-            GetStudentsOfGroup();
+            GetStudentsOfGroup(studentsInGroupDataGrid);
 
         }
     }

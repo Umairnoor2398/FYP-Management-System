@@ -1,4 +1,5 @@
 ﻿using CRUD_Operations;
+using PdfSharp.Charting;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -36,9 +37,23 @@ namespace ProjectA.UserControls.Group
             {
                 var con = Configuration.getInstance().getConnection();
                 SqlCommand cmd = new SqlCommand("SELECT CONCAT('G-',G.Id) AS GroupId,P.Id AS ProjectId,P.Title,COUNT(GS.StudentId) AS GStudent,G.Created_On FROM [Group] AS G LEFT JOIN GroupProject AS GP ON G.Id=GP.GroupId LEFT JOIN GroupStudent AS GS ON GS.GroupId=G.Id LEFT JOIN Project AS P ON GP.ProjectId=P.Id WHERE GS.Status=3 GROUP BY G.Id,P.Id,P.Title,G.Created_On", con);
+                //GROUP BY G.Id,P.Id,P.Title,G.Created_On
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
+
+
+                //var dataView = new DataView(dt);
+                //var collectionViewSource = new CollectionViewSource();
+                //collectionViewSource.Source = dataView;
+                //var groupDescription = new PropertyGroupDescription("GroupId");
+                //collectionViewSource.GroupDescriptions.Add(groupDescription);
+
+                ////groupDescription = new PropertyGroupDescription("Title");
+                ////collectionViewSource.GroupDescriptions.Add(groupDescription);
+
+                //GroupDataGrid.ItemsSource = collectionViewSource.View;
+
                 GroupDataGrid.ItemsSource = dt.DefaultView;
             }
             catch (Exception ex)
@@ -128,6 +143,22 @@ namespace ProjectA.UserControls.Group
                 string[] GId = GroupId.Split('-');
                 int groupId = int.Parse(GId[1]);
                 groupUC.Content = new EditGroupUC(groupId, projectId);
+                createGroupBtn.Content = "Go Back";
+                editGroupForm.Visibility = Visibility.Visible;
+                GroupDataGrid.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void detailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DataRowView row = GroupDataGrid.SelectedItem as DataRowView;
+            if (row != null)
+            {
+                string GroupId = row["GroupId"].ToString();
+                string projectId = row["ProjectId"].ToString();
+                string[] GId = GroupId.Split('-');
+                int groupId = int.Parse(GId[1]);
+                groupUC.Content = new EditGroupUC(groupId, projectId, "Details");
                 createGroupBtn.Content = "Go Back";
                 editGroupForm.Visibility = Visibility.Visible;
                 GroupDataGrid.Visibility = Visibility.Collapsed;

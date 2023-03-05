@@ -90,8 +90,6 @@ namespace ProjectA.UserControls.Advisor
             projectComboBox.DisplayMemberPath = "Title";
         }
 
-
-
         private void GetProjectId(string title)
         {
             try
@@ -165,18 +163,17 @@ namespace ProjectA.UserControls.Advisor
             return id;
         }
 
-        private void AssignAdvisor(string query, int role, int advId)
+        private void AssignAdvisor(int role, int advId)
         {
             try
             {
                 var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand(query, con);
+                SqlCommand cmd = new SqlCommand("INSERT INTO ProjectAdvisor VALUES (@AdvisorId, @ProjectId, @AdvisorRole, @AssignmentDate)", con);
                 cmd.Parameters.AddWithValue("@ProjectId", projectId);
                 cmd.Parameters.AddWithValue("@AdvisorId", advId);
                 cmd.Parameters.AddWithValue("@AdvisorRole", role);
                 cmd.Parameters.AddWithValue("@AssignmentDate", DateTime.Now);
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Advisor Assigned Successfully");
             }
             catch (Exception ex)
             {
@@ -184,106 +181,60 @@ namespace ProjectA.UserControls.Advisor
             }
         }
 
-        private int IsAdvisorPresent(int role)
+        private void RemoveAdvisorToProject()
         {
-            int id = 0;
-            var con = Configuration.getInstance().getConnection();
-            SqlCommand cmd = new SqlCommand("SELECT AdvisorId FROM ProjectAdvisor WHERE ProjectId=@ProjectId AND AdvisorRole=@role", con);
-            cmd.Parameters.AddWithValue("@ProjectId", projectId);
-            cmd.Parameters.AddWithValue("@role", role);
-            SqlDataReader reader = cmd.ExecuteReader();
-            if (reader.Read())
+            try
             {
-                id = int.Parse(reader["AdvisorId"].ToString());
+                var con = Configuration.getInstance().getConnection();
+                SqlCommand cmd = new SqlCommand("DELETE FROM ProjectAdvisor WHERE ProjectId=@projectId", con);
+                cmd.Parameters.AddWithValue("@ProjectId", projectId);
+                cmd.ExecuteNonQuery();
             }
-            reader.Close();
-            return id;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
-
-
-        private void assignMainAdvisorBtn_Click(object sender, RoutedEventArgs e)
+        private void findParentControls()
+        {
+            var parent = VisualTreeHelper.GetParent(this);
+            while ((parent != null) && !(parent is ProjectAdvisorUC))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+            if (parent is ProjectAdvisorUC)
+            {
+                ProjectAdvisorUC projectAdvisor = (ProjectAdvisorUC)parent;
+                projectAdvisor.ViewAdvisoryBoard();
+                Button btn = (Button)projectAdvisor.FindName("assignBtn");
+                DataGrid dataGrid = (DataGrid)projectAdvisor.FindName("AdvisorBoardDataGrid");
+                btn.Content = "Assign Advisor";
+                dataGrid.Visibility = Visibility.Visible;
+                this.Visibility = Visibility.Collapsed;
+            }
+        }
+        private void assignBtn_Click(object sender, RoutedEventArgs e)
         {
             if (projectComboBox.Text == string.Empty)
             {
                 MessageBox.Show("Select a Project First");
+                return;
             }
-            else if (mainAdvisorComboBox.Text == string.Empty)
+            else if (mainAdvisorComboBox.Text == string.Empty || coAdvisorComboBox.Text == string.Empty || industryAdvisorComboBox.Text == string.Empty)
             {
                 MessageBox.Show("Select an Advisor to be assigned");
+                return;
             }
-            else
-            {
-
-                string query;
-                int id = GetAdvisorRole("Main Advisor");
-                int advId = AdvisorIdFromDataBase(mainAdvisorComboBox.Text);
-                if (IsAdvisorPresent(id) == 0)
-                {
-                    query = "INSERT INTO ProjectAdvisor VALUES (@AdvisorId, @ProjectId, @AdvisorRole, @AssignmentDate)";
-                }
-                else
-                {
-                    query = "UPDATE ProjectAdvisor SET AssignmentDate=@AssignmentDate, AdvisorId=@AdvisorId WHERE ProjectId=@ProjectId AND AdvisorRole =@AdvisorRole";
-                }
-                AssignAdvisor(query, id, advId);
-            }
-
-        }
-
-        private void assignCoAdvisorBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (projectComboBox.Text == string.Empty)
-            {
-                MessageBox.Show("Select a Project First");
-            }
-            else if (coAdvisorComboBox.Text == string.Empty)
-            {
-                MessageBox.Show("Select an Advisor to be assigned");
-            }
-            else
-            {
-
-                string query;
-                int id = GetAdvisorRole("Co-Advisor");
-                int advId = AdvisorIdFromDataBase(coAdvisorComboBox.Text);
-                if (IsAdvisorPresent(id) == 0)
-                {
-                    query = "INSERT INTO ProjectAdvisor VALUES (@AdvisorId, @ProjectId, @AdvisorRole, @AssignmentDate)";
-                }
-                else
-                {
-                    query = "UPDATE ProjectAdvisor SET AssignmentDate=@AssignmentDate, AdvisorId=@AdvisorId WHERE ProjectId=@ProjectId AND AdvisorRole =@AdvisorRole";
-                }
-                AssignAdvisor(query, id, advId);
-            }
-        }
-
-        private void assignIndustryAdvisorBtn_Click(object sender, RoutedEventArgs e)
-        {
-            if (projectComboBox.Text == string.Empty)
-            {
-                MessageBox.Show("Select a Project First");
-            }
-            else if (industryAdvisorComboBox.Text == string.Empty)
-            {
-                MessageBox.Show("Select an Advisor to be assigned");
-            }
-            else
-            {
-
-                string query;
-                int id = GetAdvisorRole("Industry Advisor");
-                int advId = AdvisorIdFromDataBase(industryAdvisorComboBox.Text);
-                if (IsAdvisorPresent(id) == 0)
-                {
-                    query = "INSERT INTO ProjectAdvisor VALUES (@AdvisorId, @ProjectId, @AdvisorRole, @AssignmentDate)";
-                }
-                else
-                {
-                    query = "UPDATE ProjectAdvisor SET AssignmentDate=@AssignmentDate, AdvisorId=@AdvisorId WHERE ProjectId=@ProjectId AND AdvisorRole =@AdvisorRole";
-                }
-                AssignAdvisor(query, id, advId);
-            }
+            GetProjectId(projectComboBox.Text);
+            RemoveAdvisorToProject();
+            int mainId = AdvisorIdFromDataBase(mainAdvisorComboBox.Text);
+            int coId = AdvisorIdFromDataBase(coAdvisorComboBox.Text);
+            int inId = AdvisorIdFromDataBase(industryAdvisorComboBox.Text);
+            AssignAdvisor(GetAdvisorRole("Main Advisor"), mainId);
+            AssignAdvisor(GetAdvisorRole("Co-Advisor"), coId);
+            AssignAdvisor(GetAdvisorRole("Industry Advisor"), inId);
+            MessageBox.Show("Advisors Assigned Successfully");
+            findParentControls();
         }
 
         private void projectComboBox_DropDownClosed(object sender, EventArgs e)

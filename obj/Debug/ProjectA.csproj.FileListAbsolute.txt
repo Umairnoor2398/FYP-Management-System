@@ -90,3 +90,9 @@ D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Advisor\Pr
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Advisor\ProjectAdvisorUC.baml
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Advisor\AssignAdvisorUC.g.cs
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\Advisor\AssignAdvisorUC.baml
+D:\Semester4\Database Lab\MID Project\ProjectA\bin\Debug\System.Windows.Controls.DataVisualization.Toolkit.dll
+D:\Semester4\Database Lab\MID Project\ProjectA\bin\Debug\System.Windows.Controls.Input.Toolkit.dll
+D:\Semester4\Database Lab\MID Project\ProjectA\bin\Debug\System.Windows.Controls.Layout.Toolkit.dll
+D:\Semester4\Database Lab\MID Project\ProjectA\bin\Debug\WPFToolkit.dll
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\PDFReports\PDFReportUC.g.cs
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\PDFReports\PDFReportUC.baml

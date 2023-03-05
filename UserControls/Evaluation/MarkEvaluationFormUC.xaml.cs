@@ -54,18 +54,19 @@ namespace ProjectA.UserControls.Evaluation
         private void GroupToComboBox()
         {
             var con = Configuration.getInstance().getConnection();
-            SqlCommand cmd = new SqlCommand("Select CONCAT('G-',Id) AS Id From [Group]", con);
+            SqlCommand cmd = new SqlCommand("SELECT CONCAT('G-',G.Id) AS GroupId FROM [Group] AS G LEFT JOIN GroupProject AS GP ON G.Id=GP.GroupId LEFT JOIN GroupStudent AS GS ON GS.GroupId=G.Id LEFT JOIN Project AS P ON GP.ProjectId=P.Id WHERE GS.Status=3 GROUP BY G.Id,P.Id,P.Title,G.Created_On", con);
             SqlDataAdapter d = new SqlDataAdapter(cmd);
             DataSet dt = new DataSet();
             d.Fill(dt);
             GroupComboBox.ItemsSource = dt.Tables[0].DefaultView;
-            GroupComboBox.DisplayMemberPath = "Id";
+            GroupComboBox.DisplayMemberPath = "GroupId";
         }
 
         private void EvaluationToComboBox()
         {
             var con = Configuration.getInstance().getConnection();
-            SqlCommand cmd = new SqlCommand("Select Name From Evaluation", con);
+            //SqlCommand cmd = new SqlCommand("Select Name From Evaluation", con);
+            SqlCommand cmd = new SqlCommand("SELECT E.Name FROM Evaluation E EXCEPT SELECT E.Name FROM Evaluation E JOIN GroupEvaluation GE ON GE.EvaluationId = E.Id JOIN [Group] G ON G.Id = GE.GroupId WHERE G.Id = '" + groupId + "'", con);
             SqlDataAdapter d = new SqlDataAdapter(cmd);
             DataSet dt = new DataSet();
             d.Fill(dt);
@@ -112,6 +113,7 @@ namespace ProjectA.UserControls.Evaluation
                 {
                     string[] GId = GroupComboBox.Text.Split('-');
                     this.groupId = int.Parse(GId[1]);
+                    EvaluationToComboBox();
                 }
                 else
                 {

@@ -20,6 +20,7 @@ using ProjectA.UserControls.Advisor;
 using ProjectA.UserControls.Project;
 using ProjectA.UserControls.Evaluation;
 using ProjectA.UserControls.Group;
+using ProjectA.UserControls.PDFReports;
 
 namespace ProjectA
 {
@@ -97,11 +98,7 @@ namespace ProjectA
             }
             else if (sender.Equals(reportBtn))
             {
-                CC.Content = null;
-            }
-            else if (sender.Equals(assignProjectBtn))
-            {
-                CC.Content = null;
+                CC.Content = new PDFReportUC();
             }
             else if (sender.Equals(exitBtn))
             {
