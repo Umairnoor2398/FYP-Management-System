@@ -59,16 +59,6 @@ namespace ProjectA.UserControls.Student
             dobDatePicker.SelectedDate = DateTime.Parse(dob);
             this.id = id;
             genderCB.Text = gen;
-            //if (gender == 1)
-            //{
-            //    maleBtn.Background = Brushes.Purple;
-            //    femaleBtn.Background = Brushes.MediumPurple;
-            //}
-            //else
-            //{
-            //    maleBtn.Background = Brushes.MediumPurple;
-            //    femaleBtn.Background = Brushes.Purple;
-            //}
         }
         public int giveGender(string gen)
         {
@@ -85,22 +75,6 @@ namespace ProjectA.UserControls.Student
             return g;
         }
 
-        //public void genderBtnClicked(object sender, RoutedEventArgs e)
-        //{
-        //    if (sender.Equals(maleBtn))
-        //    {
-        //        maleBtn.Background = Brushes.Purple;
-        //        femaleBtn.Background = Brushes.MediumPurple;
-        //        gender = 1;
-        //    }
-        //    else
-        //    {
-        //        maleBtn.Background = Brushes.MediumPurple;
-        //        femaleBtn.Background = Brushes.Purple;
-        //        gender = 2;
-        //    }
-        //}
-
         private void revertBtn_Click(object sender, RoutedEventArgs e)
         {
             txtFirstName.Clear();
@@ -110,8 +84,6 @@ namespace ProjectA.UserControls.Student
             txtContact.Clear();
             genderCB.Text = string.Empty;
             dobDatePicker.Text = string.Empty;
-            //maleBtn.Background = Brushes.Purple;
-            //femaleBtn.Background = Brushes.MediumPurple;
         }
 
         private void findParentControls()

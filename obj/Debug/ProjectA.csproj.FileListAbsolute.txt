@@ -96,3 +96,5 @@ D:\Semester4\Database Lab\MID Project\ProjectA\bin\Debug\System.Windows.Controls
 D:\Semester4\Database Lab\MID Project\ProjectA\bin\Debug\WPFToolkit.dll
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\PDFReports\PDFReportUC.g.cs
 D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\PDFReports\PDFReportUC.baml
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\DashBoard\DashBoardUC.g.cs
+D:\Semester4\Database Lab\MID Project\ProjectA\obj\Debug\UserControls\DashBoard\DashBoardUC.baml

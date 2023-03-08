@@ -82,14 +82,34 @@ namespace ProjectA.UserControls.Evaluation
                 ViewEvaluation();
             }
         }
+        private bool WeightageSumCalculate()
+        {
+            int totalWeightage = 0;
+            foreach (System.Data.DataRowView dr in EvaluationDataGrid.ItemsSource)
+            {
+                totalWeightage += int.Parse(dr[3].ToString());
+            }
+            if (totalWeightage >= 100)
+            {
+                return false;
+            }
+            return true;
+        }
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             if (addBtn.Content.ToString() == "Add")
             {
-                evaluationCC.Content = new AddEvaluationUC();
-                addEvaluationForm.Visibility = Visibility.Visible;
-                EvaluationDataGrid.Visibility = Visibility.Collapsed;
-                addBtn.Content = "Back";
+                if (EvaluationDataGrid.Items.Count != 5 && WeightageSumCalculate())
+                {
+                    evaluationCC.Content = new AddEvaluationUC();
+                    addEvaluationForm.Visibility = Visibility.Visible;
+                    EvaluationDataGrid.Visibility = Visibility.Collapsed;
+                    addBtn.Content = "Back";
+                }
+                else
+                {
+                    MessageBox.Show("No more Evaluations are allowed", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
             else
             {

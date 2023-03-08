@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectA"
         mc:Ignorable="d"
-        Title="MainWindow"  
+        Title="MainWindow"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Height="720" 
+        Height="720"
         Width="1080"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
@@ -19,104 +19,161 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-         FontFamily="{DynamicResource MaterialDesignFont}" 
+        FontFamily="{DynamicResource MaterialDesignFont}"
         TextOptions.TextRenderingMode="Auto"
-    xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
+        xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
 
 
 
 
     <Window.Resources>
-        <Style x:Key="topButton" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#000000"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Style x:Key="topButton"
+               TargetType="Button">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="Foreground"
+                    Value="#000000" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}" />
+            <Setter Property="Width"
+                    Value="30" />
+            <Setter Property="Height"
+                    Value="30" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Left" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="50">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="50">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
 
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#dcdcdc"/>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#dcdcdc" />
                 </Trigger>
             </Style.Triggers>
 
         </Style>
 
-        <Style x:Key="menuButton" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#d0c0ff"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="Margin" Value="15 3"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Style x:Key="menuButton"
+               TargetType="Button">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="Foreground"
+                    Value="#d0c0ff" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}" />
+            <Setter Property="Height"
+                    Value="35" />
+            <Setter Property="Margin"
+                    Value="15 3" />
+            <Setter Property="FontSize"
+                    Value="13" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Left" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="7">
-                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Left"
+                                              VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
 
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#7b5cd6"/>
-                    <Setter Property="Foreground" Value="#ffffff"/>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#7b5cd6" />
+                    <Setter Property="Foreground"
+                            Value="#ffffff" />
                 </Trigger>
             </Style.Triggers>
 
         </Style>
 
 
-        <Style x:Key="menuButtonIcon" TargetType="Icon:PackIconMaterial">
-            <Setter Property="Width" Value="30"/>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="20 2 20 2"/>
+        <Style x:Key="menuButtonIcon"
+               TargetType="Icon:PackIconMaterial">
+            <Setter Property="Width"
+                    Value="30" />
+            <Setter Property="Height"
+                    Value="30" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Margin"
+                    Value="20 2 20 2" />
         </Style>
 
-        <Style x:Key="menuButtonIcon1" TargetType="fa:FontAwesome">
-            <Setter Property="Width" Value="35"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="20 2 20 2"/>
+        <Style x:Key="menuButtonIcon1"
+               TargetType="fa:FontAwesome">
+            <Setter Property="Width"
+                    Value="35" />
+            <Setter Property="Height"
+                    Value="35" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Margin"
+                    Value="20 2 20 2" />
         </Style>
 
-        <Style x:Key="textboxSearch" TargetType="TextBox">
-            <Setter Property="Background" Value="#ffffff"/>
-            <Setter Property="Foreground" Value="#b0b9c6"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="FontSize" Value="12"/>
-            <Setter Property="Height" Value="40"/>
-            <Setter Property="Padding" Value="15 10"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="0 10"/>
+        <Style x:Key="textboxSearch"
+               TargetType="TextBox">
+            <Setter Property="Background"
+                    Value="#ffffff" />
+            <Setter Property="Foreground"
+                    Value="#b0b9c6" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="FontSize"
+                    Value="12" />
+            <Setter Property="Height"
+                    Value="40" />
+            <Setter Property="Padding"
+                    Value="15 10" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Margin"
+                    Value="0 10" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBoxBase">
-                        <Border x:Name="border" CornerRadius="22" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="#e0e6ed">
-                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
+                        <Border x:Name="border"
+                                CornerRadius="22"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True"
+                                BorderThickness="1"
+                                BorderBrush="#e0e6ed">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="False"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
 
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="#d9d9d9" TargetName="border"/>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="BorderBrush"
+                                        Value="#d9d9d9"
+                                        TargetName="border" />
                             </Trigger>
 
-                            <Trigger Property="IsKeyboardFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="#d9d9d9" TargetName="border"/>
+                            <Trigger Property="IsKeyboardFocused"
+                                     Value="True">
+                                <Setter Property="BorderBrush"
+                                        Value="#d9d9d9"
+                                        TargetName="border" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -125,80 +182,127 @@
 
         </Style>
 
-        <Style x:Key="addButton" TargetType="Button">
-            <Setter Property="Background" Value="#6741d9"/>
-            <Setter Property="Foreground" Value="#ffffff"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Width" Value="150"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Margin" Value="0 20 0 0"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Grid.Row" Value="1"/>
+        <Style x:Key="addButton"
+               TargetType="Button">
+            <Setter Property="Background"
+                    Value="#6741d9" />
+            <Setter Property="Foreground"
+                    Value="#ffffff" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}" />
+            <Setter Property="Width"
+                    Value="150" />
+            <Setter Property="Height"
+                    Value="35" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Right" />
+            <Setter Property="Margin"
+                    Value="0 20 0 0" />
+            <Setter Property="FontSize"
+                    Value="13" />
+            <Setter Property="Grid.Row"
+                    Value="1" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="7">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
 
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#7b5cd6"/>
-                    <Setter Property="Foreground" Value="#ffffff"/>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#7b5cd6" />
+                    <Setter Property="Foreground"
+                            Value="#ffffff" />
                 </Trigger>
             </Style.Triggers>
 
         </Style>
 
 
-        <Style x:Key="tabButton" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#121518"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Width" Value="70"/>
-            <Setter Property="Height" Value="45"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
+        <Style x:Key="tabButton"
+               TargetType="Button">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="Foreground"
+                    Value="#121518" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}" />
+            <Setter Property="Width"
+                    Value="70" />
+            <Setter Property="Height"
+                    Value="45" />
+            <Setter Property="BorderBrush"
+                    Value="Transparent" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Right" />
+            <Setter Property="FontSize"
+                    Value="14" />
+            <Setter Property="FontWeight"
+                    Value="SemiBold" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"  BorderThickness="0 0 0 1" BorderBrush="{TemplateBinding BorderBrush}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}"
+                                BorderThickness="0 0 0 1"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
 
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="#784ff2"/>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="BorderBrush"
+                            Value="#784ff2" />
                 </Trigger>
             </Style.Triggers>
 
         </Style>
 
-        <Style x:Key="textboxFilter" TargetType="TextBox" BasedOn="{StaticResource textboxSearch}">
-            <Setter Property="Padding" Value="10 7"/>
+        <Style x:Key="textboxFilter"
+               TargetType="TextBox"
+               BasedOn="{StaticResource textboxSearch}">
+            <Setter Property="Padding"
+                    Value="10 7" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBoxBase">
-                        <Border x:Name="border" CornerRadius="7" Background="{TemplateBinding Background}" SnapsToDevicePixels="True" BorderThickness="1" BorderBrush="#e0e6ed">
-                            <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
+                        <Border x:Name="border"
+                                CornerRadius="7"
+                                Background="{TemplateBinding Background}"
+                                SnapsToDevicePixels="True"
+                                BorderThickness="1"
+                                BorderBrush="#e0e6ed">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Focusable="False"
+                                          HorizontalScrollBarVisibility="Hidden"
+                                          VerticalScrollBarVisibility="Hidden" />
 
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="#d9d9d9" TargetName="border"/>
+                            <Trigger Property="IsMouseOver"
+                                     Value="True">
+                                <Setter Property="BorderBrush"
+                                        Value="#d9d9d9"
+                                        TargetName="border" />
                             </Trigger>
 
-                            <Trigger Property="IsKeyboardFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="#d9d9d9" TargetName="border"/>
+                            <Trigger Property="IsKeyboardFocused"
+                                     Value="True">
+                                <Setter Property="BorderBrush"
+                                        Value="#d9d9d9"
+                                        TargetName="border" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -207,201 +311,326 @@
 
         </Style>
 
-        <Style x:Key="pagingButton" TargetType="Button">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#6c7682"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Margin" Value="1 0"/>
+        <Style x:Key="pagingButton"
+               TargetType="Button">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="Foreground"
+                    Value="#6c7682" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}" />
+            <Setter Property="FontSize"
+                    Value="13" />
+            <Setter Property="Margin"
+                    Value="1 0" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"  CornerRadius="5" Padding="10 5">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 1"/>
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                Padding="10 5">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="0 0 0 1" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
 
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#7950f2"/>
-                    <Setter Property="Foreground" Value="#ffffff"/>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#7950f2" />
+                    <Setter Property="Foreground"
+                            Value="#ffffff" />
                 </Trigger>
             </Style.Triggers>
 
         </Style>
 
-        <Style x:Key="pagingButtonIcon" TargetType="Icon:PackIconMaterial">
-            <Setter Property="Width" Value="10"/>
-            <Setter Property="Height" Value="10"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+        <Style x:Key="pagingButtonIcon"
+               TargetType="Icon:PackIconMaterial">
+            <Setter Property="Width"
+                    Value="10" />
+            <Setter Property="Height"
+                    Value="10" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
         </Style>
 
 
-        <Style x:Key="gridEditButton" TargetType="Button">
-            <Setter Property="Background" Value="#512da8"/>
-            <Setter Property="BorderBrush" Value="#4a148c"/>
-            <Setter Property="Foreground" Value="#ffffff"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+        <Style x:Key="gridEditButton"
+               TargetType="Button">
+            <Setter Property="Background"
+                    Value="#512da8" />
+            <Setter Property="BorderBrush"
+                    Value="#4a148c" />
+            <Setter Property="Foreground"
+                    Value="#ffffff" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"  CornerRadius="5" Padding="5" BorderThickness="1" BorderBrush="{TemplateBinding BorderBrush}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="5"
+                                Padding="5"
+                                BorderThickness="1"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#673ab7"/>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#673ab7" />
                 </Trigger>
             </Style.Triggers>
         </Style>
 
-        <Style x:Key="gridDeleteButton" TargetType="Button" BasedOn="{StaticResource gridEditButton}">
-            <Setter Property="Background" Value="#d32f2f"/>
-            <Setter Property="BorderBrush" Value="#b71c1c"/>
+        <Style x:Key="gridDeleteButton"
+               TargetType="Button"
+               BasedOn="{StaticResource gridEditButton}">
+            <Setter Property="Background"
+                    Value="#d32f2f" />
+            <Setter Property="BorderBrush"
+                    Value="#b71c1c" />
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#f44336"/>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#f44336" />
                 </Trigger>
             </Style.Triggers>
         </Style>
 
 
-        <Style x:Key="gridButtonIcon" TargetType="Icon:PackIconMaterial">
-            <Setter Property="Width" Value="12"/>
-            <Setter Property="Height" Value="12"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
+        <Style x:Key="gridButtonIcon"
+               TargetType="Icon:PackIconMaterial">
+            <Setter Property="Width"
+                    Value="12" />
+            <Setter Property="Height"
+                    Value="12" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
         </Style>
 
 
-        <Style x:Key="DataGridStyle1" TargetType="{x:Type DataGrid}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#222528"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected"/>
-            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
-            <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
-            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
-            <Setter Property="AutoGenerateColumns" Value="False"/>
-            <Setter Property="HeadersVisibility" Value="Column"/>
-            <Setter Property="Margin" Value="0 10 0 0"/>
-            <Setter Property="SelectionMode" Value="Single"/>
-            <Setter Property="SelectionUnit" Value="FullRow"/>
-            <Setter Property="CanUserAddRows" Value="False"/>
-            <Setter Property="CanUserDeleteRows" Value="False"/>
-            <Setter Property="CanUserResizeColumns" Value="False"/>
-            <Setter Property="CanUserReorderColumns" Value="False"/>
-            <Setter Property="CanUserResizeRows" Value="False"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="ColumnWidth" Value="*"/>
-            <Setter Property="GridLinesVisibility" Value="None"/>
-            <Setter Property="Padding" Value="{Binding (wpf:DataGridAssist.CellPadding), RelativeSource={RelativeSource Self}}"/>
+        <Style x:Key="DataGridStyle1"
+               TargetType="{x:Type DataGrid}">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="Foreground"
+                    Value="#222528" />
+            <Setter Property="BorderThickness"
+                    Value="0" />
+            <Setter Property="RowDetailsVisibilityMode"
+                    Value="VisibleWhenSelected" />
+            <Setter Property="ScrollViewer.CanContentScroll"
+                    Value="True" />
+            <Setter Property="ScrollViewer.PanningMode"
+                    Value="Both" />
+            <Setter Property="Stylus.IsFlicksEnabled"
+                    Value="False" />
+            <Setter Property="AutoGenerateColumns"
+                    Value="False" />
+            <Setter Property="HeadersVisibility"
+                    Value="Column" />
+            <Setter Property="Margin"
+                    Value="0 10 0 0" />
+            <Setter Property="SelectionMode"
+                    Value="Single" />
+            <Setter Property="SelectionUnit"
+                    Value="FullRow" />
+            <Setter Property="CanUserAddRows"
+                    Value="False" />
+            <Setter Property="CanUserDeleteRows"
+                    Value="False" />
+            <Setter Property="CanUserResizeColumns"
+                    Value="False" />
+            <Setter Property="CanUserReorderColumns"
+                    Value="False" />
+            <Setter Property="CanUserResizeRows"
+                    Value="False" />
+            <Setter Property="FontSize"
+                    Value="13" />
+            <Setter Property="ColumnWidth"
+                    Value="*" />
+            <Setter Property="GridLinesVisibility"
+                    Value="None" />
+            <Setter Property="Padding"
+                    Value="{Binding (wpf:DataGridAssist.CellPadding), RelativeSource={RelativeSource Self}}" />
         </Style>
-        <Style x:Key="DataGridCellStyle1" TargetType="{x:Type DataGridCell}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Margin" Value="15 0"/>
+        <Style x:Key="DataGridCellStyle1"
+               TargetType="{x:Type DataGridCell}">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}" />
+            <Setter Property="Margin"
+                    Value="15 0" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DataGridCell}">
                         <Grid>
-                            <Border Background="{TemplateBinding Background}" BorderThickness="0" SnapsToDevicePixels="True"/>
-                            <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderThickness="0"
+                                    SnapsToDevicePixels="True" />
+                            <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style x:Key="DataGridRowStyle1" TargetType="{x:Type DataGridRow}">
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Margin" Value="0 4 0 0"/>
-            <Setter Property="SnapsToDevicePixels" Value="true"/>
+        <Style x:Key="DataGridRowStyle1"
+               TargetType="{x:Type DataGridRow}">
+            <Setter Property="Background"
+                    Value="White" />
+            <Setter Property="Margin"
+                    Value="0 4 0 0" />
+            <Setter Property="SnapsToDevicePixels"
+                    Value="true" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DataGridRow}">
-                        <Border x:Name="DGR_Border" Background="{TemplateBinding Background}" BorderThickness="0" SnapsToDevicePixels="True" CornerRadius="5" Padding="0 8">
+                        <Border x:Name="DGR_Border"
+                                Background="{TemplateBinding Background}"
+                                BorderThickness="0"
+                                SnapsToDevicePixels="True"
+                                CornerRadius="5"
+                                Padding="0 8">
                             <SelectiveScrollingGrid>
                                 <SelectiveScrollingGrid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
                                 </SelectiveScrollingGrid.ColumnDefinitions>
                                 <SelectiveScrollingGrid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
                                 </SelectiveScrollingGrid.RowDefinitions>
-                                <DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
-                                <DataGridDetailsPresenter Grid.Column="1" Grid.Row="1" Visibility="{TemplateBinding DetailsVisibility}"/>
-                                <DataGridRowHeader Grid.Column="0" Grid.RowSpan="2" Grid.Row="0" Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
+                                <DataGridCellsPresenter Grid.Column="1"
+                                                        ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                <DataGridDetailsPresenter Grid.Column="1"
+                                                          Grid.Row="1"
+                                                          Visibility="{TemplateBinding DetailsVisibility}" />
+                                <DataGridRowHeader Grid.Column="0"
+                                                   Grid.RowSpan="2"
+                                                   Grid.Row="0"
+                                                   Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Row}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                             </SelectiveScrollingGrid>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Setter Property="Validation.ErrorTemplate" Value="{x:Null}"/>
+            <Setter Property="Validation.ErrorTemplate"
+                    Value="{x:Null}" />
             <Setter Property="ValidationErrorTemplate">
                 <Setter.Value>
                     <ControlTemplate>
-                        <TextBlock Foreground="#d50000" Margin="2,0,0,0" Text="!" VerticalAlignment="Center"/>
+                        <TextBlock Foreground="#d50000"
+                                   Margin="2,0,0,0"
+                                   Text="!"
+                                   VerticalAlignment="Center" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
             <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="#623ed0"/>
-                    <Setter Property="Foreground" Value="#ffffff"/>
+                <Trigger Property="IsSelected"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#623ed0" />
+                    <Setter Property="Foreground"
+                            Value="#ffffff" />
                 </Trigger>
-                <Trigger Property="IsSelected" Value="False">
-                    <Setter Property="Background" Value="White"/>
-                    <Setter Property="Foreground" Value="#000000"/>
+                <Trigger Property="IsSelected"
+                         Value="False">
+                    <Setter Property="Background"
+                            Value="White" />
+                    <Setter Property="Foreground"
+                            Value="#000000" />
                 </Trigger>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#623ed0"/>
-                    <Setter Property="Foreground" Value="#ffffff"/>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#623ed0" />
+                    <Setter Property="Foreground"
+                            Value="#ffffff" />
                 </Trigger>
                 <MultiTrigger>
                     <MultiTrigger.Conditions>
-                        <Condition Property="IsSelected" Value="true"/>
-                        <Condition Property="Selector.IsSelectionActive" Value="false"/>
+                        <Condition Property="IsSelected"
+                                   Value="true" />
+                        <Condition Property="Selector.IsSelectionActive"
+                                   Value="false" />
                     </MultiTrigger.Conditions>
-                    <Setter Property="Background" Value="#dfdfdf"/>
+                    <Setter Property="Background"
+                            Value="#dfdfdf" />
                 </MultiTrigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="MaterialDesignThumb" TargetType="{x:Type Thumb}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="OverridesDefaultStyle" Value="True"/>
-            <Setter Property="Padding" Value="8"/>
-            <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Style x:Key="MaterialDesignThumb"
+               TargetType="{x:Type Thumb}">
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="OverridesDefaultStyle"
+                    Value="True" />
+            <Setter Property="Padding"
+                    Value="8" />
+            <Setter Property="SnapsToDevicePixels"
+                    Value="True" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Thumb}">
-                        <Border x:Name="PART_Border" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        <Border x:Name="PART_Border"
+                                Background="{TemplateBinding Background}"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <Style x:Key="MaterialDesignGridColumnHeaderGripper" BasedOn="{StaticResource MaterialDesignThumb}" TargetType="{x:Type Thumb}">
-            <Setter Property="Cursor" Value="SizeWE"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Width" Value="8"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Style x:Key="MaterialDesignGridColumnHeaderGripper"
+               BasedOn="{StaticResource MaterialDesignThumb}"
+               TargetType="{x:Type Thumb}">
+            <Setter Property="Cursor"
+                    Value="SizeWE" />
+            <Setter Property="Padding"
+                    Value="0" />
+            <Setter Property="Width"
+                    Value="8" />
         </Style>
-        <Style x:Key="DataGridColumnHeaderStyle1" TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#69717d"/>
-            <Setter Property="Margin" Value="15 0 15 10"/>
-            <Setter Property="BorderBrush" Value="{Binding HorizontalGridLinesBrush, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
-            <Setter Property="BorderThickness" Value="{Binding GridLinesVisibility, Converter={StaticResource GridLinesVisibilityBorderToThicknessConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"/>
-            <Setter Property="Padding" Value="{Binding (wpf:DataGridAssist.ColumnHeaderPadding), RelativeSource={RelativeSource Self}}"/>
-            <Setter Property="TextBlock.FontWeight" Value="Medium"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Style x:Key="DataGridColumnHeaderStyle1"
+               TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Background"
+                    Value="Transparent" />
+            <Setter Property="Foreground"
+                    Value="#69717d" />
+            <Setter Property="Margin"
+                    Value="15 0 15 10" />
+            <Setter Property="BorderBrush"
+                    Value="{Binding HorizontalGridLinesBrush, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+            <Setter Property="BorderThickness"
+                    Value="{Binding GridLinesVisibility, Converter={StaticResource GridLinesVisibilityBorderToThicknessConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+            <Setter Property="Padding"
+                    Value="{Binding (wpf:DataGridAssist.ColumnHeaderPadding), RelativeSource={RelativeSource Self}}" />
+            <Setter Property="TextBlock.FontWeight"
+                    Value="Medium" />
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center" />
         </Style>
 
     </Window.Resources>
@@ -409,7 +638,10 @@
 
 
 
-    <Border Background="#eff2f7" CornerRadius="30" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+    <Border Background="#eff2f7"
+            CornerRadius="30"
+            MouseDown="Border_MouseDown"
+            MouseLeftButtonDown="Border_MouseLeftButtonDown">
 
 
         <Grid>
@@ -428,101 +660,184 @@
 
 
                 <!--Menu Icon-->
-                <Button Margin="20 28 0 35" Style="{StaticResource topButton}" x:Name="menuBtn">
-                    <Icon:PackIconMaterial Kind="Menu" Width="15" Height="15" />
+                <Button Margin="20 28 0 35"
+                        Style="{StaticResource topButton}"
+                        x:Name="menuBtn">
+                    <Icon:PackIconMaterial Kind="Menu"
+                                           Width="15"
+                                           Height="15" />
                 </Button>
 
 
-                <Border Grid.Row="1" Background="#623ed0" CornerRadius="0 50 0 30">
+                <Border Grid.Row="1"
+                        Background="#623ed0"
+                        CornerRadius="0 50 0 30">
                     <DockPanel>
                         <!--Menu Logo-->
-                        <Border Width="80" Height="80" Padding="3" Background="White" CornerRadius="100" DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 -30 0 0">
+                        <Border Width="80"
+                                Height="80"
+                                Padding="3"
+                                Background="White"
+                                CornerRadius="100"
+                                DockPanel.Dock="Top"
+                                HorizontalAlignment="Left"
+                                Margin="20 -30 0 0">
                             <Ellipse>
                                 <Ellipse.Fill>
-                                    <ImageBrush  ImageSource="Assets/Logo.jpeg"/>
+                                    <ImageBrush  ImageSource="Assets/Logo.jpeg" />
                                 </Ellipse.Fill>
                             </Ellipse>
                         </Border>
 
                         <!--Menu Tiles-->
 
-                        <TextBlock Text="FYP" Foreground="White" FontSize="28" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center" Margin="5 25 0 10"/>
+                        <TextBlock Text="FYP"
+                                   Foreground="White"
+                                   FontSize="28"
+                                   FontWeight="SemiBold"
+                                   DockPanel.Dock="Top"
+                                   TextAlignment="Center"
+                                   Margin="5 25 0 10" />
 
-                        <TextBlock Text="Management System" Foreground="#d0bfff" FontSize="14" FontWeight="SemiBold" DockPanel.Dock="Top" TextAlignment="Center"/>
+                        <TextBlock Text="Management System"
+                                   Foreground="#d0bfff"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   DockPanel.Dock="Top"
+                                   TextAlignment="Center" />
 
                         <!--Menu Separator-->
-                        <Separator Margin="25" DockPanel.Dock="Top" Height="0.8" Background="#7e5fdc"/>
+                        <Separator Margin="25"
+                                   DockPanel.Dock="Top"
+                                   Height="0.8"
+                                   Background="#7e5fdc" />
 
 
                         <!--Menu Buttons-->
-                        <ScrollViewer DockPanel.Dock="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer DockPanel.Dock="Top"
+                                      HorizontalScrollBarVisibility="Auto"
+                                      VerticalScrollBarVisibility="Auto">
                             <StackPanel DockPanel.Dock="Top">
-                                <Button x:Name="dashboardBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                <Button x:Name="dashboardBtn"
+                                        Click="buttonClicked"
+                                        Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="HomeVariant" Style="{StaticResource menuButtonIcon}"/>
-                                        <TextBlock Text="Dashboard" VerticalAlignment="Center" Width="100"/>
+                                        <Icon:PackIconMaterial Kind="HomeVariant"
+                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <TextBlock Text="Dashboard"
+                                                   VerticalAlignment="Center"
+                                                   Width="100" />
                                     </StackPanel>
                                 </Button>
-                                <Button x:Name="studentBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                <Button x:Name="studentBtn"
+                                        Click="buttonClicked"
+                                        Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
+                                        <Icon:PackIconMaterial Kind="AndroidStudio"
+                                                               Style="{StaticResource menuButtonIcon}" />
                                         <!--<fa:FontAwesome Icon="GraduationCap" FontSize="20" Style="{StaticResource menuButtonIcon1}"/>-->
-                                        <TextBlock Text="Students" VerticalAlignment="Center" Width="100"/>
+                                        <TextBlock Text="Students"
+                                                   VerticalAlignment="Center"
+                                                   Width="100" />
                                     </StackPanel>
                                 </Button>
-                                <Button x:Name="advisorBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                <Button x:Name="advisorBtn"
+                                        Click="buttonClicked"
+                                        Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="InstrumentTriangle" Style="{StaticResource menuButtonIcon}"/>
-                                        <TextBlock Text="Advisors" VerticalAlignment="Center" Width="100"/>
+                                        <Icon:PackIconMaterial Kind="InstrumentTriangle"
+                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <TextBlock Text="Advisors"
+                                                   VerticalAlignment="Center"
+                                                   Width="100" />
                                     </StackPanel>
                                 </Button>
-                                <Button x:Name="projectBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                <Button x:Name="projectBtn"
+                                        Click="buttonClicked"
+                                        Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="Projector" Style="{StaticResource menuButtonIcon}"/>
-                                        <TextBlock Text="Projects" VerticalAlignment="Center" Width="100"/>
+                                        <Icon:PackIconMaterial Kind="Projector"
+                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <TextBlock Text="Projects"
+                                                   VerticalAlignment="Center"
+                                                   Width="100" />
                                     </StackPanel>
                                 </Button>
-                                <Button x:Name="evaluationBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                <Button x:Name="evaluationBtn"
+                                        Click="buttonClicked"
+                                        Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
-                                        <TextBlock Text="Evaluations" VerticalAlignment="Center" Width="100"/>
+                                        <Icon:PackIconMaterial Kind="AndroidStudio"
+                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <TextBlock Text="Evaluations"
+                                                   VerticalAlignment="Center"
+                                                   Width="100" />
                                     </StackPanel>
                                 </Button>
-                                <Button x:Name="markEvaluationBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                <Button x:Name="markEvaluationBtn"
+                                        Click="buttonClicked"
+                                        Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
-                                        <TextBlock Text="Mark Evaluation" VerticalAlignment="Center" Width="100"/>
+                                        <Icon:PackIconMaterial Kind="AndroidStudio"
+                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <TextBlock Text="Mark Evaluation"
+                                                   VerticalAlignment="Center"
+                                                   Width="100" />
                                     </StackPanel>
                                 </Button>
 
 
 
-                                <Button x:Name="groupBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                <Button x:Name="groupBtn"
+                                        Click="buttonClicked"
+                                        Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
-                                        <TextBlock Text="Groups" VerticalAlignment="Center" Width="100"/>
+                                        <Icon:PackIconMaterial Kind="AndroidStudio"
+                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <TextBlock Text="Groups"
+                                                   VerticalAlignment="Center"
+                                                   Width="100" />
                                     </StackPanel>
                                 </Button>
-                                <Button x:Name="assignAdvisorBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                <Button x:Name="assignAdvisorBtn"
+                                        Click="buttonClicked"
+                                        Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="AndroidStudio" Style="{StaticResource menuButtonIcon}"/>
-                                        <TextBlock Text="Assign Advisors" VerticalAlignment="Center" Width="100"/>
+                                        <Icon:PackIconMaterial Kind="AndroidStudio"
+                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <TextBlock Text="Assign Advisors"
+                                                   VerticalAlignment="Center"
+                                                   Width="100" />
                                     </StackPanel>
                                 </Button>
 
-                                <Button x:Name="reportBtn" Click="buttonClicked" Style="{StaticResource menuButton}">
+                                <Button x:Name="reportBtn"
+                                        Click="buttonClicked"
+                                        Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="MicrosoftSharepoint" Style="{StaticResource menuButtonIcon}"/>
-                                        <TextBlock Text="Generate Report" VerticalAlignment="Center" Width="100"/>
+                                        <Icon:PackIconMaterial Kind="MicrosoftSharepoint"
+                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <TextBlock Text="Generate Report"
+                                                   VerticalAlignment="Center"
+                                                   Width="100" />
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
                         </ScrollViewer>
 
-                        <Button x:Name="exitBtn" Click="buttonClicked" Style="{StaticResource menuButton}" DockPanel.Dock="Bottom" VerticalAlignment="Bottom" Margin="15 15 0 15">
+                        <Button x:Name="exitBtn"
+                                Click="buttonClicked"
+                                Style="{StaticResource menuButton}"
+                                DockPanel.Dock="Bottom"
+                                VerticalAlignment="Bottom"
+                                Margin="15 15 0 15">
                             <StackPanel Orientation="Horizontal">
-                                <Icon:PackIconMaterial Kind="Logout" Width="30" Style="{StaticResource menuButtonIcon}"/>
-                                <TextBlock Text="Exit" VerticalAlignment="Center" Width="100"/>
+                                <Icon:PackIconMaterial Kind="Logout"
+                                                       Width="30"
+                                                       Style="{StaticResource menuButtonIcon}" />
+                                <TextBlock Text="Exit"
+                                           VerticalAlignment="Center"
+                                           Width="100" />
                             </StackPanel>
                         </Button>
 
@@ -531,7 +846,8 @@
                 </Border>
             </Grid>
 
-            <ContentControl Grid.Column="1" x:Name="CC"/>
+            <ContentControl Grid.Column="1"
+                            x:Name="CC" />
 
 
             <!--Main Window Part-->

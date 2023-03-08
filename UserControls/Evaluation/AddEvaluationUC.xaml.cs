@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,24 @@ namespace ProjectA.UserControls.Evaluation
             txtTotalMarks.Text = totalMarks;
             txtTotalWeightage.Text = totalWeightage;
             this.id = id;
+        }
+
+        private bool WeightageSumCalculate(int weightage)
+        {
+            int totalWeightage = 0;
+            var con = Configuration.getInstance().getConnection();
+            SqlCommand cmd = new SqlCommand("SELECT SUM(TotalWeightage) AS total FROM Evaluation", con);
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                totalWeightage = int.Parse(reader["total"].ToString());
+            }
+            reader.Close();
+            if (totalWeightage + weightage > 100)
+            {
+                return false;
+            }
+            return true;
         }
 
         private void revertBtn_Click(object sender, RoutedEventArgs e)
@@ -76,6 +95,10 @@ namespace ProjectA.UserControls.Evaluation
             else if (txtTotalWeightage.Text == "")
             {
                 MessageBox.Show("Please Select Total Weightahe of the Evaluation " + txtName.Text, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else if (!WeightageSumCalculate(int.Parse(txtTotalWeightage.Text.ToString())))
+            {
+                MessageBox.Show("Total Weightage of Over All Evaluations cannot be over 100", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -118,6 +141,7 @@ namespace ProjectA.UserControls.Evaluation
                 }
                 findParentControls();
             }
+
         }
     }
 }

@@ -12,19 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using System.Data.SqlClient;
-using System.IO;
-using CRUD_Operations;
 using System.Data;
 using System.Xml.Linq;
 using UserControl = System.Windows.Controls.UserControl;
 using Microsoft.Win32;
+using System.IO;
+using CRUD_Operations;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 using MessageBox = System.Windows.MessageBox;
 using DataGrid = System.Windows.Controls.DataGrid;
+using Paragraph = iTextSharp.text.Paragraph;
+using System.Drawing;
+using Font = iTextSharp.text.Font;
+using iTextSharp.text.pdf.qrcode;
 
 namespace ProjectA.UserControls.PDFReports
 {
@@ -33,77 +37,385 @@ namespace ProjectA.UserControls.PDFReports
     /// </summary>
     public partial class PDFReportUC : UserControl
     {
+        Font boldFont = new Font(Font.FontFamily.TIMES_ROMAN, 16, Font.BOLD);
+        Font textFont = new Font(Font.FontFamily.TIMES_ROMAN, 12);
         public PDFReportUC()
         {
             InitializeComponent();
         }
 
-        //private void 
 
-
-        private void AddPDF()
+        private Document TitlePage(ref Document document)
         {
-            //var con = Configuration.getInstance().getConnection();
-            //SqlCommand cmd = new SqlCommand("Select P.Id, S.RegistrationNo AS [Reg], (FirstName + ' ' + LastName) AS Name,L.Value AS Gender,(SELECT FORMAT(DateOfBirth, 'dd-MM-yyyy')) AS [DoB],Contact,Email from Person P JOIN Student S ON S.Id=P.Id JOIN Lookup L ON L.Id=P.Gender", con);
-            //SqlDataReader reader = cmd.ExecuteReader();
+            // Set page size, margins, author, date, title, header
+            document.SetPageSize(PageSize.A4);
+            document.SetMargins(30, 30, 30, 30);
+            document.AddAuthor("Umair Noor");
+            document.AddCreationDate();
+            document.AddTitle("PDF Report");
+            document.AddHeader("Title", "FYP Management System");
 
 
-            //// Create new PDF document
-            //Document document = new Document();
-            //PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(sfd.FileName, FileMode.Create));
-            //document.Open();
 
-            //// Set page size, margins, and orientation
-            //document.SetPageSize(PageSize.A4);
-            //document.SetMargins(30, 30, 30, 30);
-            ////document.SetPageOrientation(PdfWriter.PageLayoutSinglePage);
+            // Adding title page
+            document.NewPage();
+            Paragraph title = new Paragraph("FYP Management System", boldFont);
+            title.SpacingBefore = 50f;
+            title.SpacingAfter = 50f;
+            title.Font.Size = 28;
+            title.Alignment = Element.ALIGN_CENTER;
+            document.Add(title);
+
+            //document.Add(new Paragraph(Chunk.NEWLINE));
+
+            // Adding UET LOGO Image
+            string imageURL = "Assets\\uet_logo.png";
+            iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(imageURL);
+            //Resize image depend upon your need
+            jpg.ScaleToFit(140f, 120f);
+            //Give space before image
+            jpg.SpacingBefore = 10f;
+            //Give some space after the image
+            jpg.SpacingAfter = 1f;
+            jpg.Alignment = Element.ALIGN_CENTER;
+
+            document.Add(jpg);
 
 
-            //PdfPTable headerTable = new PdfPTable(1);
-            //headerTable.WidthPercentage = 100;
-            //PdfPCell headerCell = new PdfPCell(new Phrase("Your report header"));
-            ////headerCell.Border = Rectangle.NO_BORDER;
-            //headerCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            //headerTable.AddCell(headerCell);
-            ////document.SetHeader(headerTable);
 
-            //PdfPTable footerTable = new PdfPTable(1);
-            //footerTable.WidthPercentage = 100;
-            //PdfPCell footerCell = new PdfPCell(new Phrase("Your report footer"));
-            ////footerCell.Border = Rectangle.NO_BORDER;
-            //footerCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            //footerTable.AddCell(footerCell);
-            ////document.SetFooter(footerTable);
+            Paragraph session = new Paragraph("Session: 2021 - 2025", textFont);
+            session.SpacingBefore = 10f;
+            session.SpacingAfter = 50f;
+            session.Alignment = Element.ALIGN_CENTER;
+            document.Add(session);
 
-            //// Create table and add data
-            //PdfPTable table = new PdfPTable(reader.FieldCount);
-            //table.WidthPercentage = 100;
-            //for (int i = 0; i < reader.FieldCount; i++)
-            //{
-            //    PdfPCell cell = new PdfPCell(new Phrase(reader.GetName(i)));
-            //    cell.HorizontalAlignment = Element.ALIGN_CENTER;
-            //    table.AddCell(cell);
-            //}
 
-            //while (reader.Read())
-            //{
-            //    for (int i = 0; i < reader.FieldCount; i++)
-            //    {
-            //        PdfPCell cell = new PdfPCell(new Phrase(reader[i].ToString()));
-            //        cell.HorizontalAlignment = Element.ALIGN_CENTER;
-            //        table.AddCell(cell);
-            //    }
-            //}
+            Paragraph submittedParagraph = new Paragraph("Submitted By:", boldFont);
+            submittedParagraph.SpacingBefore = 10f;
+            submittedParagraph.Font.Size = 16;
+            submittedParagraph.Alignment = Element.ALIGN_CENTER;
+            document.Add(submittedParagraph);
 
-            //document.Add(table);
 
-            //// Close PDF document and writer
-            //document.Close();
-            //writer.Close();
+            Paragraph nameParagraph = new Paragraph("Umair Noor Ahmad        2021-CS-207", textFont);
+            nameParagraph.SpacingBefore = 10f;
+            nameParagraph.SpacingAfter = 80f;
+            nameParagraph.Font.Size = 14;
+            nameParagraph.Alignment = Element.ALIGN_CENTER;
+            document.Add(nameParagraph);
+
+
+            Paragraph submittedToParagraph = new Paragraph("Submitted To:", boldFont);
+            submittedToParagraph.SpacingBefore = 10f;
+            submittedToParagraph.Font.Size = 16;
+            submittedToParagraph.Alignment = Element.ALIGN_CENTER;
+            document.Add(submittedToParagraph);
+
+
+            Paragraph teacherParagraph = new Paragraph("Sir Samyan", textFont);
+            teacherParagraph.SpacingBefore = 10f;
+            teacherParagraph.SpacingAfter = 50f;
+            teacherParagraph.Font.Size = 14;
+            teacherParagraph.Alignment = Element.ALIGN_CENTER;
+            document.Add(teacherParagraph);
+
+            Paragraph departmentParagraph = new Paragraph("Department of Computer Science", textFont);
+            departmentParagraph.SpacingBefore = 80f;
+            departmentParagraph.SpacingAfter = 10f;
+            departmentParagraph.Font.Size = 18;
+            departmentParagraph.Alignment = Element.ALIGN_CENTER;
+            document.Add(departmentParagraph);
+
+            Paragraph uetParagraph = new Paragraph("University of Engineering And Technology, Lahore", boldFont);
+            uetParagraph.SpacingBefore = 10f;
+            uetParagraph.SpacingAfter = 10f;
+            uetParagraph.Font.Size = 24;
+            uetParagraph.Alignment = Element.ALIGN_CENTER;
+            document.Add(uetParagraph);
+
+            return document;
+        }
+
+        private Document GetStudents(ref Document document)
+        {
+            try
+            {
+                document.NewPage();
+                Paragraph title = new Paragraph("All Students", boldFont);
+                title.SpacingBefore = 20f;
+                title.SpacingAfter = 20f;
+                title.Font.Size = 20;
+                title.Alignment = Element.ALIGN_CENTER;
+                document.Add(title);
+
+                var con = Configuration.getInstance().getConnection();
+                SqlCommand cmd = new SqlCommand("Select S.RegistrationNo AS [Registration No], (FirstName + ' ' + LastName) AS Name,L.Value AS Gender,(SELECT FORMAT(DateOfBirth, 'dd-MM-yyyy')) AS [DoB],Contact,Email from Person P JOIN Student S ON S.Id=P.Id JOIN Lookup L ON L.Id=P.Gender", con);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                PdfPTable table = new PdfPTable(reader.FieldCount);
+                table.WidthPercentage = 100;
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(reader.GetName(i)));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell.BackgroundColor = new BaseColor(128, 128, 128);
+                    table.AddCell(cell);
+                }
+
+                while (reader.Read())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        PdfPCell cell = new PdfPCell(new Phrase(reader[i].ToString()));
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        table.AddCell(cell);
+                    }
+                }
+                reader.Close();
+                document.Add(table);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return document;
+        }
+
+        private Document DisplayGroups(ref Document document)
+        {
+            try
+            {
+                document.NewPage();
+                Paragraph title = new Paragraph("Groups With Their Project and Students", boldFont);
+                title.SpacingBefore = 20f;
+                title.SpacingAfter = 20f;
+                title.Font.Size = 20;
+                title.Alignment = Element.ALIGN_CENTER;
+                document.Add(title);
+
+                var con = Configuration.getInstance().getConnection();
+                SqlCommand cmd = new SqlCommand("SELECT CONCAT('G-',G.Id) AS [Group],Pr.Title AS [Project],STRING_AGG(S.RegistrationNo, CHAR(13)) AS [Students] FROM [Group] G JOIN GroupStudent GS ON G.Id=GS.GroupId JOIN GroupProject GP ON GP.GroupId=G.Id JOIN Project Pr ON Pr.Id=GP.ProjectId JOIN Student S ON S.Id=GS.StudentId JOIN Person P ON P.Id=S.Id JOIN Lookup L ON L.Id=GS.Status WHERE L.Value='Active' GROUP BY G.Id,Pr.Title ORDER BY G.Id ASC", con);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                PdfPTable table = new PdfPTable(reader.FieldCount);
+                table.WidthPercentage = 100;
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(reader.GetName(i)));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell.BackgroundColor = new BaseColor(128, 128, 128);
+                    table.AddCell(cell);
+                }
+
+                while (reader.Read())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        PdfPCell cell = new PdfPCell(new Phrase(reader[i].ToString()));
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        table.AddCell(cell);
+                    }
+                }
+                reader.Close();
+                document.Add(table);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return document;
         }
 
 
-        private void GetTitlePage()
+
+        private void GenerateStudentReport()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "PDF (*.pdf)|*.pdf";
+            sfd.FileName = "Students.pdf";
+            bool errorMessage = false;
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(sfd.FileName))
+                {
+                    try
+                    {
+                        File.Delete(sfd.FileName);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        errorMessage = true;
+                        MessageBox.Show("Unable to write data in disk" + ex.Message);
+                    }
+                }
+                if (!errorMessage)
+                {
+                    // Create new PDF document
+                    Document document = new Document();
+                    PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(sfd.FileName, FileMode.Create));
+                    document.Open();
+
+
+                    document = TitlePage(ref document);
+                    document = GetStudents(ref document);
+
+                    // Close PDF document and writer
+                    document.Close();
+                    writer.Close();
+                }
+            }
+        }
+
+        private void StudentReportBtn_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateStudentReport();
+        }
+
+        private Document GetAdvisors(ref Document document)
+        {
+            try
+            {
+                document.NewPage();
+                Paragraph title = new Paragraph("All Advisors", boldFont);
+                title.SpacingBefore = 20f;
+                title.SpacingAfter = 20f;
+                title.Font.Size = 20;
+                title.Alignment = Element.ALIGN_CENTER;
+                document.Add(title);
+
+                var con = Configuration.getInstance().getConnection();
+                SqlCommand cmd = new SqlCommand("Select (FirstName + ' ' + LastName) AS Name, L1.Value AS Designation,A.Salary,L.Value AS Gender,(SELECT FORMAT(DateOfBirth, 'dd-MM-yyyy')) AS [DoB],Contact,Email from Person P JOIN Advisor A ON A.Id=P.Id JOIN Lookup L ON L.Id=P.Gender JOIN Lookup L1 ON L1.Id=A.Designation", con);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                PdfPTable table = new PdfPTable(reader.FieldCount);
+                table.WidthPercentage = 100;
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(reader.GetName(i)));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell.BackgroundColor = new BaseColor(128, 128, 128);
+                    table.AddCell(cell);
+                }
+
+                while (reader.Read())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        PdfPCell cell = new PdfPCell(new Phrase(reader[i].ToString()));
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        table.AddCell(cell);
+                    }
+                }
+                reader.Close();
+                document.Add(table);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return document;
+        }
+
+        private void GenerateAdvisorReport()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "PDF (*.pdf)|*.pdf";
+            sfd.FileName = "Advisors.pdf";
+            bool errorMessage = false;
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(sfd.FileName))
+                {
+                    try
+                    {
+                        File.Delete(sfd.FileName);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        errorMessage = true;
+                        MessageBox.Show("Unable to write data in disk" + ex.Message);
+                    }
+                }
+                if (!errorMessage)
+                {
+                    // Create new PDF document
+                    Document document = new Document();
+                    PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(sfd.FileName, FileMode.Create));
+                    document.Open();
+
+
+                    document = TitlePage(ref document);
+                    document = GetAdvisors(ref document);
+
+                    // Close PDF document and writer
+                    document.Close();
+                    writer.Close();
+                }
+            }
+        }
+
+        private void AdvisorBtn_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateAdvisorReport();
+        }
+        private Document GetProjectAndAdvisoryBoard(ref Document document)
+        {
+            try
+            {
+                document.NewPage();
+                Paragraph title = new Paragraph("Project Title Along Advisory Board", boldFont);
+                title.SpacingBefore = 20f;
+                title.SpacingAfter = 20f;
+                title.Font.Size = 20;
+                title.Alignment = Element.ALIGN_CENTER;
+                document.Add(title);
+
+                var con = Configuration.getInstance().getConnection();
+                SqlCommand cmd = new SqlCommand("SELECT MAX(P.Title) Title,MAX(P.Description) AS [Project Description], MAX(CASE WHEN L.Value='Main Advisor' THEN CONCAT(Person.FirstName,' ',Person.LastName) END) AS [Main Advisor], MAX(CASE WHEN L.Value='Co-Advisor' THEN CONCAT(Person.FirstName,' ',Person.LastName) END) AS [Co Advisor], MAX(CASE WHEN L.Value='Industry Advisor' THEN CONCAT(Person.FirstName,' ',Person.LastName) END) AS [Industry Advisor] FROM  ProjectAdvisor PA INNER JOIN Advisor A ON PA.AdvisorId = A.Id JOIN Project P ON P.Id=PA.ProjectId JOIN Person ON Person.Id=A.Id JOIN Lookup L ON L.Id=PA.AdvisorRole GROUP BY PA.ProjectId", con);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                PdfPTable table = new PdfPTable(reader.FieldCount);
+                table.WidthPercentage = 100;
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(reader.GetName(i)));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell.BackgroundColor = new BaseColor(128, 128, 128);
+                    table.AddCell(cell);
+                }
+
+                while (reader.Read())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        PdfPCell cell = new PdfPCell(new Phrase(reader[i].ToString()));
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        table.AddCell(cell);
+                    }
+                }
+                reader.Close();
+                document.Add(table);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return document;
+        }
+
+        private void GenerateProjectAdvisoryBoardReport()
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "PDF (*.pdf)|*.pdf";
@@ -122,9 +434,8 @@ namespace ProjectA.UserControls.PDFReports
                     catch (Exception ex)
                     {
                         errorMessage = true;
-                        MessageBox.Show("Unable to wride data in disk" + ex.Message);
+                        MessageBox.Show("Unable to write data in disk" + ex.Message);
                     }
-
                 }
                 if (!errorMessage)
                 {
@@ -133,61 +444,9 @@ namespace ProjectA.UserControls.PDFReports
                     PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(sfd.FileName, FileMode.Create));
                     document.Open();
 
-                    // Set page size, margins, author, date, title, header
-                    document.SetPageSize(PageSize.A4);
-                    document.SetMargins(30, 30, 30, 30);
-                    document.AddAuthor("Umair Noor");
-                    document.AddCreationDate();
-                    document.AddTitle("PDF Report");
-                    document.AddHeader("Title", "FYP Management System");
 
-                    // Adding title page
-                    document.NewPage();
-                    PdfPTable headerTable = new PdfPTable(1);
-                    headerTable.WidthPercentage = 100;
-                    Chunk headerChunk = new Chunk("FYP Management System", FontFactory.GetFont("Times New Roman"));
-                    headerChunk.Font.Size = 28;
-                    PdfPCell headerCell = new PdfPCell(new Phrase(headerChunk));
-                    headerCell.Border = iTextSharp.text.Rectangle.NO_BORDER;
-                    headerCell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    headerTable.AddCell(headerCell);
-                    document.Add(headerTable);
-
-
-
-
-
-                    string imageURL = "D:\\Semester4\\Database Lab\\MID Project\\ProjectA\\Assets\\uet_logo.png";
-                    iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(imageURL);
-                    //Resize image depend upon your need
-                    jpg.ScaleToFit(140f, 120f);
-                    //Give space before image
-                    jpg.SpacingBefore = 10f;
-                    //Give some space after the image
-                    jpg.SpacingAfter = 1f;
-                    jpg.Alignment = Element.ALIGN_CENTER;
-
-                    string imageURL2 = "D:\\Semester4\\Database Lab\\MID Project\\ProjectA\\Assets\\logo.jpeg";
-                    iTextSharp.text.Image jpg2 = iTextSharp.text.Image.GetInstance(imageURL2);
-                    //Resize image depend upon your need
-                    jpg2.ScaleToFit(140f, 120f);
-                    //Give space before image
-                    jpg2.SpacingBefore = 10f;
-                    //Give some space after the image
-                    jpg2.SpacingAfter = 1f;
-                    jpg2.Alignment = Element.ALIGN_CENTER;
-
-                    PdfPTable titleImg = new PdfPTable(2);
-                    titleImg.WidthPercentage = 100;
-                    PdfPCell imgCell1 = new PdfPCell();
-                    imgCell1.AddElement(jpg);
-                    imgCell1.AddElement(jpg2);
-                    titleImg.AddCell(imgCell1);
-                    document.Add(titleImg);
-
-
-
-
+                    document = TitlePage(ref document);
+                    document = GetProjectAndAdvisoryBoard(ref document);
 
                     // Close PDF document and writer
                     document.Close();
@@ -196,292 +455,77 @@ namespace ProjectA.UserControls.PDFReports
             }
         }
 
-        private void report1Btn_Click(object sender, RoutedEventArgs e)
+        private void ProjectAdvisorBtn_Click(object sender, RoutedEventArgs e)
         {
-            GetTitlePage();
-            //PdfPTable pdfTableBlank = new PdfPTable(1);
-            ////Footer Section
-            //PdfPTable pdfTableFooter = new PdfPTable(1);
-            //pdfTableFooter.DefaultCell.BorderWidth = 0;
-            //pdfTableFooter.WidthPercentage = 100;
-            //pdfTableFooter.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            //Chunk cnkFooter = new Chunk("FYP Management System", FontFactory.GetFont("Times New Roman"));
-            ////cnkFooter.Font.SetStyle(1);
-            //cnkFooter.Font.Size = 10;
-            //pdfTableFooter.AddCell(new Phrase(cnkFooter));
-            ////End Of Footer Section
-            //pdfTableBlank.AddCell(new Phrase(" "));
-            //pdfTableBlank.DefaultCell.Border = 0;
-
-            //PdfPTable pdfTable1 = new PdfPTable(1);//Here 1 is Used For Count of Column
-            //PdfPTable pdfTable2 = new PdfPTable(1);
-            //PdfPTable pdfTable3 = new PdfPTable(2);
-            ////Font Style
-            //System.Drawing.Font fontH1 = new System.Drawing.Font("Currier", 16);
-            ////pdfTable1.DefaultCell.Padding = 5;
-            //pdfTable1.WidthPercentage = 80;
-            //pdfTable1.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            //pdfTable1.DefaultCell.VerticalAlignment = Element.ALIGN_CENTER;
-            ////pdfTable1.DefaultCell.BackgroundColor = new iTextSharp.text.BaseColor(64, 134, 170);
-            //pdfTable1.DefaultCell.BorderWidth = 0;
-            ////pdfTable1.DefaultCell.Padding = 5;
-            //pdfTable2.WidthPercentage = 80;
-            //pdfTable2.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
-            //pdfTable2.DefaultCell.VerticalAlignment = Element.ALIGN_CENTER;
-            ////pdfTab2e1.DefaultCell.BackgroundColor = new iTextSharp.text.BaseColor(64, 134, 170);
-            //pdfTable2.DefaultCell.BorderWidth = 0;
-            //pdfTable3.DefaultCell.Padding = 5;
-            //pdfTable3.WidthPercentage = 80;
-            //pdfTable3.DefaultCell.BorderWidth = 0.5f;
-            //Chunk c1 = new Chunk("FYP Management System", FontFactory.GetFont("Times New Roman"));
-            //c1.Font.Color = new iTextSharp.text.BaseColor(0, 0, 0);
-            //c1.Font.SetStyle(0);
-            //c1.Font.Size = 14;
-            //Phrase p1 = new Phrase();
-            //p1.Add(c1);
-            //pdfTable1.AddCell(p1);
-
-
-            //PdfPTable pdfTable4 = new PdfPTable(4);
-            //pdfTable4.DefaultCell.Padding = 5;
-            //pdfTable4.WidthPercentage = 80;
-            //pdfTable4.DefaultCell.BorderWidth = 0.0f;
-            //pdfTable4.AddCell(new Phrase("Bill No "));
-            //pdfTable4.AddCell(new Phrase("B001"));
-            //pdfTable4.AddCell(new Phrase("Date "));
-            //pdfTable4.AddCell(new Phrase("01-01-2017"));
-            //pdfTable4.AddCell(new Phrase("Vendor "));
-            //pdfTable4.AddCell(new Phrase("Demo Vendor"));
-            //pdfTable4.AddCell(new Phrase("Address "));
-            //pdfTable4.AddCell(new Phrase("Kolkata"));
-
-
-            //string imageURL = "D:\\Semester4\\Database Lab\\MID Project\\ProjectA\\Assets\\uet_logo.png";
-            //iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(imageURL);
-            ////Resize image depend upon your need
-            //jpg.ScaleToFit(140f, 120f);
-            ////Give space before image
-            //jpg.SpacingBefore = 10f;
-            ////Give some space after the image
-            //jpg.SpacingAfter = 1f;
-            //jpg.Alignment = Element.ALIGN_CENTER;
-
-
-            ////Table entering
-
-
-            //string folderPath = "D:\\PDF\\";
-            //if (!Directory.Exists(folderPath))
-            //{
-            //    Directory.CreateDirectory(folderPath);
-            //}
-            ////File Name
-            //int fileCount = Directory.GetFiles("D:\\PDF").Length;
-            //string strFileName = "DescriptionForm" + (fileCount + 1) + ".pdf";
-            //using (FileStream stream = new FileStream(folderPath + strFileName, FileMode.Create))
-            //{
-            //    Document pdfDoc = new Document(PageSize.A4, 10f, 10f, 10f, 0f);
-            //    PdfWriter.GetInstance(pdfDoc, stream);
-            //    pdfDoc.Open();
-
-            //    pdfDoc.Add(pdfTable1);
-            //    pdfDoc.Add(pdfTable2);
-            //    pdfDoc.Add(pdfTableBlank);
-            //    pdfDoc.Add(jpg);
-            //    pdfDoc.Add(pdfTable3);
-            //    pdfDoc.Add(pdfTableFooter);
-            //    pdfDoc.NewPage();
-
-            //    // pdfDoc.Add(jpg);
-            //    //pdfDoc.Add(pdfTable2);
-            //    pdfDoc.Close();
-            //    stream.Close();
-            //}
-
-
-            //System.Diagnostics.Process.Start(folderPath + "\\" + strFileName);
-
-
-
+            GenerateProjectAdvisoryBoardReport();
         }
 
-        //private void report1Btn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    SaveFileDialog sfd = new SaveFileDialog();
-        //    sfd.Filter = "Pdf File |*.pdf";
-        //    sfd.FileName = "Students.pdf";
-
-        //    bool ErrorMessage = false;
-
-        //    if (sfd.ShowDialog() == DialogResult.OK)
-        //    {
-        //        if (File.Exists(sfd.FileName))
-        //        {
-
-        //            try
-        //            {
-
-        //                File.Delete(sfd.FileName);
-
-        //            }
-        //            catch (Exception ex)
-        //            {
-
-        //                ErrorMessage = true;
-
-        //                MessageBox.Show("Unable to wride data in disk" + ex.Message);
-
-        //            }
-
-        //        }
-
-        //        if (!ErrorMessage)
-        //        {
-
-
-
-        //            //var con = Configuration.getInstance().getConnection();
-        //            //SqlCommand cmd = new SqlCommand("Select P.Id, S.RegistrationNo AS [Reg], (FirstName + ' ' + LastName) AS Name,L.Value AS Gender,(SELECT FORMAT(DateOfBirth, 'dd-MM-yyyy')) AS [DoB],Contact,Email from Person P JOIN Student S ON S.Id=P.Id JOIN Lookup L ON L.Id=P.Gender", con);
-        //            //SqlDataReader reader = cmd.ExecuteReader();
-
-
-        //            // Create new PDF document
-        //            Document document = new Document();
-        //            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(sfd.FileName, FileMode.Create));
-        //            document.Open();
-
-        //            // Set page size, margins, and orientation
-        //            document.SetPageSize(PageSize.A4);
-        //            document.SetMargins(30, 30, 30, 30);
-        //            //document.SetPageOrientation(PdfWriter.PageLayoutSinglePage);
-
-
-
-
-        //            //PdfPTable headerTable = new PdfPTable(1);
-        //            //headerTable.WidthPercentage = 100;
-        //            //PdfPCell headerCell = new PdfPCell(new Phrase("Your report header"));
-        //            ////headerCell.Border = Rectangle.NO_BORDER;
-        //            //headerCell.HorizontalAlignment = Element.ALIGN_CENTER;
-        //            //headerTable.AddCell(headerCell);
-        //            ////document.SetHeader(headerTable);
-
-        //            //PdfPTable footerTable = new PdfPTable(1);
-        //            //footerTable.WidthPercentage = 100;
-        //            //PdfPCell footerCell = new PdfPCell(new Phrase("Your report footer"));
-        //            ////footerCell.Border = Rectangle.NO_BORDER;
-        //            //footerCell.HorizontalAlignment = Element.ALIGN_CENTER;
-        //            //footerTable.AddCell(footerCell);
-        //            ////document.SetFooter(footerTable);
-
-        //            //// Create table and add data
-        //            //PdfPTable table = new PdfPTable(reader.FieldCount);
-        //            //table.WidthPercentage = 100;
-        //            //for (int i = 0; i < reader.FieldCount; i++)
-        //            //{
-        //            //    PdfPCell cell = new PdfPCell(new Phrase(reader.GetName(i)));
-        //            //    cell.HorizontalAlignment = Element.ALIGN_CENTER;
-        //            //    table.AddCell(cell);
-        //            //}
-
-        //            //while (reader.Read())
-        //            //{
-        //            //    for (int i = 0; i < reader.FieldCount; i++)
-        //            //    {
-        //            //        PdfPCell cell = new PdfPCell(new Phrase(reader[i].ToString()));
-        //            //        cell.HorizontalAlignment = Element.ALIGN_CENTER;
-        //            //        table.AddCell(cell);
-        //            //    }
-        //            //}
-
-        //            //document.Add(table);
-
-        //            // Close PDF document and writer
-        //            document.Close();
-        //            writer.Close();
-        //        }
-
-        //    }
-
-        //}
-
-
-        private void report2Btn_Click(object sender, RoutedEventArgs e)
+        private List<int> GetEvaluationIds()
         {
-            DataGrid Students = new DataGrid();
-            SaveFileDialog sfd = new SaveFileDialog();
-
-            sfd.Filter = "PDF (*.pdf)|*.pdf";
-
-            sfd.FileName = "AdvisoryBoard.pdf";
-
-            bool ErrorMessage = false;
-
-            if (sfd.ShowDialog() == DialogResult.OK)
+            List<int> evaluationIds = new List<int>();
+            var con = Configuration.getInstance().getConnection();
+            SqlCommand cmd = new SqlCommand("SELECT Id FROM Evaluation ORDER BY Id ASC", con);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
             {
+                evaluationIds.Add(int.Parse(reader["Id"].ToString()));
+            }
+            reader.Close();
 
-                if (File.Exists(sfd.FileName))
+            return evaluationIds;
+        }
+
+        private List<string> GetEvaluationTitle()
+        {
+            List<string> evaluationTitles = new List<string>();
+            var con = Configuration.getInstance().getConnection();
+            SqlCommand cmd = new SqlCommand("SELECT CONCAT(Name,CHAR(13),TotalMarks) AS name FROM Evaluation ORDER BY Id ASC", con);
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                evaluationTitles.Add(reader["name"].ToString());
+            }
+            reader.Close();
+
+            return evaluationTitles;
+        }
+
+        private Document MarkSheet(ref Document document)
+        {
+            try
+            {
+                List<int> evaluationIds = GetEvaluationIds();
+                List<string> evaluationTitle = GetEvaluationTitle();
+                if (evaluationIds.Count > 0)
                 {
-
-                    try
+                    //MAX(CASE WHEN L.Value = 'Main Advisor' THEN CONCAT(Person.FirstName, ' ', Person.LastName) END) AS[Main Advisor]
+                    string query = "";
+                    int idx = 0;
+                    foreach (int evaluationId in evaluationIds)
                     {
-
-                        File.Delete(sfd.FileName);
-
+                        query += ",MAX(CASE WHEN E.Id=" + evaluationId + " THEN GE.ObtainedMarks END) AS [" + evaluationTitle[idx] + "]";
+                        idx++;
                     }
-                    catch (Exception ex)
-                    {
+                    document.NewPage();
 
-                        ErrorMessage = true;
-
-                        MessageBox.Show("Unable to wride data in disk" + ex.Message);
-
-                    }
-
-                }
-
-                if (!ErrorMessage)
-                {
-
+                    Paragraph title = new Paragraph("Mark Sheet", boldFont);
+                    title.SpacingBefore = 20f;
+                    title.SpacingAfter = 20f;
+                    title.Font.Size = 20;
+                    title.Alignment = Element.ALIGN_CENTER;
+                    document.Add(title);
+                    //,SUM((SELECT ((GE2.ObtainedMarks/E2.TotalMarks)*E2.TotalWeightage) FROM GroupEvaluation AS GE2 JOIN Evaluation AS E2 ON GE2.EvaluationId = E2.Id JOIN GroupStudent AS GS2 ON GS2.GroupId = GE2.GroupId WHERE GS2.StudentId=S.Id)) AS [Total Marks]
                     var con = Configuration.getInstance().getConnection();
-                    SqlCommand cmd = new SqlCommand("SELECT PA.ProjectId, MAX(P.Title) Title, MAX(CASE WHEN PA.AdvisorRole = 11 THEN CONCAT(Person.FirstName,' ',Person.LastName) END) AS MainAdvisor, MAX(CASE WHEN PA.AdvisorRole = 12 THEN CONCAT(Person.FirstName,' ',Person.LastName) END) AS CoAdvisor, MAX(CASE WHEN PA.AdvisorRole = 14 THEN CONCAT(Person.FirstName,' ',Person.LastName) END) AS IndustryAdvisor FROM  ProjectAdvisor PA INNER JOIN Advisor A ON PA.AdvisorId = A.Id JOIN Project P ON P.Id=PA.ProjectId JOIN Person ON Person.Id=A.Id GROUP BY PA.ProjectId", con);
+                    SqlCommand cmd = new SqlCommand("SELECT S.RegistrationNo AS [Reg No],MAX(CONCAT(P.FirstName,' ',P.LastName)) AS [Student Name],MAX(Pr.Title) AS [Project Title] " + query + " FROM GroupEvaluation AS GE JOIN Evaluation AS E ON GE.EvaluationId=E.Id JOIN GroupStudent AS GS ON GS.GroupId=GE.GroupId JOIN Student AS S ON S.Id=GS.StudentId JOIN Person AS P ON P.Id=S.Id JOIN GroupProject AS GP ON GP.GroupId=GE.GroupId JOIN Project AS Pr ON Pr.Id=GP.ProjectId WHERE GS.Status IN (SELECT Id FROM Lookup WHERE Value='Active') GROUP BY GE.GroupId,Pr.Id,S.Id,S.RegistrationNo ORDER BY GE.GroupId,Pr.Id,S.RegistrationNo", con);
                     SqlDataReader reader = cmd.ExecuteReader();
 
-
-                    // Create new PDF document
-                    Document document = new Document();
-                    PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(sfd.FileName, FileMode.Create));
-                    document.Open();
-
-                    // Set page size, margins, and orientation
-                    document.SetPageSize(PageSize.A4);
-                    document.SetMargins(30, 30, 30, 30);
-                    //document.SetPageOrientation(PdfWriter.PageLayoutSinglePage);
-
-
-                    PdfPTable headerTable = new PdfPTable(1);
-                    headerTable.WidthPercentage = 100;
-                    PdfPCell headerCell = new PdfPCell(new Phrase("Your report header"));
-                    //headerCell.Border = Rectangle.NO_BORDER;
-                    headerCell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    headerTable.AddCell(headerCell);
-                    //document.SetHeader(headerTable);
-
-                    PdfPTable footerTable = new PdfPTable(1);
-                    footerTable.WidthPercentage = 100;
-                    PdfPCell footerCell = new PdfPCell(new Phrase("Your report footer"));
-                    //footerCell.Border = Rectangle.NO_BORDER;
-                    footerCell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    footerTable.AddCell(footerCell);
-                    //document.SetFooter(footerTable);
-
-                    // Create table and add data
                     PdfPTable table = new PdfPTable(reader.FieldCount);
                     table.WidthPercentage = 100;
                     for (int i = 0; i < reader.FieldCount; i++)
                     {
                         PdfPCell cell = new PdfPCell(new Phrase(reader.GetName(i)));
                         cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        cell.BackgroundColor = new BaseColor(128, 128, 128);
                         table.AddCell(cell);
                     }
 
@@ -494,17 +538,203 @@ namespace ProjectA.UserControls.PDFReports
                             table.AddCell(cell);
                         }
                     }
-
+                    reader.Close();
                     document.Add(table);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return document;
+        }
+
+        private void GenerateMarkSheetReport()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "PDF (*.pdf)|*.pdf";
+            sfd.FileName = "Mark_Sheet.pdf";
+            bool errorMessage = false;
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(sfd.FileName))
+                {
+                    try
+                    {
+                        File.Delete(sfd.FileName);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        errorMessage = true;
+                        MessageBox.Show("Unable to write data in disk" + ex.Message);
+                    }
+                }
+                if (!errorMessage)
+                {
+                    // Create new PDF document
+                    Document document = new Document();
+                    PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(sfd.FileName, FileMode.Create));
+                    document.Open();
+
+
+                    document = TitlePage(ref document);
+                    document = MarkSheet(ref document);
 
                     // Close PDF document and writer
                     document.Close();
                     writer.Close();
+                }
+            }
+        }
 
+        private void MarkSheetBtn_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateMarkSheetReport();
+        }
+
+        private Document GetEvaluations(ref Document document)
+        {
+            try
+            {
+                document.NewPage();
+                Paragraph title = new Paragraph("Evaluations", boldFont);
+                title.SpacingBefore = 20f;
+                title.SpacingAfter = 20f;
+                title.Font.Size = 20;
+                title.Alignment = Element.ALIGN_CENTER;
+                document.Add(title);
+
+                var con = Configuration.getInstance().getConnection();
+                SqlCommand cmd = new SqlCommand("Select Name AS [Evaluation Title],TotalMarks AS [Total Marks],TotalWeightage AS [Total Weightage] from Evaluation E", con);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                PdfPTable table = new PdfPTable(reader.FieldCount);
+                table.WidthPercentage = 100;
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(reader.GetName(i)));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell.BackgroundColor = new BaseColor(128, 128, 128);
+                    table.AddCell(cell);
                 }
 
+                while (reader.Read())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        PdfPCell cell = new PdfPCell(new Phrase(reader[i].ToString()));
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        table.AddCell(cell);
+                    }
+                }
+                reader.Close();
+                document.Add(table);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
 
+            return document;
+        }
+
+        private void GenerateEvaluationReport()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "PDF (*.pdf)|*.pdf";
+            sfd.FileName = "Evaluations.pdf";
+            bool errorMessage = false;
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(sfd.FileName))
+                {
+                    try
+                    {
+                        File.Delete(sfd.FileName);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        errorMessage = true;
+                        MessageBox.Show("Unable to write data in disk" + ex.Message);
+                    }
+                }
+                if (!errorMessage)
+                {
+                    // Create new PDF document
+                    Document document = new Document();
+                    PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(sfd.FileName, FileMode.Create));
+                    document.Open();
+
+
+                    document = TitlePage(ref document);
+                    document = GetEvaluations(ref document);
+
+                    // Close PDF document and writer
+                    document.Close();
+                    writer.Close();
+                }
+            }
+        }
+
+        private void EvaluationReportBtn_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateEvaluationReport();
+        }
+
+        private void GenerateCollectiveReport()
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "PDF (*.pdf)|*.pdf";
+            sfd.FileName = "FYP_Management_System_Report.pdf";
+            bool errorMessage = false;
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                if (File.Exists(sfd.FileName))
+                {
+                    try
+                    {
+                        File.Delete(sfd.FileName);
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        errorMessage = true;
+                        MessageBox.Show("Unable to write data in disk" + ex.Message);
+                    }
+                }
+                if (!errorMessage)
+                {
+                    // Create new PDF document
+                    Document document = new Document();
+                    PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(sfd.FileName, FileMode.Create));
+                    document.Open();
+
+
+                    document = TitlePage(ref document);
+                    document = GetAdvisors(ref document);
+                    document = GetProjectAndAdvisoryBoard(ref document);
+                    document = GetStudents(ref document);
+                    document = DisplayGroups(ref document);
+                    document = GetEvaluations(ref document);
+                    document = MarkSheet(ref document);
+
+                    // Close PDF document and writer
+                    document.Close();
+                    writer.Close();
+                }
+            }
+        }
+
+        private void collectiveReport_Click(object sender, RoutedEventArgs e)
+        {
+            GenerateCollectiveReport();
         }
     }
 }
