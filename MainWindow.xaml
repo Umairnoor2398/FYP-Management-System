@@ -663,19 +663,10 @@
                 </Grid.RowDefinitions>
 
 
-                <!--Menu Icon-->
-                <Button Margin="20 28 0 35"
-                        Style="{StaticResource topButton}"
-                        x:Name="menuBtn">
-                    <Icon:PackIconMaterial Kind="Menu"
-                                           Width="15"
-                                           Height="15" />
-                </Button>
-
 
                 <Border Grid.Row="1"
                         Background="#623ed0"
-                        CornerRadius="0 50 0 30">
+                        CornerRadius="30 50 50 30">
                     <DockPanel>
                         <!--Menu Logo-->
                         <Border Width="80"
@@ -685,7 +676,7 @@
                                 CornerRadius="100"
                                 DockPanel.Dock="Top"
                                 HorizontalAlignment="Left"
-                                Margin="20 -30 0 0">
+                                Margin="20 50 0 0">
                             <Ellipse>
                                 <Ellipse.Fill>
                                     <ImageBrush  ImageSource="Assets/Logo.jpeg" />
