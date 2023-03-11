@@ -36,23 +36,10 @@ namespace ProjectA.UserControls.Group
             try
             {
                 var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand("SELECT CONCAT('G-',G.Id) AS GroupId,P.Id AS ProjectId,P.Title,COUNT(GS.StudentId) AS GStudent,G.Created_On FROM [Group] AS G LEFT JOIN GroupProject AS GP ON G.Id=GP.GroupId LEFT JOIN GroupStudent AS GS ON GS.GroupId=G.Id LEFT JOIN Project AS P ON GP.ProjectId=P.Id WHERE GS.Status=3 GROUP BY G.Id,P.Id,P.Title,G.Created_On", con);
-                //GROUP BY G.Id,P.Id,P.Title,G.Created_On
+                SqlCommand cmd = new SqlCommand("SELECT CONCAT('G-',G.Id) AS GroupId,P.Id AS ProjectId,P.Title,COUNT(GS.StudentId) AS GStudent,(SELECT FORMAT(G.Created_On, 'dd-MM-yyyy')) AS Created_On FROM [Group] AS G LEFT JOIN GroupProject AS GP ON G.Id=GP.GroupId LEFT JOIN GroupStudent AS GS ON GS.GroupId=G.Id LEFT JOIN Project AS P ON GP.ProjectId=P.Id WHERE GS.Status=3 GROUP BY G.Id,P.Id,P.Title,G.Created_On", con);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
-
-                //var dataView = new DataView(dt);
-                //var collectionViewSource = new CollectionViewSource();
-                //collectionViewSource.Source = dataView;
-                //var groupDescription = new PropertyGroupDescription("GroupId");
-                //collectionViewSource.GroupDescriptions.Add(groupDescription);
-
-                ////groupDescription = new PropertyGroupDescription("Title");
-                ////collectionViewSource.GroupDescriptions.Add(groupDescription);
-
-                //GroupDataGrid.ItemsSource = collectionViewSource.View;
 
                 GroupDataGrid.ItemsSource = dt.DefaultView;
             }
@@ -72,11 +59,9 @@ namespace ProjectA.UserControls.Group
                     var con = Configuration.getInstance().getConnection();
                     SqlCommand cmd = new SqlCommand("INSERT INTO [Group](Created_On) VALUES(@date); SELECT Id FROM [Group] ORDER BY Id Desc", con);
                     cmd.Parameters.AddWithValue("@date", DateTime.Today);
-                    //cmd.ExecuteNonQuery();
                     SqlDataReader reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
-                        //; SELECT SCOPE_IDENTITY() AS Id;
                         id = int.Parse(reader["Id"].ToString());
                     }
                     reader.Close();
@@ -101,37 +86,7 @@ namespace ProjectA.UserControls.Group
             DisplayGroups();
         }
 
-        private void deleteRecord(int id)
-        {
-            try
-            {
-                var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand("DELETE FROM [GroupEvaluation] WHERE GroupId=@Id;DELETE FROM [GroupStudent] WHERE GroupId=@Id;DELETE FROM [GroupProject] WHERE GroupId=@Id;DELETE FROM [Group] WHERE Id=@Id", con);
-                //SqlCommand cmd1 = new SqlCommand("DELETE FROM Person Where Id=@Id", con);
-                cmd.Parameters.AddWithValue("@Id", id);
-                //cmd1.Parameters.AddWithValue("@Id", id);
-                cmd.ExecuteNonQuery();
-                //cmd1.ExecuteNonQuery();
-                MessageBox.Show("Record Deleted!!!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
 
-        private void deleteBtn_Click(object sender, RoutedEventArgs e)
-        {
-            DataRowView row = GroupDataGrid.SelectedItem as DataRowView;
-            if (row != null)
-            {
-                string GroupId = row["GroupId"].ToString();
-                string[] GId = GroupId.Split('-');
-                int groupId = int.Parse(GId[1]);
-                deleteRecord(groupId);
-                DisplayGroups();
-            }
-        }
 
         private void editBtn_Click(object sender, RoutedEventArgs e)
         {

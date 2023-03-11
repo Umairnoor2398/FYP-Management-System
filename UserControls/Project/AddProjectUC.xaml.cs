@@ -44,7 +44,7 @@ namespace ProjectA.UserControls.Project
             txtTitle.Clear();
             txtDescription.Clear();
         }
-        private void findParentControls()
+        private void CloseUserControl()
         {
             var parent = VisualTreeHelper.GetParent(this);
             while ((parent != null) && !(parent is CRUDProjectUC))
@@ -63,6 +63,33 @@ namespace ProjectA.UserControls.Project
             }
         }
 
+        private bool Validation()
+        {
+            string title = txtTitle.Text;
+            bool titleValid = false;
+            string Alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz .";
+            foreach (char n in title)
+            {
+                if (Alphabets.Contains(n.ToString()))
+                {
+                    titleValid = true;
+                }
+            }
+            if (titleValid)
+            {
+                titleValid = !Validations.ValidationInDatabase("SELECT Title FROM Project WHERE Title='" + title + "' AND Id<>" + id);
+                if (!titleValid)
+                {
+                    MessageBox.Show("There already exists one Project With the same name", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Project Title must Contain Alphabets", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return titleValid;
+        }
+
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             if (txtTitle.Text == "")
@@ -73,7 +100,7 @@ namespace ProjectA.UserControls.Project
             {
                 MessageBox.Show("Describe the project a little bit to save it", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else
+            else if (Validation())
             {
                 if (addBtn.Content.ToString() == "Add")
                 {
@@ -110,7 +137,7 @@ namespace ProjectA.UserControls.Project
                         return;
                     }
                 }
-                findParentControls();
+                CloseUserControl();
             }
         }
     }

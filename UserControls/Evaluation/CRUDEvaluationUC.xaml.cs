@@ -56,32 +56,7 @@ namespace ProjectA.UserControls.Evaluation
             }
 
         }
-        private void deleteRecord(int id)
-        {
-            try
-            {
-                var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand("DELETE FROM Evaluation Where Id=@Id", con);
-                cmd.Parameters.AddWithValue("@Id", id);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Record Deleted!!!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
 
-        private void deleteBtn_Click(object sender, RoutedEventArgs e)
-        {
-            DataRowView row = EvaluationDataGrid.SelectedItem as DataRowView;
-            if (row != null)
-            {
-                int id = Int32.Parse(row["Id"].ToString());
-                deleteRecord(id);
-                ViewEvaluation();
-            }
-        }
         private bool WeightageSumCalculate()
         {
             int totalWeightage = 0;
@@ -99,7 +74,7 @@ namespace ProjectA.UserControls.Evaluation
         {
             if (addBtn.Content.ToString() == "Add")
             {
-                if (EvaluationDataGrid.Items.Count != 5 && WeightageSumCalculate())
+                if (EvaluationDataGrid.Items.Count < 5 && WeightageSumCalculate())
                 {
                     evaluationCC.Content = new AddEvaluationUC();
                     addEvaluationForm.Visibility = Visibility.Visible;

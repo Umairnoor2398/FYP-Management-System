@@ -46,6 +46,12 @@
     <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
     </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro.IconPacks.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=0c0d510f9915137a, processorArchitecture=MSIL">
       <HintPath>packages\MahApps.Metro.IconPacks.Material.4.11.0\lib\net47\MahApps.Metro.IconPacks.Core.dll</HintPath>
     </Reference>
@@ -132,9 +138,6 @@
     <Compile Include="UserControls\Advisor\ProjectAdvisorUC.xaml.cs">
       <DependentUpon>ProjectAdvisorUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\DashBoard\DashBoardUC.xaml.cs">
-      <DependentUpon>DashBoardUC.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\Evaluation\AddEvaluationUC.xaml.cs">
       <DependentUpon>AddEvaluationUC.xaml</DependentUpon>
     </Compile>
@@ -168,6 +171,7 @@
     <Compile Include="UserControls\Student\CRUDStudent.xaml.cs">
       <DependentUpon>CRUDStudent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Validations.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -198,10 +202,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Advisor\ProjectAdvisorUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\DashBoard\DashBoardUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -295,10 +295,10 @@
     <Resource Include="Assets\report.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\student.png">
+    <Resource Include="Assets\uet_logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Assets\uet_logo.png">
+    <Resource Include="Assets\student.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Content Include="Monikers.imagemanifest">

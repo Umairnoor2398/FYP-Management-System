@@ -43,7 +43,6 @@ namespace ProjectA.UserControls.Evaluation
             totalMarkstxtBlock.Text = totalMarks.ToString();
             txtObtainedMarks.Text = obtainedMarks.ToString();
             this.evaluationId = evaluationId;
-            //this.groupId = int.Parse(groupId);
             string[] GId = groupId.Split('-');
             this.groupId = int.Parse(GId[1]);
             GetSelectedEvaluationId(evaluationName);
@@ -65,7 +64,6 @@ namespace ProjectA.UserControls.Evaluation
         private void EvaluationToComboBox()
         {
             var con = Configuration.getInstance().getConnection();
-            //SqlCommand cmd = new SqlCommand("Select Name From Evaluation", con);
             SqlCommand cmd = new SqlCommand("SELECT E.Name FROM Evaluation E EXCEPT SELECT E.Name FROM Evaluation E JOIN GroupEvaluation GE ON GE.EvaluationId = E.Id JOIN [Group] G ON G.Id = GE.GroupId WHERE G.Id = '" + groupId + "'", con);
             SqlDataAdapter d = new SqlDataAdapter(cmd);
             DataSet dt = new DataSet();
@@ -123,7 +121,7 @@ namespace ProjectA.UserControls.Evaluation
             }
         }
 
-        private void findParentControls()
+        private void CloseUserControl()
         {
             var parent = VisualTreeHelper.GetParent(this);
             while ((parent != null) && !(parent is MarkEvaluationDisplayUC))
@@ -141,7 +139,19 @@ namespace ProjectA.UserControls.Evaluation
                 this.Visibility = Visibility.Collapsed;
             }
         }
-
+        private bool ObtainedMarksValidations(string marks)
+        {
+            string numbers = "0123456789";
+            bool isValid = true;
+            foreach (char n in marks)
+            {
+                if (!numbers.Contains(n.ToString()))
+                {
+                    return false;
+                }
+            }
+            return isValid;
+        }
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             if (GroupComboBox.Text == string.Empty)
@@ -160,7 +170,7 @@ namespace ProjectA.UserControls.Evaluation
             {
                 MessageBox.Show("Obtained Marks cannot be greater than total marks", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else
+            else if (ObtainedMarksValidations(txtObtainedMarks.Text))
             {
                 if (addBtn.Content.ToString() == "Add")
                 {
@@ -200,7 +210,11 @@ namespace ProjectA.UserControls.Evaluation
                         return;
                     }
                 }
-                findParentControls();
+                CloseUserControl();
+            }
+            else
+            {
+                MessageBox.Show("Obtained marks can only be int", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

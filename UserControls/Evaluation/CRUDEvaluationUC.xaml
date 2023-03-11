@@ -92,10 +92,6 @@
                         x:Name="addBtn"
                         Click="addBtn_Click"
                         Content="Add">
-                    <!--<StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Height="11" Margin="0 1 8 0"/>
-                        <TextBlock Text="Add New Student"/>
-                    </StackPanel>-->
                 </Button>
             </Grid>
 
@@ -139,7 +135,7 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Operations"
+                    <DataGridTemplateColumn Header="Edit"
                                             IsReadOnly="True"
                                             Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
@@ -151,14 +147,6 @@
                                             Background="Transparent">
                                         <Icon:PackIconMaterial Kind="PencilOutline"
                                                                Foreground="Gray" />
-                                    </Button>
-                                    <Button  Margin="5 0 0 0"
-                                             x:Name="deleteBtn"
-                                             BorderBrush="Transparent"
-                                             Background="Transparent"
-                                             Click="deleteBtn_Click">
-                                        <Icon:PackIconMaterial Kind="DeleteOutline"
-                                                               Foreground="Red" />
                                     </Button>
                                 </StackPanel>
                             </DataTemplate>

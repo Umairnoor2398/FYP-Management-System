@@ -1,12 +1,12 @@
 ﻿<UserControl x:Class="ProjectA.UserControls.Evaluation.MarkEvaluationDisplayUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ProjectA.UserControls.Advisor"
              xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
-             mc:Ignorable="d" 
-             d:DesignHeight="600" 
+             mc:Ignorable="d"
+             d:DesignHeight="600"
              d:DesignWidth="830"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -18,108 +18,151 @@
              FontFamily="{DynamicResource MaterialDesignFont}">
 
     <UserControl.Resources>
-        <Style x:Key="addButton" TargetType="Button">
-            <Setter Property="Background" Value="#6741d9"/>
-            <Setter Property="Foreground" Value="#ffffff"/>
-            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-            <Setter Property="Width" Value="150"/>
-            <Setter Property="Height" Value="35"/>
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Margin" Value="0 20 0 0"/>
-            <Setter Property="FontSize" Value="13"/>
-            <Setter Property="Grid.Row" Value="1"/>
+        <Style x:Key="addButton"
+               TargetType="Button">
+            <Setter Property="Background"
+                    Value="#6741d9" />
+            <Setter Property="Foreground"
+                    Value="#ffffff" />
+            <Setter Property="FocusVisualStyle"
+                    Value="{x:Null}" />
+            <Setter Property="Width"
+                    Value="150" />
+            <Setter Property="Height"
+                    Value="35" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Right" />
+            <Setter Property="Margin"
+                    Value="0 20 0 0" />
+            <Setter Property="FontSize"
+                    Value="13" />
+            <Setter Property="Grid.Row"
+                    Value="1" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="7">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="7">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center" />
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
 
             <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#7b5cd6"/>
-                    <Setter Property="Foreground" Value="#ffffff"/>
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+                    <Setter Property="Background"
+                            Value="#7b5cd6" />
+                    <Setter Property="Foreground"
+                            Value="#ffffff" />
                 </Trigger>
             </Style.Triggers>
 
         </Style>
     </UserControl.Resources>
 
-    <materialDesign:Card Padding="32" Margin="16">
+    <materialDesign:Card Padding="32"
+                         Margin="16">
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="100" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0" Text="Marked Evaluations" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0" VerticalAlignment="Center" HorizontalAlignment="Left" Foreground="#121518"/>
+                <TextBlock Grid.Column="0"
+                           Text="Marked Evaluations"
+                           Grid.Row="1"
+                           FontSize="32"
+                           FontWeight="SemiBold"
+                           Margin="0 20 0 0"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
+                           Foreground="#121518" />
 
-                <Button Grid.Column="1" Style="{StaticResource addButton}" x:Name="addBtn" Click="addBtn_Click" Content="Add">
-                    <!--<StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Height="11" Margin="0 1 8 0"/>
-                        <TextBlock Text="Add New Student"/>
-                    </StackPanel>-->
+                <Button Grid.Column="1"
+                        Style="{StaticResource addButton}"
+                        x:Name="addBtn"
+                        Click="addBtn_Click"
+                        Content="Add">
                 </Button>
             </Grid>
 
-            <ScrollViewer Grid.Row="1" x:Name="markEvaluationForm" Visibility="Collapsed">
+            <ScrollViewer Grid.Row="1"
+                          x:Name="markEvaluationForm"
+                          Visibility="Collapsed">
                 <UserControl x:Name="markEvaluationCC" />
             </ScrollViewer>
-            <DataGrid Grid.Row="1" AutoGenerateColumns="False" x:Name="MarkedEvaluationDataGrid" IsReadOnly="True" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" CanUserResizeColumns="False">
+            <DataGrid Grid.Row="1"
+                      AutoGenerateColumns="False"
+                      x:Name="MarkedEvaluationDataGrid"
+                      IsReadOnly="True"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserReorderColumns="False"
+                      CanUserResizeRows="False"
+                      CanUserSortColumns="False"
+                      CanUserResizeColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Group ID" Width="*">
+                    <DataGridTemplateColumn Header="Group ID"
+                                            Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding GroupId}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Evaluation Title" Width="*">
+                    <DataGridTemplateColumn Header="Evaluation Title"
+                                            Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Total Marks" Width="*">
+                    <DataGridTemplateColumn Header="Total Marks"
+                                            Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding TotalMarks}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Obtained Marks" Width="*">
+                    <DataGridTemplateColumn Header="Obtained Marks"
+                                            Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding ObtainedMarks}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Date" Width="*">
+                    <DataGridTemplateColumn Header="Date"
+                                            Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding EvaluationDate}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
+                    <DataGridTemplateColumn Header="Edit"
+                                            IsReadOnly="True"
+                                            Width="auto">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button x:Name="editBtn" Click="editBtn_Click" BorderBrush="Transparent" Background="Transparent">
-                                        <Icon:PackIconMaterial Kind="PencilOutline" Foreground="Gray"/>
-                                    </Button>
-                                    <Button  Margin="5 0 0 0" x:Name="deleteBtn" BorderBrush="Transparent" Background="Transparent" Click="deleteBtn_Click">
-                                        <Icon:PackIconMaterial Kind="DeleteOutline" Foreground="Red"/>
+                                    <Button x:Name="editBtn"
+                                            Click="editBtn_Click"
+                                            BorderBrush="Transparent"
+                                            Background="Transparent">
+                                        <Icon:PackIconMaterial Kind="PencilOutline"
+                                                               Foreground="Gray" />
                                     </Button>
                                 </StackPanel>
                             </DataTemplate>

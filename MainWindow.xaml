@@ -22,10 +22,6 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         TextOptions.TextRenderingMode="Auto"
         xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
-
-
-
-
     <Window.Resources>
         <Style x:Key="topButton"
                TargetType="Button">
@@ -106,6 +102,18 @@
 
         <Style x:Key="menuButtonIcon"
                TargetType="Icon:PackIconMaterial">
+            <Setter Property="Width"
+                    Value="30" />
+            <Setter Property="Height"
+                    Value="30" />
+            <Setter Property="VerticalAlignment"
+                    Value="Center" />
+            <Setter Property="Margin"
+                    Value="20 2 20 2" />
+        </Style>
+
+        <Style x:Key="menuButtonIconImage"
+               TargetType="Image">
             <Setter Property="Width"
                     Value="30" />
             <Setter Property="Height"
@@ -635,14 +643,10 @@
 
     </Window.Resources>
 
-
-
-
     <Border Background="#eff2f7"
             CornerRadius="30"
             MouseDown="Border_MouseDown"
             MouseLeftButtonDown="Border_MouseLeftButtonDown">
-
 
         <Grid>
 
@@ -718,24 +722,12 @@
                                       HorizontalScrollBarVisibility="Auto"
                                       VerticalScrollBarVisibility="Auto">
                             <StackPanel DockPanel.Dock="Top">
-                                <Button x:Name="dashboardBtn"
-                                        Click="buttonClicked"
-                                        Style="{StaticResource menuButton}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="HomeVariant"
-                                                               Style="{StaticResource menuButtonIcon}" />
-                                        <TextBlock Text="Dashboard"
-                                                   VerticalAlignment="Center"
-                                                   Width="100" />
-                                    </StackPanel>
-                                </Button>
                                 <Button x:Name="studentBtn"
                                         Click="buttonClicked"
                                         Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="AndroidStudio"
-                                                               Style="{StaticResource menuButtonIcon}" />
-                                        <!--<fa:FontAwesome Icon="GraduationCap" FontSize="20" Style="{StaticResource menuButtonIcon1}"/>-->
+                                        <Image Source="Assets/student.png"
+                                               Style="{StaticResource menuButtonIconImage}" />
                                         <TextBlock Text="Students"
                                                    VerticalAlignment="Center"
                                                    Width="100" />
@@ -745,8 +737,8 @@
                                         Click="buttonClicked"
                                         Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="InstrumentTriangle"
-                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <Image Source="Assets/advisor.png"
+                                               Style="{StaticResource menuButtonIconImage}" />
                                         <TextBlock Text="Advisors"
                                                    VerticalAlignment="Center"
                                                    Width="100" />
@@ -756,8 +748,8 @@
                                         Click="buttonClicked"
                                         Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="Projector"
-                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <Image Source="Assets/project.png"
+                                               Style="{StaticResource menuButtonIconImage}" />
                                         <TextBlock Text="Projects"
                                                    VerticalAlignment="Center"
                                                    Width="100" />
@@ -767,8 +759,8 @@
                                         Click="buttonClicked"
                                         Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="AndroidStudio"
-                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <Image Source="Assets/evaluation.png"
+                                               Style="{StaticResource menuButtonIconImage}" />
                                         <TextBlock Text="Evaluations"
                                                    VerticalAlignment="Center"
                                                    Width="100" />
@@ -778,8 +770,8 @@
                                         Click="buttonClicked"
                                         Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="AndroidStudio"
-                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <Image Source="Assets/mark_evaluation.png"
+                                               Style="{StaticResource menuButtonIconImage}" />
                                         <TextBlock Text="Mark Evaluation"
                                                    VerticalAlignment="Center"
                                                    Width="100" />
@@ -792,8 +784,8 @@
                                         Click="buttonClicked"
                                         Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="AndroidStudio"
-                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <Image Source="Assets/group.png"
+                                               Style="{StaticResource menuButtonIconImage}" />
                                         <TextBlock Text="Groups"
                                                    VerticalAlignment="Center"
                                                    Width="100" />
@@ -803,8 +795,8 @@
                                         Click="buttonClicked"
                                         Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="AndroidStudio"
-                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <Image Source="Assets/assign_advisor.png"
+                                               Style="{StaticResource menuButtonIconImage}" />
                                         <TextBlock Text="Assign Advisors"
                                                    VerticalAlignment="Center"
                                                    Width="100" />
@@ -815,8 +807,8 @@
                                         Click="buttonClicked"
                                         Style="{StaticResource menuButton}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Icon:PackIconMaterial Kind="MicrosoftSharepoint"
-                                                               Style="{StaticResource menuButtonIcon}" />
+                                        <Image Source="Assets/report.png"
+                                               Style="{StaticResource menuButtonIconImage}" />
                                         <TextBlock Text="Generate Report"
                                                    VerticalAlignment="Center"
                                                    Width="100" />
@@ -834,6 +826,7 @@
                             <StackPanel Orientation="Horizontal">
                                 <Icon:PackIconMaterial Kind="Logout"
                                                        Width="30"
+                                                       Foreground="Black"
                                                        Style="{StaticResource menuButtonIcon}" />
                                 <TextBlock Text="Exit"
                                            VerticalAlignment="Center"
@@ -848,187 +841,6 @@
 
             <ContentControl Grid.Column="1"
                             x:Name="CC" />
-
-
-            <!--Main Window Part-->
-            <!--<Grid Grid.Column="1" Margin="30 20 20 20">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="*"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
-                </Grid.RowDefinitions>
-
-
-                -->
-            <!--Search Textbox-->
-            <!--
-
-                <Grid Width="300" HorizontalAlignment="Left">
-                    <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="Search here..." Visibility="{Binding ElementName=txtSearch,Path=Text.IsEmpty,Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-                    <TextBox x:Name="txtSearch" />
-                    <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#b0b9c6" HorizontalAlignment="Right"/>
-                </Grid>
-
-                -->
-            <!--Top Buttons-->
-            <!--
-
-
-                <Button Style="{StaticResource topButton}" Margin="0 0 35 0" HorizontalAlignment="Right">
-                    <Icon:PackIconMaterial Kind="Cog"/>
-                </Button>
-                <Button Style="{StaticResource topButton}" Margin="0 0 65 0" HorizontalAlignment="Right">
-                    <Icon:PackIconMaterial Kind="Bell"/>
-                </Button>
-
-
-                -->
-            <!--Page Title 1-->
-            <!--
-
-                <TextBlock Text="Members" Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0 20 0 0" HorizontalAlignment="Left" Foreground="#121518"/>
-
-                -->
-            <!--Add Button-->
-            <!--
-
-                <Button Style="{StaticResource addButton}">
-                    <StackPanel Orientation="Horizontal">
-                        <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Width="11" Height="11" Margin="0 1 8 0"/>
-                        <TextBlock Text="Add New Member"/>
-                    </StackPanel>
-                </Button>
-
-                -->
-            <!--Separator3-->
-            <!--
-
-                <Separator Height="1" Grid.Row="3" Background="#dae2ea" Margin="0 -1 0 10"/>
-
-
-                -->
-            <!--Tab Buttons 2-->
-            <!--
-
-                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0 10 0 0">
-                    <Button Content="CLub Stuff" Style="{StaticResource tabButton}" BorderBrush="#784ff2"/>
-                    <Button Content="Players" Style="{StaticResource tabButton}"/>
-                    <Button Content="Archived" Style="{StaticResource tabButton}"/>
-                </StackPanel>
-
-                -->
-            <!--Counter Title 4-->
-            <!--
-
-                <TextBlock Text="68 Club Staff" Grid.Row="4" FontSize="18" FontWeight="SemiBold" Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-
-                <TextBlock Text="Filter By" Grid.Row="4" FontSize="13" FontWeight="SemiBold" Foreground="#121518" Margin="0 0 215 0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-
-
-                -->
-            <!--Filter TextBox 4-->
-            <!--
-                <Grid Width="200" HorizontalAlignment="Right" Grid.Row="4">
-                    <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False" Panel.ZIndex="1" Text="Search in Members..." Visibility="{Binding ElementName=txtFilter,Path=Text.IsEmpty,Converter={StaticResource BooleanToVisibilityConverter}}"/>
-
-                    <TextBox x:Name="txtFilter" />
-                    <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" VerticalAlignment="Center" Margin="0 0 15 0" Foreground="#b0b9c6" HorizontalAlignment="Right"/>
-                </Grid>
-
-                -->
-            <!--Members DataGrid 5-->
-            <!--
-
-
-                <DataGrid Style="{DynamicResource DataGridStyle1}" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Grid.Row="5" x:Name="memberDataGrid">
-                    <DataGrid.Columns>
-                        <DataGridCheckBoxColumn CanUserResize="False" Width="auto">
-                            <DataGridCheckBoxColumn.HeaderTemplate>
-                                <DataTemplate>
-                                    <CheckBox/>
-                                </DataTemplate>
-                            </DataGridCheckBoxColumn.HeaderTemplate>
-                        </DataGridCheckBoxColumn>
-
-                        <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="auto" Binding="{Binding Number}"/>
-
-                        <DataGridTemplateColumn Header="Member" IsReadOnly="True" Width="*">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Border Width="25" Height="25" CornerRadius="50" Margin="0 0 10 0" Background="{Binding bgColor}">
-                                            <TextBlock Text="{Binding Ch}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
-
-                                        </Border>
-
-                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-
-
-                        <DataGridTextColumn Header="Position" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Position}"/>
-                        <DataGridTextColumn Header="Email" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding Email}"/>
-                        <DataGridTextColumn Header="Phone Number" IsReadOnly="True" CanUserResize="False" Width="*" Binding="{Binding PhoneNum}"/>
-
-
-                        <DataGridTemplateColumn Header="Operations" IsReadOnly="True" Width="auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Button Style="{StaticResource gridEditButton}">
-                                            <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonIcon}"/>
-                                        </Button>
-                                        <Button Style="{StaticResource gridDeleteButton}" Margin="5 0 0 0">
-                                            <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonIcon}"/>
-                                        </Button>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-
-
-
-
-
-                    </DataGrid.Columns>
-                </DataGrid>
-
-
-
-
-                -->
-            <!--Pagination Section 6-->
-            <!--
-                <Border Grid.Row="6" HorizontalAlignment="Right" BorderBrush="#dee4ec" BorderThickness="1" CornerRadius="5" Padding="5" Background="White" Margin="0 10 10 10">
-                    <StackPanel Orientation="Horizontal">
-                        <Button Style="{StaticResource pagingButton}">
-                            <Icon:PackIconMaterial Kind="ChevronLeft" Style="{StaticResource pagingButtonIcon}"/>
-                        </Button>
-                        <Rectangle Width="1" Fill="#dee4ec" Margin="3 7"/>
-                        <Button Style="{StaticResource pagingButton}">
-                            <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource pagingButtonIcon}"/>
-                        </Button>
-                    </StackPanel>
-                </Border>
-
-
-
-
-
-
-
-
-            </Grid>-->
-
-
-
         </Grid>
     </Border>
 

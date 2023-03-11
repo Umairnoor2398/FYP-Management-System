@@ -61,14 +61,40 @@ namespace ProjectA
                 }
             }
         }
+
+        private void RemoveFocusFromAllButtons()
+        {
+            studentBtn.Background = Brushes.Transparent;
+            advisorBtn.Background = Brushes.Transparent;
+            projectBtn.Background = Brushes.Transparent;
+            evaluationBtn.Background = Brushes.Transparent;
+            markEvaluationBtn.Background = Brushes.Transparent;
+            groupBtn.Background = Brushes.Transparent;
+            assignAdvisorBtn.Background = Brushes.Transparent;
+            reportBtn.Background = Brushes.Transparent;
+            exitBtn.Background = Brushes.Transparent;
+
+
+            studentBtn.Foreground = new SolidColorBrush(Color.FromRgb(208, 192, 255));
+            advisorBtn.Foreground = new SolidColorBrush(Color.FromRgb(208, 192, 255));
+            projectBtn.Foreground = new SolidColorBrush(Color.FromRgb(208, 192, 255));
+            evaluationBtn.Foreground = new SolidColorBrush(Color.FromRgb(208, 192, 255));
+            markEvaluationBtn.Foreground = new SolidColorBrush(Color.FromRgb(208, 192, 255));
+            groupBtn.Foreground = new SolidColorBrush(Color.FromRgb(208, 192, 255));
+            assignAdvisorBtn.Foreground = new SolidColorBrush(Color.FromRgb(208, 192, 255));
+            reportBtn.Foreground = new SolidColorBrush(Color.FromRgb(208, 192, 255));
+            exitBtn.Foreground = new SolidColorBrush(Color.FromRgb(208, 192, 255));
+        }
+
         private void buttonClicked(object sender, RoutedEventArgs e)
         {
+            RemoveFocusFromAllButtons();
             CC.Content = null;
-            if (sender.Equals(dashboardBtn))
-            {
-                CC.Content = null;
-            }
-            else if (sender.Equals(studentBtn))
+            Button button = (Button)sender;
+            button.Background = new SolidColorBrush(Color.FromRgb(123, 92, 214));
+            button.Foreground = Brushes.White;
+
+            if (sender.Equals(studentBtn))
             {
                 CC.Content = new CRUDStudent();
             }

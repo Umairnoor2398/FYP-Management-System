@@ -32,7 +32,7 @@ namespace ProjectA.UserControls.Project
         public void ViewProjects()
         {
             var con = Configuration.getInstance().getConnection();
-            SqlCommand cmd = new SqlCommand("Select * from Project P", con);
+            SqlCommand cmd = new SqlCommand("Select * from Project", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -53,32 +53,6 @@ namespace ProjectA.UserControls.Project
                 addBtn.Content = "Back";
             }
 
-        }
-        private void deleteRecord(int id)
-        {
-            try
-            {
-                var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand("DELETE FROM Project Where Id=@Id", con);
-                cmd.Parameters.AddWithValue("@Id", id);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Record Deleted!!!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void deleteBtn_Click(object sender, RoutedEventArgs e)
-        {
-            DataRowView row = ProjectDataGrid.SelectedItem as DataRowView;
-            if (row != null)
-            {
-                int id = Int32.Parse(row["Id"].ToString());
-                deleteRecord(id);
-                ViewProjects();
-            }
         }
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {

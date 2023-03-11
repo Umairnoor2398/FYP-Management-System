@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\Semester4\Database Lab\MID Project\ProjectA\App.xaml
-18672290103
+17-1212498690
 1-664984846
-24-1353766263
-341706091772
-MainWindow.xaml;splashScreen.xaml;UserControls\Advisor\AddAdvisorUC.xaml;UserControls\Advisor\AssignAdvisorUC.xaml;UserControls\Advisor\CRUDAdvisor.xaml;UserControls\Advisor\ProjectAdvisorUC.xaml;UserControls\DashBoard\DashBoardUC.xaml;UserControls\Evaluation\AddEvaluationUC.xaml;UserControls\Evaluation\CRUDEvaluationUC.xaml;UserControls\Evaluation\MarkEvaluationDisplayUC.xaml;UserControls\Evaluation\MarkEvaluationFormUC.xaml;UserControls\Group\CRUDGroupUC.xaml;UserControls\Group\EditGroupUC.xaml;UserControls\PDFReports\PDFReportUC.xaml;UserControls\Project\AddProjectUC.xaml;UserControls\Project\CRUDProjectUC.xaml;UserControls\Student\AddStudentUC.xaml;UserControls\Student\CRUDStudent.xaml;
+24-130736500
+36-65841226
+MainWindow.xaml;splashScreen.xaml;UserControls\Advisor\AddAdvisorUC.xaml;UserControls\Advisor\AssignAdvisorUC.xaml;UserControls\Advisor\CRUDAdvisor.xaml;UserControls\Advisor\ProjectAdvisorUC.xaml;UserControls\Evaluation\AddEvaluationUC.xaml;UserControls\Evaluation\CRUDEvaluationUC.xaml;UserControls\Evaluation\MarkEvaluationDisplayUC.xaml;UserControls\Evaluation\MarkEvaluationFormUC.xaml;UserControls\Group\CRUDGroupUC.xaml;UserControls\Group\EditGroupUC.xaml;UserControls\PDFReports\PDFReportUC.xaml;UserControls\Project\AddProjectUC.xaml;UserControls\Project\CRUDProjectUC.xaml;UserControls\Student\AddStudentUC.xaml;UserControls\Student\CRUDStudent.xaml;
 
 True
 

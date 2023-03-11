@@ -67,36 +67,6 @@ namespace ProjectA.UserControls
             }
 
         }
-        private void deleteRecord(int id)
-        {
-            try
-            {
-                var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand("DELETE FROM Student Where Id=@Id; DELETE FROM Person Where Id=@Id;", con);
-                //SqlCommand cmd1 = new SqlCommand("DELETE FROM Person Where Id=@Id", con);
-                cmd.Parameters.AddWithValue("@Id", id);
-                //cmd1.Parameters.AddWithValue("@Id", id);
-                cmd.ExecuteNonQuery();
-                //cmd1.ExecuteNonQuery();
-                MessageBox.Show("Record Deleted!!!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void deleteBtn_Click(object sender, RoutedEventArgs e)
-        {
-            DataRowView row = StudentDataGrid.SelectedItem as DataRowView;
-            if (row != null)
-            {
-                int id = Int32.Parse(row["Id"].ToString());
-                deleteRecord(id);
-                ViewStudent();
-            }
-        }
-
         private void addStBtn_Click(object sender, RoutedEventArgs e)
         {
             if (addStBtn.Content.ToString() == "Add")

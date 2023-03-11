@@ -195,7 +195,7 @@ namespace ProjectA.UserControls.Advisor
                 MessageBox.Show(ex.Message);
             }
         }
-        private void findParentControls()
+        private void CloseUserControl()
         {
             var parent = VisualTreeHelper.GetParent(this);
             while ((parent != null) && !(parent is ProjectAdvisorUC))
@@ -234,7 +234,7 @@ namespace ProjectA.UserControls.Advisor
             AssignAdvisor(GetAdvisorRole("Co-Advisor"), coId);
             AssignAdvisor(GetAdvisorRole("Industry Advisor"), inId);
             MessageBox.Show("Advisors Assigned Successfully");
-            findParentControls();
+            CloseUserControl();
         }
 
         private void projectComboBox_DropDownClosed(object sender, EventArgs e)

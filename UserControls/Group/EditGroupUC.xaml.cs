@@ -112,7 +112,6 @@ namespace ProjectA.UserControls.Group
             try
             {
                 var con = Configuration.getInstance().getConnection();
-                //SqlCommand cmd = new SqlCommand("SELECT RegistrationNo FROM Student AS S LEFT JOIN GroupStudent AS GS ON S.Id = GS.StudentId WHERE GS.StudentId IS NULL OR GS.Status = 4", con);
                 SqlCommand cmd = new SqlCommand("SELECT s.RegistrationNo FROM Student s LEFT JOIN (SELECT * FROM GroupStudent GS1 WHERE GS1.AssignmentDate = ( SELECT MAX(GS2.AssignmentDate) FROM GroupStudent GS2 WHERE GS2.StudentId = GS1.StudentId)) recent ON s.Id = recent.StudentID WHERE recent.Status = 4 OR recent.GroupID IS NULL", con);
                 SqlDataAdapter dataAdapter = new SqlDataAdapter(cmd);
                 DataSet dataSet = new DataSet();
@@ -189,7 +188,6 @@ namespace ProjectA.UserControls.Group
                     cmd.Parameters.AddWithValue("@Date", DateTime.Now);
 
                     cmd.ExecuteNonQuery();
-                    //assignProjectBtn.Content = "Re-Assign";
                 }
                 catch (Exception ex)
                 {
@@ -246,7 +244,7 @@ namespace ProjectA.UserControls.Group
                 try
                 {
                     var con = Configuration.getInstance().getConnection();
-                    SqlCommand cmd = new SqlCommand("INSERT INTO GroupStudent VALUES (@GroupId, @StudentId,@Status,@Date)", con);
+                    SqlCommand cmd = new SqlCommand("DELETE FROM GroupStudent WHERE StudentId=@StudentId AND GroupId=@GroupId; INSERT INTO GroupStudent VALUES (@GroupId, @StudentId,@Status,@Date)", con);
                     cmd.Parameters.AddWithValue("@StudentId", stuId);
                     cmd.Parameters.AddWithValue("@GroupId", groupId);
                     cmd.Parameters.AddWithValue("@Date", DateTime.Now);
@@ -258,6 +256,7 @@ namespace ProjectA.UserControls.Group
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+
                 }
             }
             StudentToComboBox();
@@ -284,6 +283,7 @@ namespace ProjectA.UserControls.Group
                     MessageBox.Show(ex.Message);
                 }
             }
+            StudentToComboBox();
             GetStudentsOfGroup(studentsInGroupDataGrid);
 
         }

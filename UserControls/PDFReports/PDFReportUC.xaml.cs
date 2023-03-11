@@ -66,16 +66,10 @@ namespace ProjectA.UserControls.PDFReports
             title.Alignment = Element.ALIGN_CENTER;
             document.Add(title);
 
-            //document.Add(new Paragraph(Chunk.NEWLINE));
-
-            // Adding UET LOGO Image
             string imageURL = "Assets\\uet_logo.png";
             iTextSharp.text.Image jpg = iTextSharp.text.Image.GetInstance(imageURL);
-            //Resize image depend upon your need
             jpg.ScaleToFit(140f, 120f);
-            //Give space before image
             jpg.SpacingBefore = 10f;
-            //Give some space after the image
             jpg.SpacingAfter = 1f;
             jpg.Alignment = Element.ALIGN_CENTER;
 
@@ -150,53 +144,6 @@ namespace ProjectA.UserControls.PDFReports
 
                 var con = Configuration.getInstance().getConnection();
                 SqlCommand cmd = new SqlCommand("Select S.RegistrationNo AS [Registration No], (FirstName + ' ' + LastName) AS Name,L.Value AS Gender,(SELECT FORMAT(DateOfBirth, 'dd-MM-yyyy')) AS [DoB],Contact,Email from Person P JOIN Student S ON S.Id=P.Id JOIN Lookup L ON L.Id=P.Gender", con);
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                PdfPTable table = new PdfPTable(reader.FieldCount);
-                table.WidthPercentage = 100;
-                for (int i = 0; i < reader.FieldCount; i++)
-                {
-                    PdfPCell cell = new PdfPCell(new Phrase(reader.GetName(i)));
-                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                    cell.BackgroundColor = new BaseColor(128, 128, 128);
-                    table.AddCell(cell);
-                }
-
-                while (reader.Read())
-                {
-                    for (int i = 0; i < reader.FieldCount; i++)
-                    {
-                        PdfPCell cell = new PdfPCell(new Phrase(reader[i].ToString()));
-                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
-                        table.AddCell(cell);
-                    }
-                }
-                reader.Close();
-                document.Add(table);
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-
-            return document;
-        }
-
-        private Document DisplayGroups(ref Document document)
-        {
-            try
-            {
-                document.NewPage();
-                Paragraph title = new Paragraph("Groups With Their Project and Students", boldFont);
-                title.SpacingBefore = 20f;
-                title.SpacingAfter = 20f;
-                title.Font.Size = 20;
-                title.Alignment = Element.ALIGN_CENTER;
-                document.Add(title);
-
-                var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand("SELECT CONCAT('G-',G.Id) AS [Group],Pr.Title AS [Project],STRING_AGG(S.RegistrationNo, CHAR(13)) AS [Students] FROM [Group] G JOIN GroupStudent GS ON G.Id=GS.GroupId JOIN GroupProject GP ON GP.GroupId=G.Id JOIN Project Pr ON Pr.Id=GP.ProjectId JOIN Student S ON S.Id=GS.StudentId JOIN Person P ON P.Id=S.Id JOIN Lookup L ON L.Id=GS.Status WHERE L.Value='Active' GROUP BY G.Id,Pr.Title ORDER BY G.Id ASC", con);
                 SqlDataReader reader = cmd.ExecuteReader();
 
                 PdfPTable table = new PdfPTable(reader.FieldCount);
@@ -514,10 +461,11 @@ namespace ProjectA.UserControls.PDFReports
                     title.Font.Size = 20;
                     title.Alignment = Element.ALIGN_CENTER;
                     document.Add(title);
-                    //,SUM((SELECT ((GE2.ObtainedMarks/E2.TotalMarks)*E2.TotalWeightage) FROM GroupEvaluation AS GE2 JOIN Evaluation AS E2 ON GE2.EvaluationId = E2.Id JOIN GroupStudent AS GS2 ON GS2.GroupId = GE2.GroupId WHERE GS2.StudentId=S.Id)) AS [Total Marks]
+
                     var con = Configuration.getInstance().getConnection();
-                    SqlCommand cmd = new SqlCommand("SELECT S.RegistrationNo AS [Reg No],MAX(CONCAT(P.FirstName,' ',P.LastName)) AS [Student Name],MAX(Pr.Title) AS [Project Title] " + query + " FROM GroupEvaluation AS GE JOIN Evaluation AS E ON GE.EvaluationId=E.Id JOIN GroupStudent AS GS ON GS.GroupId=GE.GroupId JOIN Student AS S ON S.Id=GS.StudentId JOIN Person AS P ON P.Id=S.Id JOIN GroupProject AS GP ON GP.GroupId=GE.GroupId JOIN Project AS Pr ON Pr.Id=GP.ProjectId WHERE GS.Status IN (SELECT Id FROM Lookup WHERE Value='Active') GROUP BY GE.GroupId,Pr.Id,S.Id,S.RegistrationNo ORDER BY GE.GroupId,Pr.Id,S.RegistrationNo", con);
+                    SqlCommand cmd = new SqlCommand("SELECT S.RegistrationNo AS [Reg No],MAX(CONCAT(P.FirstName,' ',P.LastName)) AS [Student Name],MAX(Pr.Title) AS [Project Title] " + query + ",SUM((GE.ObtainedMarks*E.TotalWeightage)/E.TotalMarks) AS [Total Marks] FROM GroupEvaluation AS GE JOIN Evaluation AS E ON GE.EvaluationId=E.Id JOIN GroupStudent AS GS ON GS.GroupId=GE.GroupId JOIN Student AS S ON S.Id=GS.StudentId JOIN Person AS P ON P.Id=S.Id JOIN GroupProject AS GP ON GP.GroupId=GE.GroupId JOIN Project AS Pr ON Pr.Id=GP.ProjectId WHERE GS.Status IN (SELECT Id FROM Lookup WHERE Value='Active') GROUP BY GE.GroupId,Pr.Id,S.Id,S.RegistrationNo ORDER BY GE.GroupId,Pr.Id,S.RegistrationNo", con);
                     SqlDataReader reader = cmd.ExecuteReader();
+
 
                     PdfPTable table = new PdfPTable(reader.FieldCount);
                     table.WidthPercentage = 100;
@@ -528,6 +476,8 @@ namespace ProjectA.UserControls.PDFReports
                         cell.BackgroundColor = new BaseColor(128, 128, 128);
                         table.AddCell(cell);
                     }
+
+
 
                     while (reader.Read())
                     {
@@ -687,11 +637,60 @@ namespace ProjectA.UserControls.PDFReports
             GenerateEvaluationReport();
         }
 
-        private void GenerateCollectiveReport()
+        private Document DisplayGroups(ref Document document)
+        {
+            try
+            {
+                document.NewPage();
+                Paragraph title = new Paragraph("Groups With Their Project and Students", boldFont);
+                title.SpacingBefore = 20f;
+                title.SpacingAfter = 20f;
+                title.Font.Size = 20;
+                title.Alignment = Element.ALIGN_CENTER;
+                document.Add(title);
+
+                var con = Configuration.getInstance().getConnection();
+                SqlCommand cmd = new SqlCommand("SELECT CONCAT('G-',G.Id) AS [Group],Pr.Title AS [Project],STRING_AGG((CASE WHEN L.Value='Active' THEN S.RegistrationNo ELSE CONCAT(S.RegistrationNo,'(In-Active)') END), CHAR(13)) AS [Students] FROM [Group] G JOIN GroupStudent GS ON G.Id=GS.GroupId JOIN GroupProject GP ON GP.GroupId=G.Id JOIN Project Pr ON Pr.Id=GP.ProjectId JOIN Student S ON S.Id=GS.StudentId JOIN Person P ON P.Id=S.Id JOIN Lookup L ON L.Id=GS.Status GROUP BY G.Id,Pr.Title ORDER BY G.Id ASC", con);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                PdfPTable table = new PdfPTable(reader.FieldCount);
+                table.WidthPercentage = 100;
+                for (int i = 0; i < reader.FieldCount; i++)
+                {
+                    PdfPCell cell = new PdfPCell(new Phrase(reader.GetName(i)));
+                    cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell.BackgroundColor = new BaseColor(128, 128, 128);
+                    table.AddCell(cell);
+                }
+
+                while (reader.Read())
+                {
+                    for (int i = 0; i < reader.FieldCount; i++)
+                    {
+                        PdfPCell cell = new PdfPCell(new Phrase(reader[i].ToString()));
+                        cell.HorizontalAlignment = Element.ALIGN_CENTER;
+                        table.AddCell(cell);
+                    }
+                }
+                reader.Close();
+                document.Add(table);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return document;
+        }
+
+
+
+        private void GenerateGroupsReport()
         {
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "PDF (*.pdf)|*.pdf";
-            sfd.FileName = "FYP_Management_System_Report.pdf";
+            sfd.FileName = "Groups.pdf";
             bool errorMessage = false;
             if (sfd.ShowDialog() == DialogResult.OK)
             {
@@ -718,12 +717,7 @@ namespace ProjectA.UserControls.PDFReports
 
 
                     document = TitlePage(ref document);
-                    document = GetAdvisors(ref document);
-                    document = GetProjectAndAdvisoryBoard(ref document);
-                    document = GetStudents(ref document);
                     document = DisplayGroups(ref document);
-                    document = GetEvaluations(ref document);
-                    document = MarkSheet(ref document);
 
                     // Close PDF document and writer
                     document.Close();
@@ -732,9 +726,9 @@ namespace ProjectA.UserControls.PDFReports
             }
         }
 
-        private void collectiveReport_Click(object sender, RoutedEventArgs e)
+        private void groupReportBtn_Click(object sender, RoutedEventArgs e)
         {
-            GenerateCollectiveReport();
+            GenerateGroupsReport();
         }
     }
 }

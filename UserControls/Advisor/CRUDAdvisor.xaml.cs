@@ -63,32 +63,7 @@ namespace ProjectA.UserControls.Advisor
             }
 
         }
-        private void deleteRecord(int id)
-        {
-            try
-            {
-                var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand("DELETE FROM Advisor Where Id=@Id; DELETE FROM Person Where Id=@Id;", con);
-                cmd.Parameters.AddWithValue("@Id", id);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Record Deleted!!!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
 
-        private void deleteBtn_Click(object sender, RoutedEventArgs e)
-        {
-            DataRowView row = AdvisorDataGrid.SelectedItem as DataRowView;
-            if (row != null)
-            {
-                int id = Int32.Parse(row["Id"].ToString());
-                deleteRecord(id);
-                ViewAdvisors();
-            }
-        }
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             if (addBtn.Content.ToString() == "Add")

@@ -43,7 +43,7 @@ namespace ProjectA.UserControls.Evaluation
         {
             int totalWeightage = 0;
             var con = Configuration.getInstance().getConnection();
-            SqlCommand cmd = new SqlCommand("SELECT SUM(TotalWeightage) AS total FROM Evaluation", con);
+            SqlCommand cmd = new SqlCommand("SELECT SUM(TotalWeightage) AS total FROM Evaluation WHERE Id<>'" + id + "'", con);
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
@@ -82,6 +82,37 @@ namespace ProjectA.UserControls.Evaluation
             }
         }
 
+        private bool Validation()
+        {
+            string title = txtName.Text;
+            bool titleValid = false;
+            if (title == "")
+            {
+                return false;
+            }
+            string Alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ";
+            foreach (char n in title)
+            {
+                if (Alphabets.Contains(n.ToString()))
+                {
+                    titleValid = true;
+                }
+            }
+            if (titleValid)
+            {
+                titleValid = !Validations.ValidationInDatabase("SELECT Name FROM Evaluation WHERE Name='" + title + "' AND Id<>" + id);
+                if (!titleValid)
+                {
+                    MessageBox.Show("There already exists one Evaluation With the same name", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Evaluation Title must contain at least one Alphabet", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return titleValid;
+        }
+
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             if (txtName.Text == "")
@@ -100,7 +131,7 @@ namespace ProjectA.UserControls.Evaluation
             {
                 MessageBox.Show("Total Weightage of Over All Evaluations cannot be over 100", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            else
+            else if (Validation())
             {
                 if (addBtn.Content.ToString() == "Add")
                 {

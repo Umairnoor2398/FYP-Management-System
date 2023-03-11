@@ -1,7 +1,10 @@
 ﻿
 
 FD:\Semester4\Database Lab\MID Project\ProjectA\MainWindow.xaml;;
-FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\DashBoard\DashBoardUC.xaml;;
-FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\PDFReports\PDFReportUC.xaml;;
+FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Advisor\CRUDAdvisor.xaml;;
+FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Evaluation\CRUDEvaluationUC.xaml;;
+FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Evaluation\MarkEvaluationDisplayUC.xaml;;
+FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Group\CRUDGroupUC.xaml;;
+FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Project\CRUDProjectUC.xaml;;
 FD:\Semester4\Database Lab\MID Project\ProjectA\UserControls\Student\CRUDStudent.xaml;;
 

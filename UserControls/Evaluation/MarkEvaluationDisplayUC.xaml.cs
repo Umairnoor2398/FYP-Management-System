@@ -53,7 +53,7 @@ namespace ProjectA.UserControls.Evaluation
             }
             else
             {
-                //ViewEvaluation();
+                DisplayMarkedEValuations();
                 markEvaluationForm.Visibility = Visibility.Collapsed;
                 MarkedEvaluationDataGrid.Visibility = Visibility.Visible;
                 addBtn.Content = "Add";
@@ -76,38 +76,6 @@ namespace ProjectA.UserControls.Evaluation
                 markEvaluationForm.Visibility = Visibility.Visible;
                 MarkedEvaluationDataGrid.Visibility = Visibility.Collapsed;
                 addBtn.Content = "Back";
-            }
-        }
-        private void deleteRecord(int GId, int EId)
-        {
-            try
-            {
-                var con = Configuration.getInstance().getConnection();
-                SqlCommand cmd = new SqlCommand("DELETE FROM GroupEvaluation WHERE GroupId='" + GId + "' AND EvaluationId='" + EId + "'", con);
-                //SqlCommand cmd1 = new SqlCommand("DELETE FROM Person Where Id=@Id", con);
-                //cmd.Parameters.AddWithValue("@Id", id);
-                //cmd1.Parameters.AddWithValue("@Id", id);
-                cmd.ExecuteNonQuery();
-                //cmd1.ExecuteNonQuery();
-                MessageBox.Show("Record Deleted!!!");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        private void deleteBtn_Click(object sender, RoutedEventArgs e)
-        {
-            DataRowView row = MarkedEvaluationDataGrid.SelectedItem as DataRowView;
-            if (row != null)
-            {
-                string GroupId = row["GroupId"].ToString();
-                string[] GId = GroupId.Split('-');
-                int groupId = int.Parse(GId[1]);
-                int EId = Int32.Parse(row["EvaluationId"].ToString());
-                deleteRecord(groupId, EId);
-                DisplayMarkedEValuations();
             }
         }
     }

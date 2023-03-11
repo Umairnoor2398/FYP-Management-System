@@ -78,7 +78,7 @@ namespace ProjectA.UserControls.Advisor
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                g = int.Parse(reader["Id"].ToString()); // replace ColumnName with the actual name of the column you want to store in the variable
+                g = int.Parse(reader["Id"].ToString());
             }
             reader.Close();
             return g;
@@ -92,7 +92,7 @@ namespace ProjectA.UserControls.Advisor
             SqlDataReader reader = cmd.ExecuteReader();
             if (reader.Read())
             {
-                d = int.Parse(reader["Id"].ToString()); // replace ColumnName with the actual name of the column you want to store in the variable
+                d = int.Parse(reader["Id"].ToString());
             }
             reader.Close();
             return d;
@@ -108,9 +108,8 @@ namespace ProjectA.UserControls.Advisor
             dobDatePicker.Text = string.Empty;
             genderCB.Text = string.Empty;
             designationCB.Text = string.Empty;
-            this.id = -1;
         }
-        private void findParentControls()
+        private void CloseUserControl()
         {
             var parent = VisualTreeHelper.GetParent(this);
             while ((parent != null) && !(parent is CRUDAdvisor))
@@ -129,93 +128,104 @@ namespace ProjectA.UserControls.Advisor
             }
         }
 
+        private bool Validation()
+        {
+            bool isValid = true;
+            if (!Validations.FirstNameValidations(txtFirstName.Text))
+            {
+                return false;
+            }
+            if (!Validations.LastNameValidations(txtLastName.Text))
+            {
+                return false;
+            }
+            if (!Validations.ContactValidations(txtContact.Text))
+            {
+                return false;
+            }
+            if (!Validations.EmailValidations(txtEmail.Text))
+            {
+                return false;
+            }
+            if (!Validations.SalaryValidations(txtSalary.Text))
+            {
+                return false;
+            }
+            if (!Validations.DoBValidations(dobDatePicker.Text, 1970, 1995))
+            {
+                return false;
+            }
+
+            return isValid;
+        }
+
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
             int gender = giveGender(genderCB.Text);
             int desig = giveDesignation(designationCB.Text);
-            if (txtFirstName.Text == "")
-            {
-                MessageBox.Show("Please Select First Name of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (txtLastName.Text == "")
-            {
-                MessageBox.Show("Please Select Last Name of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (genderCB.Text == "")
-            {
-                MessageBox.Show("Please Select Gender of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (dobDatePicker.Text == "")
-            {
-                MessageBox.Show("Please Select Date Of Birth of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (txtContact.Text == "")
-            {
-                MessageBox.Show("Please Select Contact of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (txtEmail.Text == "")
-            {
-                MessageBox.Show("Please Select EMail of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (designationCB.Text == "")
-            {
-                MessageBox.Show("Please Select Designation of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (txtSalary.Text == "")
-            {
-                MessageBox.Show("Please Select Salary of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
 
-            else
+            if (Validation())
             {
-                if (addBtn.Content.ToString() == "Save")
+                if (designationCB.Text != "")
                 {
-                    try
+                    int salary = 0;
+                    if (txtSalary.Text != "")
                     {
-                        var con = Configuration.getInstance().getConnection();
-                        SqlCommand cmd = new SqlCommand("INSERT INTO Person(FirstName,LastName,Contact,Email,DateOfBirth,Gender) VALUES (@FirstName,@LastName, @Contact,@Email,@DateOfBirth, @Gender); INSERT INTO Advisor(Id,Designation,Salary) VALUES ((SELECT Id FROM Person WHERE FirstName = @FirstName AND LastName=@LastName AND Contact=@Contact AND Email=@Email AND DateOfBirth=@DateOfBirth AND Gender=@Gender) ,@Designation, @Salary);", con);
-                        cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
-                        cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
-                        cmd.Parameters.AddWithValue("@Contact", txtContact.Text);
-                        cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
-                        cmd.Parameters.AddWithValue("@DateOfBirth", dobDatePicker.SelectedDate.ToString());
-                        cmd.Parameters.AddWithValue("@Gender", gender);
-                        cmd.Parameters.AddWithValue("@Designation", desig);
-                        cmd.Parameters.AddWithValue("@Salary", int.Parse(txtSalary.Text));
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("Successfully saved");
+                        salary = int.Parse(txtSalary.Text);
                     }
-                    catch (Exception ex)
+                    if (addBtn.Content.ToString() == "Save")
                     {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
+                        try
+                        {
+                            var con = Configuration.getInstance().getConnection();
+                            SqlCommand cmd = new SqlCommand("INSERT INTO Person(FirstName,LastName,Contact,Email,DateOfBirth,Gender) VALUES (@FirstName,@LastName, @Contact,@Email,@DateOfBirth, @Gender); INSERT INTO Advisor(Id,Designation,Salary) VALUES ((SELECT Id FROM Person WHERE FirstName = @FirstName AND LastName=@LastName AND Contact=@Contact AND Email=@Email AND DateOfBirth=@DateOfBirth AND Gender=@Gender) ,@Designation, @Salary);", con);
+                            cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
+                            cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
+                            cmd.Parameters.AddWithValue("@Contact", txtContact.Text);
+                            cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+                            cmd.Parameters.AddWithValue("@DateOfBirth", dobDatePicker.SelectedDate.ToString());
+                            cmd.Parameters.AddWithValue("@Gender", gender);
+                            cmd.Parameters.AddWithValue("@Designation", desig);
+                            cmd.Parameters.AddWithValue("@Salary", salary);
+                            cmd.ExecuteNonQuery();
+                            MessageBox.Show("Successfully saved");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
                     }
+                    else
+                    {
+                        try
+                        {
+                            var con = Configuration.getInstance().getConnection();
+                            SqlCommand cmd = new SqlCommand("UPDATE Person SET FirstName = @FirstName, LastName=@LastName, Contact=@Contact, Email=@Email, DateOfBirth=@DateOfBirth, Gender=@Gender WHERE Id=@Id; UPDATE Advisor SET Designation=@Designation, Salary=@Salary WHERE Id=@Id;", con);
+                            cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
+                            cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
+                            cmd.Parameters.AddWithValue("@Contact", txtContact.Text);
+                            cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+                            cmd.Parameters.AddWithValue("@DateOfBirth", dobDatePicker.SelectedDate.ToString());
+                            cmd.Parameters.AddWithValue("@Gender", gender);
+                            cmd.Parameters.AddWithValue("@Designation", desig);
+                            cmd.Parameters.AddWithValue("@Salary", salary);
+                            cmd.Parameters.AddWithValue("@Id", id);
+                            cmd.ExecuteNonQuery();
+                            MessageBox.Show("Record Updated");
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            return;
+                        }
+                    }
+                    CloseUserControl();
                 }
                 else
                 {
-                    try
-                    {
-                        var con = Configuration.getInstance().getConnection();
-                        SqlCommand cmd = new SqlCommand("UPDATE Person SET FirstName = @FirstName, LastName=@LastName, Contact=@Contact, Email=@Email, DateOfBirth=@DateOfBirth, Gender=@Gender WHERE Id=@Id; UPDATE Advisor SET Designation=@Designation, Salary=@Salary WHERE Id=@Id;", con);
-                        cmd.Parameters.AddWithValue("@FirstName", txtFirstName.Text);
-                        cmd.Parameters.AddWithValue("@LastName", txtLastName.Text);
-                        cmd.Parameters.AddWithValue("@Contact", txtContact.Text);
-                        cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
-                        cmd.Parameters.AddWithValue("@DateOfBirth", dobDatePicker.SelectedDate.ToString());
-                        cmd.Parameters.AddWithValue("@Gender", gender);
-                        cmd.Parameters.AddWithValue("@Designation", desig);
-                        cmd.Parameters.AddWithValue("@Salary", int.Parse(txtSalary.Text));
-                        cmd.Parameters.AddWithValue("@Id", id);
-                        cmd.ExecuteNonQuery();
-                        MessageBox.Show("Record Updated");
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        return;
-                    }
+                    MessageBox.Show("Please Select Designation of the Advisor", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                findParentControls();
             }
         }
     }

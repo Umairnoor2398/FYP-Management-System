@@ -32,13 +32,12 @@ namespace ProjectA.UserControls.Student
             InitializeComponent();
             GenderToComboBox();
             addBtn.Content = "Add";
-            //dobDatePicker.SelectedDate = DateTime.Now;
         }
 
         private void GenderToComboBox()
         {
             var con = Configuration.getInstance().getConnection();
-            SqlCommand cmd = new SqlCommand("Select Value from Lookup WHERE Category=\'GENDER\'", con);
+            SqlCommand cmd = new SqlCommand("Select Value from Lookup WHERE Category='GENDER'", con);
             SqlDataAdapter d = new SqlDataAdapter(cmd);
             DataSet dt = new DataSet();
             d.Fill(dt);
@@ -59,8 +58,9 @@ namespace ProjectA.UserControls.Student
             dobDatePicker.SelectedDate = DateTime.Parse(dob);
             this.id = id;
             genderCB.Text = gen;
+            txtRegNo.IsEnabled = false;
         }
-        public int giveGender(string gen)
+        public int returnSelectedGender(string gen)
         {
             int g = 0;
             var con = Configuration.getInstance().getConnection();
@@ -77,8 +77,12 @@ namespace ProjectA.UserControls.Student
 
         private void revertBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (addBtn.Content.ToString() == "Add")
+            {
+                txtRegNo.Clear();
+            }
+
             txtFirstName.Clear();
-            txtRegNo.Clear();
             txtEmail.Clear();
             txtLastName.Clear();
             txtContact.Clear();
@@ -86,7 +90,7 @@ namespace ProjectA.UserControls.Student
             dobDatePicker.Text = string.Empty;
         }
 
-        private void findParentControls()
+        private void CloseUserControl()
         {
             var parent = VisualTreeHelper.GetParent(this);
             while ((parent != null) && !(parent is CRUDStudent))
@@ -105,39 +109,52 @@ namespace ProjectA.UserControls.Student
             }
         }
 
+
+
+
+
+
+        private bool Validation()
+        {
+            bool isValid = true;
+            if (!Validations.RegistrationNoValidations(txtRegNo.Text, id))
+            {
+                return false;
+            }
+            if (!Validations.FirstNameValidations(txtFirstName.Text))
+            {
+                return false;
+            }
+            if (!Validations.LastNameValidations(txtLastName.Text))
+            {
+                return false;
+            }
+            if (!Validations.ContactValidations(txtContact.Text))
+            {
+                return false;
+            }
+            if (!Validations.EmailValidations(txtEmail.Text))
+            {
+                return false;
+            }
+            if (!Validations.DoBValidations(dobDatePicker.Text, 1995, 2003))
+            {
+                return false;
+            }
+            if (genderCB.Text == "")
+            {
+                MessageBox.Show("Select a Gender First", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            return isValid;
+        }
+
         private void addBtn_Click(object sender, RoutedEventArgs e)
         {
-            gender = giveGender(genderCB.Text);
-            if (txtRegNo.Text == "")
+            if (Validation())
             {
-                MessageBox.Show("Please Select Registration of the Student", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (txtFirstName.Text == "")
-            {
-                MessageBox.Show("Please Select First Name of the Student", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (txtLastName.Text == "")
-            {
-                MessageBox.Show("Please Select Last Name of the Student", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (genderCB.Text == "")
-            {
-                MessageBox.Show("Please Select Gender of the Student", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (dobDatePicker.Text == "")
-            {
-                MessageBox.Show("Please Select Date Of Birth of the Student", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (txtContact.Text == "")
-            {
-                MessageBox.Show("Please Select Contact of the Student", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else if (txtEmail.Text == "")
-            {
-                MessageBox.Show("Please Select EMail of the Student", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            else
-            {
+                gender = returnSelectedGender(genderCB.Text);
                 if (addBtn.Content.ToString() == "Add")
                 {
                     try
@@ -183,7 +200,7 @@ namespace ProjectA.UserControls.Student
                         return;
                     }
                 }
-                findParentControls();
+                CloseUserControl();
             }
 
         }

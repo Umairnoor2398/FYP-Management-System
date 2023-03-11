@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectA"
         mc:Ignorable="d"
-        Title="splashScreen" 
+        Title="splashScreen"
         WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         WindowStyle="None"
-        Height="450" 
+        Height="450"
         Width="750"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -18,10 +18,13 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{x:Null}"
-        FontFamily="{DynamicResource MaterialDesignFont}" 
+        FontFamily="{DynamicResource MaterialDesignFont}"
         ContentRendered="Window_ContentRendered">
 
-    <materialDesign:Card UniformCornerRadius="15" Background="{DynamicResource MaterialDesignPaper}" materialDesign:ShadowAssist.ShadowDepth="Depth4" Margin="25">
+    <materialDesign:Card UniformCornerRadius="15"
+                         Background="{DynamicResource MaterialDesignPaper}"
+                         materialDesign:ShadowAssist.ShadowDepth="Depth4"
+                         Margin="25">
 
         <Grid>
             <Grid.ColumnDefinitions>
@@ -29,31 +32,60 @@
                 <ColumnDefinition Width="400"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50 0 0 0">
+            <StackPanel Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Margin="50 0 0 0">
                 <WrapPanel>
-                    <Image Source="Assets/Logo.jpeg" HorizontalAlignment="Left" Height="50" Width="50"></Image>
-                    <TextBlock x:Name="MyWipedText" Width="100" Text="FYP MS" FontSize="28" FontWeight="Bold" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15 0 0 0">
+                    <Image Source="Assets/Logo.jpeg"
+                           HorizontalAlignment="Left"
+                           Height="50"
+                           Width="50"></Image>
+                    <TextBlock x:Name="MyWipedText"
+                               Width="100"
+                               Text="FYP MS"
+                               FontSize="28"
+                               FontWeight="Bold"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Margin="15 0 0 0">
                         <TextBlock.Triggers>
                             <EventTrigger RoutedEvent="TextBlock.Loaded">
                                 <BeginStoryboard>
                                     <Storyboard>
-                                        <DoubleAnimation
-            Storyboard.TargetName="MyWipedText" 
-            Storyboard.TargetProperty="(TextBlock.Width)"
-            To="0.0" Duration="0:0:10" 
-            AutoReverse="True" RepeatBehavior="Forever" />
+                                        <DoubleAnimation Storyboard.TargetName="MyWipedText"
+                                                         Storyboard.TargetProperty="(TextBlock.Width)"
+                                                         To="0.0"
+                                                         Duration="0:0:10"
+                                                         AutoReverse="True"
+                                                         RepeatBehavior="Forever" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
                         </TextBlock.Triggers>
                     </TextBlock>
                 </WrapPanel>
-                <TextBlock Name="loadingText" Text="LOADING RESOURCES..." FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Left" Margin="0 30 0 15"></TextBlock>
-                <ProgressBar Name="loadingProgress" Value="0" Height="5" Width="280" IsIndeterminate="True"/>
+                <TextBlock Name="loadingText"
+                           Text="LOADING RESOURCES..."
+                           FontSize="17"
+                           FontWeight="SemiBold"
+                           HorizontalAlignment="Left"
+                           Margin="0 30 0 15"></TextBlock>
+                <ProgressBar Name="loadingProgress"
+                             Value="0"
+                             Height="5"
+                             Width="280"
+                             IsIndeterminate="True" />
             </StackPanel>
 
-            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Height="320" Width="320">
-                <Image Source="Assets/Logo.jpeg" HorizontalAlignment="Center" VerticalAlignment="Center"></Image>
+            <StackPanel Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Height="320"
+                        Width="320">
+                <Image Source="Assets/Logo.jpeg"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"></Image>
             </StackPanel>
 
 
